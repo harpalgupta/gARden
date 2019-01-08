@@ -41,7 +41,7 @@ export default class ViroSample extends Component {
       navigatorType: defaultNavigatorType,
       sharedProps
     };
-    this.getExperienceSelector = this.getExperienceSelector.bind(this);
+    this.getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
@@ -65,7 +65,7 @@ export default class ViroSample extends Component {
             <Text style={localStyles.buttonText}>AR</Text>
           </TouchableHighlight>
 
-          <TouchableHighlightß
+          <TouchableHighlight
             style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
             underlayColor="#68a0ff"
@@ -78,7 +78,8 @@ export default class ViroSample extends Component {
   }
 
   // Returns the ViroARSceneNavigator which will start the AR experience
-  _getARNavigator() {const {sharedProps}=this.state
+  _getARNavigator() {
+    const { sharedProps } = this.state
     return (
       <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />
     );
