@@ -17,9 +17,9 @@ import { viroAPIKey } from './config';
 /*
  TODO: Insert your API key below
  */
-const sharedProps = {
-  apiKey: viroAPIKey
-};
+// const sharedProps = {
+//   apiKey: viroAPIKey
+// };
 
 // Sets the default scene you want for AR and VR
 const InitialARScene = require('./js/HelloWorldSceneAR');
@@ -39,7 +39,8 @@ export default class ViroSample extends Component {
 
     this.state = {
       navigatorType: defaultNavigatorType,
-      sharedProps
+      sharedProps: { apiKey: viroAPIKey }
+
     };
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
@@ -78,16 +79,18 @@ export default class ViroSample extends Component {
 
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
+    const { sharedProps } = this.state;
     return (
-      <ViroARSceneNavigator {...this.state.sharedProps} initialScene={{ scene: InitialARScene }} />
+      <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />
     );
   }
 
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
+    const { sharedProps } = this.state;
     return (
       <ViroVRSceneNavigator
-        {...this.state.sharedProps}
+        {...sharedProps}
         initialScene={{ scene: InitialVRScene }}
         onExitViro={this._exitViro}
       />
