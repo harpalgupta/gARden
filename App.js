@@ -41,13 +41,12 @@ export default class ViroSample extends Component {
       navigatorType: defaultNavigatorType,
       sharedProps
     };
-    this.getExperienceSelector = this._getExperienceSelector.bind(this);
+    this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
     this._exitViro = this._exitViro.bind(this);
   }
-
 
 
   // Presents the user with a choice of an AR or VR experience
@@ -79,9 +78,8 @@ export default class ViroSample extends Component {
 
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
-    const { sharedProps } = this.state
     return (
-      <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />
+      <ViroARSceneNavigator {...this.state.sharedProps} initialScene={{ scene: InitialARScene }} />
     );
   }
 
@@ -112,22 +110,26 @@ export default class ViroSample extends Component {
       navigatorType: UNSET
     });
   }
+
   // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
   // if you are building a specific type of experience.
+
   render() {
-    if (this.state.navigatorType == UNSET) {
+    const { navigatorType } = this.state;
+    if (navigatorType === UNSET) {
       return this._getExperienceSelector();
     }
-    if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
+    if (navigatorType === VR_NAVIGATOR_TYPE) {
       return this._getVRNavigator();
     }
-    if (this.state.navigatorType == AR_NAVIGATOR_TYPE) {
+    if (navigatorType === AR_NAVIGATOR_TYPE) {
       return this._getARNavigator();
     }
+    return null;
   }
 }
 
-var localStyles = StyleSheet.create({
+const localStyles = StyleSheet.create({
   viroContainer: {
     flex: 1,
     backgroundColor: 'black'
