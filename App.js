@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react';
 import {
-  // AppRegistry,
+  AppRegistry,
   Text, View, StyleSheet,
   // PixelRatio,
   TouchableHighlight
