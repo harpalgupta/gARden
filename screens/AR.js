@@ -26,7 +26,7 @@ const AR_NAVIGATOR_TYPE = 'AR';
 
 // This determines which type of experience to launch in, or UNSET, if the user should
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
-const defaultNavigatorType = UNSET;
+const defaultNavigatorType = AR_NAVIGATOR_TYPE;
 
 export default class ViroSample extends Component {
   constructor() {
@@ -91,7 +91,11 @@ export default class ViroSample extends Component {
   render() {
     const { navigatorType } = this.state;
     if (navigatorType === UNSET) {
-      return this._getExperienceSelector();
+      return (
+        <View>
+          <Text>Navigator Type = UNSET (You have Exited Viro)</Text>
+        </View>
+      );
     }
     if (navigatorType === AR_NAVIGATOR_TYPE) {
       return this._getARNavigator();
