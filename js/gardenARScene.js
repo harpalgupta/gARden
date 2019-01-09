@@ -54,7 +54,7 @@ export default class HelloWorldSceneAR extends Component {
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         <ViroAmbientLight color="#ffffff" style={styles.helloWorldTextStyle} />
-        <ViroNode>
+        <ViroNode position={[0, -1, -1]} dragType="FixedToWorld" onDrag={() => {}}>
           <Viro3DObject
             source={source}
             resources={resources}
