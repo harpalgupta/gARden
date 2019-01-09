@@ -8,7 +8,10 @@
  */
 import React, { Component } from 'react';
 import {
-  AppRegistry, Text, View, StyleSheet, PixelRatio, TouchableHighlight
+  // AppRegistry,
+  Text, View, StyleSheet,
+  // PixelRatio,
+  TouchableHighlight
 } from 'react-native';
 
 import { ViroVRSceneNavigator, ViroARSceneNavigator } from 'react-viro';
