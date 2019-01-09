@@ -10,6 +10,9 @@
  */
 
 
+/* eslint no-underscore-dangle: 0 */
+/* eslint no-useless-escape: 0 */
+
 const path = require('path');
 
 module.exports = {
