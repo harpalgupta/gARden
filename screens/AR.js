@@ -19,7 +19,7 @@ import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 
 // Sets the default scene you want for AR and VR
-const InitialARScene = require('../js/HelloWorldSceneAR');
+const InitialARScene = require('../js/gardenARScene');
 
 const UNSET = 'UNSET';
 const AR_NAVIGATOR_TYPE = 'AR';
@@ -67,7 +67,6 @@ export default class ViroSample extends Component {
     return <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />;
   }
 
-
   // This function returns an anonymous/lambda function to be used
   // by the experience selector buttons
   _getExperienceButtonOnPress(navigatorType) {
@@ -87,7 +86,6 @@ export default class ViroSample extends Component {
 
   // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
   // if you are building a specific type of experience.
-
   render() {
     const { navigatorType } = this.state;
     if (navigatorType === UNSET) {
