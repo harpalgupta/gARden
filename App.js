@@ -8,9 +8,9 @@
  */
 import React, { Component } from 'react';
 import {
-  AppRegistry,
+  // AppRegistry,
   Text, View, StyleSheet,
-  // PixelRatio,
+  PixelRatio,
   TouchableHighlight
 } from 'react-native';
 
