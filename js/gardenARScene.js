@@ -8,12 +8,23 @@ import {
   ViroARScene, ViroNode, Viro3DObject, ViroAmbientLight, ViroConstants
 } from 'react-viro';
 
+const lavObj = require('./res/lavender/lavender_plant.obj');
+const lavMtl = require('./res/lavender/lavender_plant.mtl');
+const lavPng = require('./res/lavender/lavender_plant.png');
+
 export default class HelloWorldSceneAR extends Component {
   constructor() {
     super();
 
     // Set initial state here
     this.state = {
+      plant: {
+        source: lavObj,
+        resources: [lavMtl, lavPng],
+        position: [0, 0, 0],
+        scale: [0.0007, 0.0007, 0.0007],
+        type: 'OBJ'
+      }
       // text: 'Initializing AR...'
     };
 
@@ -35,11 +46,22 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   render() {
+    const {
+      plant: {
+        source, resources, position, scale, type
+      }
+    } = this.state;
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
         <ViroAmbientLight color="#ffffff" style={styles.helloWorldTextStyle} />
         <ViroNode>
-          <Viro3DObject />
+          <Viro3DObject
+            source={source}
+            resources={resources}
+            position={position}
+            scale={scale}
+            type={type}
+          />
         </ViroNode>
       </ViroARScene>
     );
