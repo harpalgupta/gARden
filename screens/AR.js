@@ -10,8 +10,8 @@ import React, { Component } from 'react';
 import {
   // AppRegistry,
   Text,
-  View
-  // StyleSheet
+  View,
+  StyleSheet
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -44,7 +44,12 @@ export default class ViroSample extends Component {
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
     const { sharedProps } = this.state;
-    return <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />;
+
+    return (
+      <View style={styles.containerView}>
+        <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />
+      </View>
+    );
   }
 
   // This function returns an anonymous/lambda function to be used
@@ -81,5 +86,11 @@ export default class ViroSample extends Component {
     return null;
   }
 }
+
+const styles = StyleSheet.create({
+  containerView: {
+    flex: 1
+  }
+});
 
 module.exports = ViroSample;
