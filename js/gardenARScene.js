@@ -1,4 +1,3 @@
-
 /* eslint no-underscore-dangle: 0 */
 
 import React, { Component } from 'react';
@@ -6,9 +5,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import {
-  ViroARScene,
-  ViroText,
-  ViroConstants,
+  ViroARScene, ViroNode, Viro3DObject, ViroAmbientLight, ViroConstants
 } from 'react-viro';
 
 export default class HelloWorldSceneAR extends Component {
@@ -23,7 +20,6 @@ export default class HelloWorldSceneAR extends Component {
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
   }
-
 
   _onInitialized(
     // reason,
@@ -42,12 +38,10 @@ export default class HelloWorldSceneAR extends Component {
     const { text } = this.state;
     return (
       <ViroARScene onTrackingUpdated={this._onInitialized}>
-        <ViroText
-          text={text}
-          scale={[0.5, 0.5, 0.5]}
-          position={[0, 0, -1]}
-          style={styles.helloWorldTextStyle}
-        />
+        <ViroAmbientLight color="#ffffff" />
+        <ViroNode>
+          <Viro3DObject />
+        </ViroNode>
       </ViroARScene>
     );
   }
@@ -59,8 +53,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#ffffff',
     textAlignVertical: 'center',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });
 
 module.exports = HelloWorldSceneAR;
