@@ -12,26 +12,18 @@ import {
   Text,
   View,
   StyleSheet,
-  // PixelRatio,
   TouchableHighlight
 } from 'react-native';
 
-import { ViroVRSceneNavigator, ViroARSceneNavigator } from 'react-viro';
+import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
-
-/*
- TODO: Insert your API key below
- */
-// const sharedProps = {
-//   apiKey: viroAPIKey
-// };
 
 // Sets the default scene you want for AR and VR
 const InitialARScene = require('../js/HelloWorldSceneAR');
-const InitialVRScene = require('../js/HelloWorldScene');
+// const InitialVRScene = require('../js/HelloWorldScene');
 
 const UNSET = 'UNSET';
-const VR_NAVIGATOR_TYPE = 'VR';
+// const VR_NAVIGATOR_TYPE = 'VR';
 const AR_NAVIGATOR_TYPE = 'AR';
 
 // This determines which type of experience to launch in, or UNSET, if the user should
@@ -48,7 +40,7 @@ export default class ViroSample extends Component {
     };
     this._getExperienceSelector = this._getExperienceSelector.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
-    this._getVRNavigator = this._getVRNavigator.bind(this);
+    // this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
     this._exitViro = this._exitViro.bind(this);
   }
@@ -68,13 +60,13 @@ export default class ViroSample extends Component {
             <Text style={localStyles.buttonText}>AR</Text>
           </TouchableHighlight>
 
-          <TouchableHighlight
+          {/* <TouchableHighlight
             style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
             underlayColor="#68a0ff"
           >
             <Text style={localStyles.buttonText}>VR</Text>
-          </TouchableHighlight>
+          </TouchableHighlight> */}
         </View>
       </View>
     );
@@ -87,16 +79,16 @@ export default class ViroSample extends Component {
   }
 
   // Returns the ViroSceneNavigator which will start the VR experience
-  _getVRNavigator() {
-    const { sharedProps } = this.state;
-    return (
-      <ViroVRSceneNavigator
-        {...sharedProps}
-        initialScene={{ scene: InitialVRScene }}
-        onExitViro={this._exitViro}
-      />
-    );
-  }
+  // _getVRNavigator() {
+  //   const { sharedProps } = this.state;
+  //   return (
+  //     <ViroVRSceneNavigator
+  //       {...sharedProps}
+  //       initialScene={{ scene: InitialVRScene }}
+  //       onExitViro={this._exitViro}
+  //     />
+  //   );
+  // }
 
   // This function returns an anonymous/lambda function to be used
   // by the experience selector buttons
@@ -123,9 +115,9 @@ export default class ViroSample extends Component {
     if (navigatorType === UNSET) {
       return this._getExperienceSelector();
     }
-    if (navigatorType === VR_NAVIGATOR_TYPE) {
-      return this._getVRNavigator();
-    }
+    // if (navigatorType === VR_NAVIGATOR_TYPE) {
+    //   return this._getVRNavigator();
+    // }
     if (navigatorType === AR_NAVIGATOR_TYPE) {
       return this._getARNavigator();
     }
