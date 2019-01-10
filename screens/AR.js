@@ -24,7 +24,7 @@ export default class ViroSample extends Component {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
     viroAppProps: {
-      plantsOnScreen: ['rose', 'lavender'],
+      plantsOnScreen: ['rose'],
       plantFiles: {
         lavender: {
           source: lavObj,
