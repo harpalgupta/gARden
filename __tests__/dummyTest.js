@@ -11,4 +11,7 @@ describe('createUniqueId', () => {
     expect(/[^a-z\d]/gi.test(createUniqueID())).toEqual(false);
     expect(typeof createUniqueID()).toBe('string');
   });
+  it('returns id with length 6', () => {
+    expect(createUniqueID().length).toEqual(6);
+  });
 });
