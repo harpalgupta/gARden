@@ -4,7 +4,8 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  FlatList
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -14,11 +15,18 @@ const GardenARScene = require('../js/gardenARScene');
 
 export default class ViroSample extends Component {
   state = {
-    sharedProps: { apiKey: viroAPIKey }
+    sharedProps: { apiKey: viroAPIKey },
+    menuIsShown: false
+  };
+
+  toggleMenu = () => {
+    this.setState(prevState => ({
+      menuIsShown: !prevState.menuIsShown
+    }));
   };
 
   render() {
-    const { sharedProps } = this.state;
+    const { sharedProps, menuIsShown } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
@@ -33,7 +41,23 @@ export default class ViroSample extends Component {
           >
             <Text style={{ color: 'white' }}>Back</Text>
           </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleMenu}
+            underlayColor="#00000000"
+          >
+            <Text style={{ color: 'white' }}>menu</Text>
+          </TouchableHighlight>
         </View>
+
+        {menuIsShown && (
+          <View style={styles.menu}>
+            <FlatList
+              data={[{ key: 'lavender' }]}
+              renderItem={({ item }) => <Text>{item.key}</Text>}
+            />
+          </View>
+        )}
       </View>
     );
   }
@@ -41,18 +65,20 @@ export default class ViroSample extends Component {
 
 const styles = StyleSheet.create({
   containerView: {
-    flex: 1
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   buttonView: {
     position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     alignItems: 'center',
-    height: 50
+    backgroundColor: 'rgba(52,52,52,0)'
   },
-  button: { backgroundColor: 'blue', height: 20 }
+  button: { backgroundColor: 'blue', height: 50, width: 50 },
+  menu: {
+    backgroundColor: 'green',
+    width: 200
+  }
 });
 
 module.exports = ViroSample;
