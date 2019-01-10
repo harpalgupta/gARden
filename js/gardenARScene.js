@@ -12,7 +12,7 @@ const lavObj = require('./res/lavender/lavender_plant.obj');
 const lavMtl = require('./res/lavender/lavender_plant.mtl');
 const lavPng = require('./res/lavender/lavender_plant.png');
 
-export default class HelloWorldSceneAR extends Component {
+class GardenARScene extends Component {
   constructor() {
     super();
 
@@ -78,4 +78,4 @@ export default class HelloWorldSceneAR extends Component {
 //   }
 // });
 
-module.exports = HelloWorldSceneAR;
+module.exports = GardenARScene;

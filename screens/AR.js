@@ -10,7 +10,7 @@ import {
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 
-const InitialARScene = require('../js/gardenARScene');
+const GardenARScene = require('../js/gardenARScene');
 
 export default class ViroSample extends Component {
   state = {
@@ -22,7 +22,7 @@ export default class ViroSample extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
-        <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />
+        <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: GardenARScene }} />
         <View style={styles.buttonView}>
           <TouchableHighlight
             style={styles.button}
@@ -31,7 +31,7 @@ export default class ViroSample extends Component {
             }}
             underlayColor="#00000000"
           >
-            <Text style={{ color: 'white' }}>Click ME</Text>
+            <Text style={{ color: 'white' }}>Back</Text>
           </TouchableHighlight>
         </View>
       </View>
