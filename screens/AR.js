@@ -13,19 +13,13 @@ import { viroAPIKey } from '../config';
 const InitialARScene = require('../js/gardenARScene');
 
 export default class ViroSample extends Component {
-  constructor() {
-    super();
+  state = {
+    sharedProps: { apiKey: viroAPIKey }
+  };
 
-    this.state = {
-      sharedProps: { apiKey: viroAPIKey }
-    };
-    this._getARNavigator = this._getARNavigator.bind(this);
-  }
-
-  _getARNavigator() {
+  render() {
     const { sharedProps } = this.state;
     const { navigation } = this.props;
-
     return (
       <View style={styles.containerView}>
         <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />
@@ -42,10 +36,6 @@ export default class ViroSample extends Component {
         </View>
       </View>
     );
-  }
-
-  render() {
-    return this._getARNavigator();
   }
 }
 
