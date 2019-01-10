@@ -10,11 +10,7 @@ import {
 
 const lavObj = require('./res/lavender/lavender_plant.obj');
 const lavMtl = require('./res/lavender/lavender_plant.mtl');
-
-const lavPng = {
-  uri:
-    'https://firebasestorage.googleapis.com/v0/b/test-33015.appspot.com/o/lavender_plant.png?alt=media&token=362235be-b069-49ef-a85a-d5a5423408d0'
-};
+const lavPng = require('./res/lavender/lavender_plant.png');
 
 export default class HelloWorldSceneAR extends Component {
   constructor() {
