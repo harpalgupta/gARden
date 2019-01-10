@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(52,52,52,0)'
   },
-  button: { backgroundColor: 'rgba(10,10,10,0.6)', height: 50, width: 50 }
+  button: { backgroundColor: 'rgba(10,10,10,0)', height: 50, width: 50 }
 });
 
 module.exports = ViroSample;
