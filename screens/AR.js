@@ -4,14 +4,14 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableHighlight,
-  FlatList
+  TouchableHighlight
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
+import PlantMenu from '../js/components/PlantMenu';
 
-const GardenARScene = require('../js/gardenARScene');
+const GardenARScene = require('../js/components/GardenARScene');
 
 export default class ViroSample extends Component {
   state = {
@@ -50,14 +50,7 @@ export default class ViroSample extends Component {
           </TouchableHighlight>
         </View>
 
-        {menuIsShown && (
-          <View style={styles.menu}>
-            <FlatList
-              data={[{ key: 'lavender' }]}
-              renderItem={({ item }) => <Text>{item.key}</Text>}
-            />
-          </View>
-        )}
+        {menuIsShown && <PlantMenu />}
       </View>
     );
   }
@@ -74,11 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(52,52,52,0)'
   },
-  button: { backgroundColor: 'blue', height: 50, width: 50 },
-  menu: {
-    backgroundColor: 'green',
-    width: 200
-  }
+  button: { backgroundColor: 'rgba(10,10,10,0.6)', height: 50, width: 50 }
 });
 
 module.exports = ViroSample;

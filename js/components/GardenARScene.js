@@ -8,9 +8,9 @@ import {
   ViroARScene, ViroNode, Viro3DObject, ViroAmbientLight, ViroConstants
 } from 'react-viro';
 
-const lavObj = require('./res/lavender/lavender_plant.obj');
-const lavMtl = require('./res/lavender/lavender_plant.mtl');
-const lavPng = require('./res/lavender/lavender_plant.png');
+const lavObj = require('../res/lavender/lavender_plant.obj');
+const lavMtl = require('../res/lavender/lavender_plant.mtl');
+const lavPng = require('../res/lavender/lavender_plant.png');
 
 class GardenARScene extends Component {
   constructor() {
