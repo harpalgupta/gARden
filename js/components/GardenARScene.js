@@ -6,29 +6,14 @@ import React, { Component } from 'react';
 
 import {
   ViroARScene,
-  ViroNode,
-  Viro3DObject,
-  ViroAmbientLight,
+  ViroAmbientLight
   // ViroConstants,
-  ViroButton
 } from 'react-viro';
 
 import PlantObject from './PlantObject';
 
-// const lavObj = require('../res/lavender/lavender_plant.obj');
-// const lavMtl = require('../res/lavender/lavender_plant.mtl');
-// const lavPng = require('../res/lavender/lavender_plant.png');
-
 class GardenARScene extends Component {
-  state = {
-    // plant: {
-    //   source: lavObj,
-    //   resources: [lavMtl, lavPng],
-    //   position: [0, 0, 0],
-    //   scale: [0.0007, 0.0007, 0.0007],
-    //   type: 'OBJ'
-    // }
-  };
+  state = {};
   // this._onInitialized = this._onInitialized.bind(this);
   // _onInitialized(
   //   // reason,
@@ -55,7 +40,7 @@ class GardenARScene extends Component {
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" />
         {plantsOnScreen.map(plant => (
-          <PlantObject filesForPlant={plantFiles[plant]} />
+          <PlantObject filesForPlant={plantFiles[plant.name]} plantID={plant.id} />
         ))}
       </ViroARScene>
     );

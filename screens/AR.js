@@ -24,7 +24,7 @@ export default class ViroSample extends Component {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
     viroAppProps: {
-      plantsOnScreen: ['rose'],
+      plantsOnScreen: [{ name: 'rose', id: 'ROSEID' }],
       plantFiles: {
         lavender: {
           source: lavObj,
@@ -51,12 +51,15 @@ export default class ViroSample extends Component {
   };
 
   addPlantToRenderList = (plantSlug) => {
-    this.setState(prevState => ({
-      viroAppProps: {
-        plantsOnScreen: [...prevState.viroAppProps.plantsOnScreen, plantSlug],
-        plantFiles: { ...prevState.viroAppProps.plantFiles }
-      }
-    }));
+    this.setState((prevState) => {
+      const { plantsOnScreen, plantFiles } = prevState.viroAppProps;
+      return {
+        viroAppProps: {
+          plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: 'UNIQUE KEY' }],
+          plantFiles: { ...plantFiles }
+        }
+      };
+    });
   };
 
   render() {
