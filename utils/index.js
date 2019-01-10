@@ -2,9 +2,11 @@ const utils = {};
 
 utils.getNumfrom65to90 = () => Math.floor(Math.random() * (91 - 65 + 1) + 65);
 
-utils.createUniqueID = () => {
+utils.checkUniqueID = () => {};
+
+utils.createID = () => {
   let newID = '';
-  for (let i = 0; i < 6; i += 1) {
+  for (let i = 0; i < 5; i += 1) {
     const randomBinary = Math.round(Math.random());
     if (randomBinary === 1) {
       const randomLetter = String.fromCharCode(utils.getNumfrom65to90());
@@ -14,7 +16,6 @@ utils.createUniqueID = () => {
       newID = `${newID}${randomNum}`;
     }
   }
-  console.log(newID);
   return newID;
 };
 
