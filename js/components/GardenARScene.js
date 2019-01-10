@@ -8,23 +8,24 @@ import {
   ViroARScene,
   ViroNode,
   Viro3DObject,
-  ViroAmbientLight
+  ViroAmbientLight,
+  ViroText
   // ViroConstants
 } from 'react-viro';
 
-const lavObj = require('../res/lavender/lavender_plant.obj');
-const lavMtl = require('../res/lavender/lavender_plant.mtl');
-const lavPng = require('../res/lavender/lavender_plant.png');
+// const lavObj = require('../res/lavender/lavender_plant.obj');
+// const lavMtl = require('../res/lavender/lavender_plant.mtl');
+// const lavPng = require('../res/lavender/lavender_plant.png');
 
 class GardenARScene extends Component {
   state = {
-    plant: {
-      source: lavObj,
-      resources: [lavMtl, lavPng],
-      position: [0, 0, 0],
-      scale: [0.0007, 0.0007, 0.0007],
-      type: 'OBJ'
-    }
+    // plant: {
+    //   source: lavObj,
+    //   resources: [lavMtl, lavPng],
+    //   position: [0, 0, 0],
+    //   scale: [0.0007, 0.0007, 0.0007],
+    //   type: 'OBJ'
+    // }
   };
   // this._onInitialized = this._onInitialized.bind(this);
   // _onInitialized(
@@ -44,22 +45,24 @@ class GardenARScene extends Component {
 
   render() {
     const {
-      plant: {
-        source, resources, position, scale, type
+      sceneNavigator: {
+        viroAppProps: { plantFiles, plantsOnScreen }
       }
-    } = this.state;
+    } = this.props;
     return (
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" />
-        <ViroNode position={[0, -1, -1]} dragType="FixedToWorld" onDrag={() => {}}>
-          <Viro3DObject
-            source={source}
-            resources={resources}
-            position={position}
-            scale={scale}
-            type={type}
-          />
-        </ViroNode>
+        {plantsOnScreen.map((plant, index) => (
+          <ViroNode position={[0, -1, -1]} dragType="FixedToWorld" onDrag={() => {}} key={index}>
+            <Viro3DObject
+              source={plantFiles[plant].source}
+              resources={plantFiles[plant].resources}
+              position={plantFiles[plant].position}
+              scale={plantFiles[plant].scale}
+              type={plantFiles[plant].type}
+            />
+          </ViroNode>
+        ))}
       </ViroARScene>
     );
   }

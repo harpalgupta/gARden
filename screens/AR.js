@@ -12,12 +12,36 @@ import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
 
 const GardenARScene = require('../js/components/GardenARScene');
+const lavObj = require('../js/res/lavender/lavender_plant.obj');
+const lavMtl = require('../js/res/lavender/lavender_plant.mtl');
+const lavPng = require('../js/res/lavender/lavender_plant.png');
+const roseObj = require('../js/res/rose/rose.obj');
+const roseMtl = require('../js/res/rose/rose.mtl');
+const rosePng = require('../js/res/rose/rose.jpg');
 
 export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
-    plantsOnScreen: []
+    viroAppProps: {
+      plantsOnScreen: ['rose', 'lavender'],
+      plantFiles: {
+        lavender: {
+          source: lavObj,
+          resources: [lavMtl, lavPng],
+          position: [0, 0, 0],
+          scale: [0.0007, 0.0007, 0.0007],
+          type: 'OBJ'
+        },
+        rose: {
+          source: roseObj,
+          resources: [roseMtl, rosePng],
+          position: [0, 0, 0],
+          scale: [0.007, 0.007, 0.007],
+          type: 'OBJ'
+        }
+      }
+    }
   };
 
   toggleMenu = () => {
@@ -28,16 +52,23 @@ export default class ViroSample extends Component {
 
   addPlantToRenderList = (plantSlug) => {
     this.setState(prevState => ({
-      plantsOnScreen: [...prevState.plantsOnScreen, plantSlug]
+      viroAppProps: {
+        plantsOnScreen: [...prevState.viroAppProps.plantsOnScreen, plantSlug],
+        plantFiles: { ...prevState.viroAppProps.plantFiles }
+      }
     }));
   };
 
   render() {
-    const { sharedProps, menuIsShown } = this.state;
+    const { sharedProps, menuIsShown, viroAppProps } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
-        <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: GardenARScene }} />
+        <ViroARSceneNavigator
+          {...sharedProps}
+          initialScene={{ scene: GardenARScene }}
+          viroAppProps={viroAppProps}
+        />
         <View style={styles.buttonView}>
           <TouchableHighlight
             style={styles.button}
