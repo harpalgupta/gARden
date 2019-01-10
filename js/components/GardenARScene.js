@@ -13,6 +13,8 @@ import {
   ViroButton
 } from 'react-viro';
 
+import PlantObject from './PlantObject';
+
 // const lavObj = require('../res/lavender/lavender_plant.obj');
 // const lavMtl = require('../res/lavender/lavender_plant.mtl');
 // const lavPng = require('../res/lavender/lavender_plant.png');
@@ -46,40 +48,14 @@ class GardenARScene extends Component {
   render() {
     const {
       sceneNavigator: {
-        viroAppProps: { plantFiles, plantsOnScreen },
-        addDeleteButton
+        viroAppProps: { plantFiles, plantsOnScreen }
       }
     } = this.props;
     return (
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" />
         {plantsOnScreen.map(plant => (
-          <ViroNode
-            position={[0, -1, -1]}
-            dragType="FixedToWorld"
-            onDrag={() => {}}
-            onClick={() => {
-              addDeleteButton;
-            }}
-            // key={`${plant}_${index}`}
-          >
-            <Viro3DObject
-              source={plantFiles[plant].source}
-              resources={plantFiles[plant].resources}
-              position={plantFiles[plant].position}
-              scale={plantFiles[plant].scale}
-              type={plantFiles[plant].type}
-            />
-            <ViroButton
-              source={{ uri: 'http://www.stickpng.com/assets/images/580b57fbd9996e24bc43bee1.png' }}
-              height={0.2}
-              width={0.2}
-              onClick={() => {
-                console.log('ive been clicked');
-              }}
-              position={[0, 0.7, 0]}
-            />
-          </ViroNode>
+          <PlantObject filesForPlant={plantFiles[plant]} />
         ))}
       </ViroARScene>
     );
