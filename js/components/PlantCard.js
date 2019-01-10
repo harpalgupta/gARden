@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, View, Button } from 'react-native';
 
 const PlantCard = (props) => {
-  const { plantName } = props;
+  const { plantName, addPlantToRenderList } = props;
 
   const handleClick = () => {
-    // console.log('hiya');
+    addPlantToRenderList(plantName);
   };
 
   return (

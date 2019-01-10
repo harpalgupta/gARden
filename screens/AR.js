@@ -16,12 +16,19 @@ const GardenARScene = require('../js/components/GardenARScene');
 export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
-    menuIsShown: false
+    menuIsShown: false,
+    plantsOnScreen: []
   };
 
   toggleMenu = () => {
     this.setState(prevState => ({
       menuIsShown: !prevState.menuIsShown
+    }));
+  };
+
+  addPlantToRenderList = (plantSlug) => {
+    this.setState(prevState => ({
+      plantsOnScreen: [...prevState.plantsOnScreen, plantSlug]
     }));
   };
 
@@ -50,7 +57,7 @@ export default class ViroSample extends Component {
           </TouchableHighlight>
         </View>
 
-        {menuIsShown && <PlantMenu />}
+        {menuIsShown && <PlantMenu addPlantToRenderList={this.addPlantToRenderList} />}
       </View>
     );
   }

@@ -8,11 +8,13 @@ import {
 
 import PlantCard from './PlantCard';
 
-const PlantMenu = () => (
+const PlantMenu = ({ addPlantToRenderList }) => (
   <View style={styles.menu}>
     <FlatList
-      data={[{ key: 'lavender' }]}
-      renderItem={({ item }) => <PlantCard plantName={item.key} />}
+      data={[{ key: 'lavender' }, { key: 'rose' }]}
+      renderItem={({ item }) => (
+        <PlantCard plantName={item.key} addPlantToRenderList={addPlantToRenderList} />
+      )}
     />
   </View>
 );
