@@ -27,4 +27,6 @@ utils.createID = (array) => {
   return checkUniqueID(array, newID) ? newID : createID(array);
 };
 
+utils.filterArray = (array, id) => array.filter(plant => plant.id !== id);
+
 module.exports = utils;

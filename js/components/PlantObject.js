@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { ViroNode, Viro3DObject, ViroButton } from 'react-viro';
+import { ViroNode, Viro3DObject, ViroQuad } from 'react-viro';
 
 class PlantObject extends Component {
   state = {
@@ -11,6 +11,13 @@ class PlantObject extends Component {
     this.setState(prevState => ({ isInFocus: !prevState.isInFocus }));
   };
 
+  handleDeleteClick = () => {
+    const { removePlantFromRenderList, plantID } = this.props
+    removePlantFromRenderList(plantID)
+
+  }
+
+
   render() {
     const { filesForPlant } = this.props;
     const { isInFocus } = this.state;
@@ -18,7 +25,7 @@ class PlantObject extends Component {
       <ViroNode
         position={[0, -1, -1]}
         dragType="FixedToWorld"
-        onDrag={() => {}}
+        onDrag={() => { }}
         onClick={this.toggleIsInFocus}
       >
         <Viro3DObject
@@ -29,13 +36,12 @@ class PlantObject extends Component {
           type={filesForPlant.type}
         />
         {isInFocus && (
-          <ViroButton
-            source={{ uri: 'http://www.stickpng.com/assets/images/580b57fbd9996e24bc43bee1.png' }}
+          <ViroQuad
+
+            // source={{ uri: 'http://www.stickpng.com/assets/images/580b57fbd9996e24bc43bee1.png' }}
             height={0.2}
             width={0.2}
-            onClick={() => {
-              // console.log('ive been clicked');
-            }}
+            onClick={this.handleDeleteClick}
             position={[0, 0.7, 0]}
           />
         )}

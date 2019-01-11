@@ -1,4 +1,6 @@
-import { createID, getNumfrom65to90, checkUniqueID } from '../utils/index';
+import {
+  createID, getNumfrom65to90, checkUniqueID, filterArray
+} from '../utils/index';
 
 describe('createID', () => {
   it('returns string of only letters and nums', () => {
@@ -21,5 +23,15 @@ describe('createID', () => {
     it('returns false if array does contain id already', () => {
       expect(checkUniqueID([{ id: 'a' }, { id: 'b' }, { id: 'c' }], 'b')).toEqual(false);
     });
+  });
+});
+
+describe('filterArray', () => {
+  it('returns array with length one less than input array', () => {
+    expect(filterArray([{ name: 'rose', id: 'test34' }, { name: 'rose', id: 'test12' }, { name: 'rose', id: 'test35' }], 'test12')).toHaveLength(2);
+  });
+
+  it('returns array with no objects with specified id', () => {
+    expect(filterArray([{ name: 'rose', id: 'test34' }, { name: 'rose', id: 'test12' }, { name: 'rose', id: 'test35' }], 'test12')).toEqual([{ name: 'rose', id: 'test34' }, { name: 'rose', id: 'test35' }]);
   });
 });
