@@ -1,4 +1,3 @@
-
 /* eslint no-underscore-dangle: 0 */
 
 import React, { Component } from 'react';
@@ -15,7 +14,6 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { firestoreConfig } from '../../config/index';
 
-
 import PlantObject from './PlantObject';
 
 const settings = { timestampsInSnapshots: true };
@@ -25,25 +23,35 @@ firebase.firestore().settings(settings);
 const db = firebase.firestore();
 
 class GardenARScene extends Component {
-  state = {};
+  state = {
+    // plantAttr: { source: '', resources: [], scale: [] }
+  };
 
-  componentDidMount = () => {
-    const docRef = db.collection('plants').doc('lavender');
+  componentDidUpdate = (prevProps) => {
+    const { sceneNavigator: { viroAppProps: { plantsOnScreen } } } = this.props;
+    // console.log(prevProps.sceneNavigator.viroAppProps.plantsOnScreen !== plantsOnScreen);
+    // console.log(this.props);
+    // console.log(prevProps);
+    if (prevProps.sceneNavigator.viroAppProps.plantsOnScreen !== plantsOnScreen) {
+      const docRef = db.collection('plants').doc('lavender');
 
-    docRef
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          // console.error('Document data:', doc.data());
-        } else {
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+          // this.setState({});
+            // const data = doc.data();
+            // console.log('Document data:', doc.data());
+          } else {
           // doc.data() will be undefined in this case
-          // console.error('No such document!');
-        }
-      })
-      .catch((error) => {
-        // console.error('Error getting document:', error);
-      });
-  }
+            // console.log('No such document!');
+          }
+        })
+        .catch(() => {
+          // console.log('Error getting document:', error);
+        });
+    }
+  };
   // this._onInitialized = this._onInitialized.bind(this);
   // _onInitialized(
   //   // reason,
