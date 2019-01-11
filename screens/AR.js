@@ -10,7 +10,7 @@ import {
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
-import { createUniqueID } from '../utils/index';
+import { createID } from '../utils/index';
 
 const GardenARScene = require('../js/components/GardenARScene');
 const lavObj = require('../js/res/lavender/lavender_plant.obj');
@@ -54,7 +54,7 @@ export default class ViroSample extends Component {
   addPlantToRenderList = (plantSlug) => {
     this.setState((prevState) => {
       const { plantsOnScreen, plantFiles } = prevState.viroAppProps;
-      const newID = createUniqueID(plantsOnScreen);
+      const newID = createID(plantsOnScreen);
       return {
         viroAppProps: {
           plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: newID }],
