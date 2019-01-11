@@ -1,5 +1,25 @@
-describe('dummyTest()', () => {
-  it('', () => {
-    // first test
+import { createID, getNumfrom65to90, checkUniqueID } from '../utils/index';
+
+describe('createID', () => {
+  it('returns string of only letters and nums', () => {
+    expect(/[^a-z\d]/gi.test(createID([{ id: '1SD3F5' }, { id: '6SD3F7' }]))).toEqual(false);
+    expect(typeof createID([{ id: '1SD3F5' }, { id: '6SD3F7' }])).toBe('string');
+  });
+  it('returns id with length 6', () => {
+    expect(createID([{ id: '1SD3F5' }, { id: '6SD3F7' }]).length).toBeLessThanOrEqual(6);
+  });
+  describe('getNumfrom65to90', () => {
+    it('returns a number between 65 and 90', () => {
+      expect(getNumfrom65to90()).toBeLessThanOrEqual(90);
+      expect(getNumfrom65to90()).toBeGreaterThan(64);
+    });
+  });
+  describe('checkIDUniqueness', () => {
+    it('returns true if array does not contain id already', () => {
+      expect(checkUniqueID([{ id: 'a' }, { id: 'b' }, { id: 'c' }], 'd')).toEqual(true);
+    });
+    it('returns false if array does contain id already', () => {
+      expect(checkUniqueID([{ id: 'a' }, { id: 'b' }, { id: 'c' }], 'b')).toEqual(false);
+    });
   });
 });

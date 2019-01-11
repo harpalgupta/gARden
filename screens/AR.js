@@ -9,26 +9,71 @@ import {
 
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
+import PlantMenu from '../js/components/PlantMenu';
+import { createID } from '../utils/index';
 
-const InitialARScene = require('../js/gardenARScene');
+const GardenARScene = require('../js/components/GardenARScene');
+const lavObj = require('../js/res/lavender/lavender_plant.obj');
+const lavMtl = require('../js/res/lavender/lavender_plant.mtl');
+const lavPng = require('../js/res/lavender/lavender_plant.png');
+const roseObj = require('../js/res/rose/rose.obj');
+const roseMtl = require('../js/res/rose/rose.mtl');
+const rosePng = require('../js/res/rose/rose.jpg');
 
 export default class ViroSample extends Component {
-  constructor() {
-    super();
+  state = {
+    sharedProps: { apiKey: viroAPIKey },
+    menuIsShown: false,
+    viroAppProps: {
+      plantsOnScreen: [{ name: 'rose', id: 'ROSEID' }],
+      plantFiles: {
+        lavender: {
+          source: lavObj,
+          resources: [lavMtl, lavPng],
+          position: [0, 0, 0],
+          scale: [0.0007, 0.0007, 0.0007],
+          type: 'OBJ'
+        },
+        rose: {
+          source: roseObj,
+          resources: [roseMtl, rosePng],
+          position: [0, 0, 0],
+          scale: [0.007, 0.007, 0.007],
+          type: 'OBJ'
+        }
+      }
+    }
+  };
 
-    this.state = {
-      sharedProps: { apiKey: viroAPIKey }
-    };
-    this._getARNavigator = this._getARNavigator.bind(this);
-  }
+  toggleMenu = () => {
+    this.setState(prevState => ({
+      menuIsShown: !prevState.menuIsShown
+    }));
+  };
 
-  _getARNavigator() {
-    const { sharedProps } = this.state;
+  addPlantToRenderList = (plantSlug) => {
+    this.setState((prevState) => {
+      const { plantsOnScreen, plantFiles } = prevState.viroAppProps;
+      const newID = createID(plantsOnScreen);
+      return {
+        viroAppProps: {
+          plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: newID }],
+          plantFiles: { ...plantFiles }
+        }
+      };
+    });
+  };
+
+  render() {
+    const { sharedProps, menuIsShown, viroAppProps } = this.state;
     const { navigation } = this.props;
-
     return (
       <View style={styles.containerView}>
-        <ViroARSceneNavigator {...sharedProps} initialScene={{ scene: InitialARScene }} />
+        <ViroARSceneNavigator
+          {...sharedProps}
+          initialScene={{ scene: GardenARScene }}
+          viroAppProps={viroAppProps}
+        />
         <View style={styles.buttonView}>
           <TouchableHighlight
             style={styles.button}
@@ -37,32 +82,35 @@ export default class ViroSample extends Component {
             }}
             underlayColor="#00000000"
           >
-            <Text style={{ color: 'white' }}>Click ME</Text>
+            <Text style={{ color: 'white' }}>Back</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleMenu}
+            underlayColor="#00000000"
+          >
+            <Text style={{ color: 'white' }}>menu</Text>
           </TouchableHighlight>
         </View>
+
+        {menuIsShown && <PlantMenu addPlantToRenderList={this.addPlantToRenderList} />}
       </View>
     );
-  }
-
-  render() {
-    return this._getARNavigator();
   }
 }
 
 const styles = StyleSheet.create({
   containerView: {
-    flex: 1
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   buttonView: {
     position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     alignItems: 'center',
-    height: 50
+    backgroundColor: 'rgba(52,52,52,0)'
   },
-  button: { backgroundColor: 'blue', height: 20 }
+  button: { backgroundColor: 'rgba(10,10,10,0)', height: 50, width: 50 }
 });
 
 module.exports = ViroSample;
