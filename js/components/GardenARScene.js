@@ -33,14 +33,14 @@ class GardenARScene extends Component {
   render() {
     const {
       sceneNavigator: {
-        viroAppProps: { plantFiles, plantsOnScreen }
+        viroAppProps: { plantFiles, plantsOnScreen, removePlantFromRenderList }
       }
     } = this.props;
     return (
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" />
         {plantsOnScreen.map(plant => (
-          <PlantObject filesForPlant={plantFiles[plant.name]} plantID={plant.id} />
+          <PlantObject key={plant.id} removePlantFromRenderList={removePlantFromRenderList} filesForPlant={plantFiles[plant.name]} plantID={plant.id} />
         ))}
       </ViroARScene>
     );

@@ -10,7 +10,7 @@ import {
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
-import { createID } from '../utils/index';
+import { createID, filterArray } from '../utils/index';
 
 const GardenARScene = require('../js/components/GardenARScene');
 const lavObj = require('../js/res/lavender/lavender_plant.obj');
@@ -64,15 +64,16 @@ export default class ViroSample extends Component {
     });
   };
 
-  removePlantFromRenderList = () => {
+  removePlantFromRenderList = (id) => {
     this.setState((prevState) => {
       const {
-        //plantsOnScreen, 
-        plantFiles } = prevState.viroAppProps;
-
+        plantsOnScreen,
+        plantFiles
+      } = prevState.viroAppProps;
+      const filteredArray = filterArray(plantsOnScreen, id);
       return {
         viroAppProps: {
-          plantsOnScreen: [],
+          plantsOnScreen: [...filteredArray],
           plantFiles: { ...plantFiles }
         }
       };
@@ -88,7 +89,12 @@ export default class ViroSample extends Component {
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
-          viroAppProps={viroAppProps}
+
+
+          viroAppProps={{
+            ...viroAppProps,
+            removePlantFromRenderList: this.removePlantFromRenderList
+          }}
         />
         <View style={styles.buttonView}>
           <TouchableHighlight
