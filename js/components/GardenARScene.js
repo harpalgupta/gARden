@@ -11,10 +11,39 @@ import {
   // ViroConstants,
 } from 'react-viro';
 
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+import { firestoreConfig } from '../../config/index';
+
+
 import PlantObject from './PlantObject';
+
+const settings = { timestampsInSnapshots: true };
+
+firebase.initializeApp(firestoreConfig);
+firebase.firestore().settings(settings);
+const db = firebase.firestore();
 
 class GardenARScene extends Component {
   state = {};
+
+  componentDidMount = () => {
+    const docRef = db.collection('plants').doc('lavender');
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          // console.error('Document data:', doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          // console.error('No such document!');
+        }
+      })
+      .catch((error) => {
+        // console.error('Error getting document:', error);
+      });
+  }
   // this._onInitialized = this._onInitialized.bind(this);
   // _onInitialized(
   //   // reason,

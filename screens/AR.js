@@ -24,23 +24,21 @@ export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
-    viroAppProps: {
-      plantsOnScreen: [{ name: 'rose', id: 'ROSEID' }],
-      plantFiles: {
-        lavender: {
-          source: lavObj,
-          resources: [lavMtl, lavPng],
-          position: [0, 0, 0],
-          scale: [0.0007, 0.0007, 0.0007],
-          type: 'OBJ'
-        },
-        rose: {
-          source: roseObj,
-          resources: [roseMtl, rosePng],
-          position: [0, 0, 0],
-          scale: [0.007, 0.007, 0.007],
-          type: 'OBJ'
-        }
+    plantsOnScreen: [{ name: 'rose', id: 'ROSEID' }],
+    plantFiles: {
+      lavender: {
+        source: lavObj,
+        resources: [lavMtl, lavPng],
+        position: [0, 0, 0],
+        scale: [0.0007, 0.0007, 0.0007],
+        type: 'OBJ'
+      },
+      rose: {
+        source: roseObj,
+        resources: [roseMtl, rosePng],
+        position: [0, 0, 0],
+        scale: [0.007, 0.007, 0.007],
+        type: 'OBJ'
       }
     }
   };
@@ -53,13 +51,10 @@ export default class ViroSample extends Component {
 
   addPlantToRenderList = (plantSlug) => {
     this.setState((prevState) => {
-      const { plantsOnScreen, plantFiles } = prevState.viroAppProps;
+      const { plantsOnScreen } = prevState;
       const newID = createID(plantsOnScreen);
       return {
-        viroAppProps: {
-          plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: newID }],
-          plantFiles: { ...plantFiles }
-        }
+        plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: newID }],
       };
     });
   };
@@ -68,31 +63,28 @@ export default class ViroSample extends Component {
     this.setState((prevState) => {
       const {
         plantsOnScreen,
-        plantFiles
-      } = prevState.viroAppProps;
+      } = prevState;
       const filteredArray = filterArray(plantsOnScreen, id);
       return {
-        viroAppProps: {
-          plantsOnScreen: [...filteredArray],
-          plantFiles: { ...plantFiles }
-        }
+        plantsOnScreen: [...filteredArray],
       };
     });
   }
 
 
   render() {
-    const { sharedProps, menuIsShown, viroAppProps } = this.state;
+    const {
+      sharedProps, menuIsShown, plantFiles, plantsOnScreen
+    } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
-
-
           viroAppProps={{
-            ...viroAppProps,
+            plantFiles,
+            plantsOnScreen,
             removePlantFromRenderList: this.removePlantFromRenderList
           }}
         />
