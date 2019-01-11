@@ -29,4 +29,14 @@ utils.createID = (array) => {
 
 utils.filterArray = (array, id) => array.filter(plant => plant.id !== id);
 
+utils.checkForNewSlug = (slugsArray, plantsOnScreenArray) => {
+  const isNew = plantsOnScreenArray.reduce((bool, value) => {
+    if (!slugsArray.includes(value.name)) {
+      bool = true;
+    }
+    return bool;
+  }, false);
+  return isNew;
+};
+
 module.exports = utils;

@@ -25,6 +25,7 @@ const db = firebase.firestore();
 class GardenARScene extends Component {
   state = {
     // plantAttr: { source: '', resources: [], scale: [] }
+    // plantSlugs: []
   };
 
   componentDidUpdate = (prevProps) => {
