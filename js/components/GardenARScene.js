@@ -1,3 +1,4 @@
+
 /* eslint no-underscore-dangle: 0 */
 
 import React, { Component } from 'react';
@@ -40,7 +41,12 @@ class GardenARScene extends Component {
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" />
         {plantsOnScreen.map(plant => (
-          <PlantObject key={plant.id} removePlantFromRenderList={removePlantFromRenderList} filesForPlant={plantFiles[plant.name]} plantID={plant.id} />
+          <PlantObject
+            key={plant.id}
+            removePlantFromRenderList={removePlantFromRenderList}
+            filesForPlant={plantFiles[plant.name]}
+            plantID={plant.id}
+          />
         ))}
       </ViroARScene>
     );
