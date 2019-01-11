@@ -64,9 +64,11 @@ export default class ViroSample extends Component {
     });
   };
 
-  removePlantFromRenderList = (plantID) => {
+  removePlantFromRenderList = () => {
     this.setState((prevState) => {
-      const { plantsOnScreen, plantFiles } = prevState.viroAppProps;
+      const {
+        //plantsOnScreen, 
+        plantFiles } = prevState.viroAppProps;
 
       return {
         viroAppProps: {
@@ -74,13 +76,8 @@ export default class ViroSample extends Component {
           plantFiles: { ...plantFiles }
         }
       };
-
-
-
-    })
-
+    });
   }
-
 
 
   render() {
