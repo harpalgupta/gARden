@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 // import { StyleSheet } from 'react-native';
-
 import {
   ViroARScene,
   ViroAmbientLight
@@ -11,6 +10,7 @@ import {
 } from 'react-viro';
 
 import * as firebase from 'firebase';
+import { checkForNewSlug } from '../../utils';
 import 'firebase/firestore';
 import { firestoreConfig } from '../../config/index';
 
@@ -24,17 +24,16 @@ const db = firebase.firestore();
 
 class GardenARScene extends Component {
   state = {
-    // plantAttr: { source: '', resources: [], scale: [] }
-    // plantSlugs: []
+    plantAttr: { },
+    plantSlugs: []
   };
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = () => {
     const { sceneNavigator: { viroAppProps: { plantsOnScreen } } } = this.props;
-    // console.log(prevProps.sceneNavigator.viroAppProps.plantsOnScreen !== plantsOnScreen);
-    // console.log(this.props);
-    // console.log(prevProps);
-    if (prevProps.sceneNavigator.viroAppProps.plantsOnScreen !== plantsOnScreen) {
-      const docRef = db.collection('plants').doc('lavender');
+    const { plantSlugs } = this.state;
+    const isNewObj = checkForNewSlug(plantSlugs, plantsOnScreen);
+    if (isNewObj.bool) {
+      const docRef = db.collection('plants').doc(isNewObj.slugName);
 
       docRef
         .get()
@@ -43,6 +42,16 @@ class GardenARScene extends Component {
           // this.setState({});
             // const data = doc.data();
             // console.log('Document data:', doc.data());
+            const { objAttr: { source, resources, scale } } = doc.data();
+            this.setState(prevState => ({
+              plantAttr: {
+                ...prevState.plantAttr,
+                [isNewObj.slugName]: { source, resources, scale }
+              },
+              plantSlugs: [...prevState.plantSlugs, isNewObj.slugName]
+            }), () => {
+              // console.log(this.state);
+            });
           } else {
           // doc.data() will be undefined in this case
             // console.log('No such document!');

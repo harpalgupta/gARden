@@ -38,9 +38,9 @@ describe('filterArray', () => {
 
 describe('checkForNewSlug', () => {
   it('returns false if there is no new slug ', () => {
-    expect(checkForNewSlug(['lavender'], [{ name: 'lavender', id: 'fkksj4' }])).toEqual(false);
+    expect(checkForNewSlug(['lavender'], [{ name: 'lavender', id: 'fkksj4' }])).toEqual({ bool: false, slugName: null });
   });
   it('returns true if there is a new slug ', () => {
-    expect(checkForNewSlug(['lavender'], [{ name: 'lavender', id: 'fkksj4' }, { name: 'rose', id: '1FT4H6' }])).toEqual(true);
+    expect(checkForNewSlug(['lavender'], [{ name: 'lavender', id: 'fkksj4' }, { name: 'rose', id: '1FT4H6' }])).toEqual({ bool: true, slugName: 'rose' });
   });
 });
