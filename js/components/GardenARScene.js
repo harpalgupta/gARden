@@ -59,10 +59,16 @@ class GardenARScene extends Component {
         }
       });
     } else if (newArray.length !== numOfPlants) {
-      // console.log('line 69, not doing api');
-      // FIND OUT HOW TO ADD NEW ONE??
+      let newTypeToRender = '';
+      Object.keys(plantsOnScreen).forEach((plantType) => {
+        if (
+          plantsOnScreen[plantType] !== newArray.filter(plant => plant.name === plantType).length
+        ) {
+          newTypeToRender = plantType;
+        }
+      });
       this.setState((prevState) => {
-        const newPlant = { name: 'rose', id: createID(prevState.newArray) };
+        const newPlant = { name: newTypeToRender, id: createID(prevState.newArray) };
         return { newArray: [...prevState.newArray, newPlant] };
       });
     }
