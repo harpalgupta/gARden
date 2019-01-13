@@ -17,7 +17,7 @@ class PlantObject extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const { filesForPlant } = this.props;
     const { isInFocus } = this.state;
     return (
