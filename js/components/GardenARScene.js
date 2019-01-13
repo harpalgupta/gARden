@@ -3,44 +3,81 @@
 import React, { Component } from 'react';
 
 // import { StyleSheet } from 'react-native';
-
 import {
   ViroARScene,
   ViroAmbientLight
   // ViroConstants,
 } from 'react-viro';
 
+import { checkForNewSlug } from '../../utils';
+import 'firebase/firestore';
+import { firebase } from '../../config/index';
+
 import PlantObject from './PlantObject';
 
-class GardenARScene extends Component {
-  state = {};
-  // this._onInitialized = this._onInitialized.bind(this);
-  // _onInitialized(
-  //   // reason,
-  //   state
-  // ) {
-  //   if (state === ViroConstants.TRACKING_NORMAL) {
-  //     this.setState({
-  //       // text: 'Hello World!'
-  //     });
-  //   } else if (state === ViroConstants.TRACKING_NONE) {
-  //     // Handle loss of tracking
-  //   }
-  // }
+const db = firebase.firestore();
 
-  //       onTrackingUpdated={this._onInitialized} as props in VireARScene
+class GardenARScene extends Component {
+  state = {
+    plantFiles: {},
+    plantSlugs: [],
+    newArray: []
+  };
+
+  componentDidUpdate = () => {
+    const {
+      sceneNavigator: {
+        viroAppProps: { plantsOnScreen }
+      }
+    } = this.props;
+    const { newArray, plantSlugs } = this.state;
+    const isNewObj = checkForNewSlug(plantSlugs, plantsOnScreen);
+    const { bool, slugName } = isNewObj;
+    if (bool && newArray !== plantsOnScreen) {
+      const docRef = db.collection('plants').doc(slugName);
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          const {
+            objAttr: { obj, texture, scale }
+          } = doc.data();
+          this.setState(prevState => ({
+            plantFiles: {
+              ...prevState.plantFiles,
+              [isNewObj.slugName]: { obj, texture, scale }
+            },
+            plantSlugs: [...prevState.plantSlugs, isNewObj.slugName]
+          }));
+        } else {
+          // doc.data() will be undefined in this case
+          // console.log('No such document!');
+        }
+      });
+    } else if (newArray !== plantsOnScreen) {
+      // console.log('line 69, not doing api');
+      this.setState(() => ({
+        newArray: plantsOnScreen
+      }));
+    }
+  };
 
   render() {
     const {
       sceneNavigator: {
-        viroAppProps: { plantFiles, plantsOnScreen, removePlantFromRenderList }
+        viroAppProps: { removePlantFromRenderList }
       }
     } = this.props;
+    const { newArray, plantFiles } = this.state;
     return (
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" />
-        {plantsOnScreen.map(plant => (
-          <PlantObject key={plant.id} removePlantFromRenderList={removePlantFromRenderList} filesForPlant={plantFiles[plant.name]} plantID={plant.id} />
+        {newArray.map(plant => (
+          <PlantObject
+            key={plant.id}
+            removePlantFromRenderList={removePlantFromRenderList}
+            filesForPlant={plantFiles[plant.name]}
+            plantID={plant.id}
+            plantName={plant.name}
+          />
         ))}
       </ViroARScene>
     );
