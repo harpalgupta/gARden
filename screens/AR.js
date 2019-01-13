@@ -54,23 +54,20 @@ export default class ViroSample extends Component {
       const { plantsOnScreen } = prevState;
       const newID = createID(plantsOnScreen);
       return {
-        plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: newID }],
+        plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: newID }]
       };
     });
   };
 
   removePlantFromRenderList = (id) => {
     this.setState((prevState) => {
-      const {
-        plantsOnScreen,
-      } = prevState;
+      const { plantsOnScreen } = prevState;
       const filteredArray = filterArray(plantsOnScreen, id);
       return {
-        plantsOnScreen: [...filteredArray],
+        plantsOnScreen: [...filteredArray]
       };
     });
-  }
-
+  };
 
   render() {
     const {

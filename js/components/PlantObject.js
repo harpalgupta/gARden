@@ -14,29 +14,28 @@ class PlantObject extends Component {
   handleDeleteClick = () => {
     const { removePlantFromRenderList, plantID } = this.props;
     removePlantFromRenderList(plantID);
-  }
-
+  };
 
   render() {
+    console.log(this.props);
     const { filesForPlant } = this.props;
     const { isInFocus } = this.state;
     return (
       <ViroNode
         position={[0, -1, -1]}
         dragType="FixedToWorld"
-        onDrag={() => { }}
+        onDrag={() => {}}
         onClick={this.toggleIsInFocus}
       >
         <Viro3DObject
           source={filesForPlant.source}
           resources={filesForPlant.resources}
-          position={filesForPlant.position}
+          position={[0, 0, 0]}
           scale={filesForPlant.scale}
-          type={filesForPlant.type}
+          type="OBJ"
         />
         {isInFocus && (
           <ViroQuad
-
             // source={{ uri: 'http://www.stickpng.com/assets/images/580b57fbd9996e24bc43bee1.png' }}
             height={0.2}
             width={0.2}
