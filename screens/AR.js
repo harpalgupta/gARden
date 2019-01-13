@@ -6,7 +6,7 @@ import {
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
-import { createID, filterArray } from '../utils/index';
+// import { filterArray } from '../utils/index';
 
 const home = require('../js/res/home.png');
 const menu = require('../js/res/menu.png');
@@ -17,7 +17,7 @@ export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
-    plantsOnScreen: []
+    plantsOnScreen: {}
   };
 
   toggleMenu = () => {
@@ -27,21 +27,49 @@ export default class ViroSample extends Component {
   };
 
   addPlantToRenderList = (plantSlug) => {
-    this.setState((prevState) => {
-      const { plantsOnScreen } = prevState;
-      const newID = createID(plantsOnScreen);
-      return {
-        plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: newID }]
-      };
-    });
+    this.setState(
+      (prevState) => {
+        const { plantsOnScreen } = prevState;
+        // const newID = createID(plantsOnScreen);
+        if (plantsOnScreen[plantSlug]) {
+          return {
+            plantsOnScreen: {
+              ...plantsOnScreen,
+              [plantSlug]: plantsOnScreen[plantSlug] + 1
+            }
+          };
+        }
+        return {
+          plantsOnScreen: {
+            ...plantsOnScreen,
+            [plantSlug]: 1
+          }
+        };
+      },
+      () => {
+        // console.log(this.state.plantsOnScreen, '<<< state');
+      }
+    );
   };
 
-  removePlantFromRenderList = (id) => {
+  // removePlantFromRenderList = (id) => {
+  //   this.setState((prevState) => {
+  //     const { plantsOnScreen } = prevState;
+  //     const filteredArray = filterArray(plantsOnScreen, id);
+  //     return {
+  //       plantsOnScreen: [...filteredArray]
+  //     };
+  //   });
+  // };
+
+  lowerPlantCounterByType = (plantType) => {
     this.setState((prevState) => {
       const { plantsOnScreen } = prevState;
-      const filteredArray = filterArray(plantsOnScreen, id);
       return {
-        plantsOnScreen: [...filteredArray]
+        plantsOnScreen: {
+          ...plantsOnScreen,
+          [plantType]: plantsOnScreen[plantType] - 1
+        }
       };
     });
   };
@@ -56,7 +84,7 @@ export default class ViroSample extends Component {
           initialScene={{ scene: GardenARScene }}
           viroAppProps={{
             plantsOnScreen,
-            removePlantFromRenderList: this.removePlantFromRenderList
+            lowerPlantCounterByType: this.lowerPlantCounterByType
           }}
         />
         <View style={styles.buttonView}>

@@ -9,7 +9,7 @@ import {
   // ViroConstants,
 } from 'react-viro';
 
-import { checkForNewSlug } from '../../utils';
+import { checkForNewSlug, createID, filterArray } from '../../utils';
 import 'firebase/firestore';
 import { firebase } from '../../config/index';
 
@@ -30,9 +30,15 @@ class GardenARScene extends Component {
         viroAppProps: { plantsOnScreen }
       }
     } = this.props;
-    const { newArray, plantSlugs } = this.state;
-    const isNewObj = checkForNewSlug(plantSlugs, plantsOnScreen);
+    const { newArray, plantFiles } = this.state;
+
+    const numOfPlants = Object.values(plantsOnScreen).reduce((acc, val) => acc + val, 0);
+    // console.log(numOfPlants);
+
+    const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantsOnScreen));
     const { bool, slugName } = isNewObj;
+    // const numOfPlants = Object.values(plantsOnScreen).reduce((acc, val) => acc + val, 0);
+    // console.log(numOfPlants);
     if (bool && newArray !== plantsOnScreen) {
       const docRef = db.collection('plants').doc(slugName);
       docRef.get().then((doc) => {
@@ -52,18 +58,36 @@ class GardenARScene extends Component {
           // console.log('No such document!');
         }
       });
-    } else if (newArray !== plantsOnScreen) {
-      // console.log('line 69, not doing api');
-      this.setState(() => ({
-        newArray: plantsOnScreen
-      }));
+    } else if (newArray.length !== numOfPlants) {
+      let newTypeToRender = '';
+      Object.keys(plantsOnScreen).forEach((plantType) => {
+        if (
+          plantsOnScreen[plantType] !== newArray.filter(plant => plant.name === plantType).length
+        ) {
+          newTypeToRender = plantType;
+        }
+      });
+      this.setState((prevState) => {
+        const newPlant = { name: newTypeToRender, id: createID(prevState.newArray) };
+        return { newArray: [...prevState.newArray, newPlant] };
+      });
     }
+  };
+
+  removePlantFromRenderList = (id) => {
+    this.setState((prevState) => {
+      const { newArray } = prevState;
+      const filteredArray = filterArray(newArray, id);
+      return {
+        newArray: [...filteredArray]
+      };
+    });
   };
 
   render() {
     const {
       sceneNavigator: {
-        viroAppProps: { removePlantFromRenderList }
+        viroAppProps: { lowerPlantCounterByType }
       }
     } = this.props;
     const { newArray, plantFiles } = this.state;
@@ -73,10 +97,11 @@ class GardenARScene extends Component {
         {newArray.map(plant => (
           <PlantObject
             key={plant.id}
-            removePlantFromRenderList={removePlantFromRenderList}
+            removePlantFromRenderList={this.removePlantFromRenderList}
             filesForPlant={plantFiles[plant.name]}
             plantID={plant.id}
             plantName={plant.name}
+            lowerPlantCounterByType={lowerPlantCounterByType}
           />
         ))}
       </ViroARScene>

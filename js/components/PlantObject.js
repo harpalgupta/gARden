@@ -16,8 +16,11 @@ class PlantObject extends Component {
   };
 
   handleDeleteClick = () => {
-    const { removePlantFromRenderList, plantID } = this.props;
+    const {
+      removePlantFromRenderList, plantID, plantName, lowerPlantCounterByType
+    } = this.props;
     removePlantFromRenderList(plantID);
+    lowerPlantCounterByType(plantName);
   };
 
   render() {
