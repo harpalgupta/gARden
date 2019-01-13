@@ -6,7 +6,7 @@ import {
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
-import { filterArray } from '../utils/index';
+// import { filterArray } from '../utils/index';
 
 const GardenARScene = require('../js/components/GardenARScene');
 
@@ -49,12 +49,24 @@ export default class ViroSample extends Component {
     );
   };
 
-  removePlantFromRenderList = (id) => {
+  // removePlantFromRenderList = (id) => {
+  //   this.setState((prevState) => {
+  //     const { plantsOnScreen } = prevState;
+  //     const filteredArray = filterArray(plantsOnScreen, id);
+  //     return {
+  //       plantsOnScreen: [...filteredArray]
+  //     };
+  //   });
+  // };
+
+  lowerPlantCounterByType = (plantType) => {
     this.setState((prevState) => {
       const { plantsOnScreen } = prevState;
-      const filteredArray = filterArray(plantsOnScreen, id);
       return {
-        plantsOnScreen: [...filteredArray]
+        plantsOnScreen: {
+          ...plantsOnScreen,
+          [plantType]: plantsOnScreen[plantType] - 1
+        }
       };
     });
   };
@@ -69,7 +81,7 @@ export default class ViroSample extends Component {
           initialScene={{ scene: GardenARScene }}
           viroAppProps={{
             plantsOnScreen,
-            removePlantFromRenderList: this.removePlantFromRenderList
+            lowerPlantCounterByType: this.lowerPlantCounterByType
           }}
         />
         <View style={styles.buttonView}>

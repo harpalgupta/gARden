@@ -9,7 +9,7 @@ import {
   // ViroConstants,
 } from 'react-viro';
 
-import { checkForNewSlug, createID } from '../../utils';
+import { checkForNewSlug, createID, filterArray } from '../../utils';
 import 'firebase/firestore';
 import { firebase } from '../../config/index';
 
@@ -74,10 +74,20 @@ class GardenARScene extends Component {
     }
   };
 
+  removePlantFromRenderList = (id) => {
+    this.setState((prevState) => {
+      const { newArray } = prevState;
+      const filteredArray = filterArray(newArray, id);
+      return {
+        newArray: [...filteredArray]
+      };
+    });
+  };
+
   render() {
     const {
       sceneNavigator: {
-        viroAppProps: { removePlantFromRenderList }
+        viroAppProps: { lowerPlantCounterByType }
       }
     } = this.props;
     const { newArray, plantFiles } = this.state;
@@ -87,10 +97,11 @@ class GardenARScene extends Component {
         {newArray.map(plant => (
           <PlantObject
             key={plant.id}
-            removePlantFromRenderList={removePlantFromRenderList}
+            removePlantFromRenderList={this.removePlantFromRenderList}
             filesForPlant={plantFiles[plant.name]}
             plantID={plant.id}
             plantName={plant.name}
+            lowerPlantCounterByType={lowerPlantCounterByType}
           />
         ))}
       </ViroARScene>
