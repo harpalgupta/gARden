@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {
-  Text, View, StyleSheet, TouchableHighlight
+  Text, View, StyleSheet, TouchableHighlight, Image
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
 import { createID, filterArray } from '../utils/index';
+
+const Home = require('../js/res/home.png');
 
 const GardenARScene = require('../js/components/GardenARScene');
 
@@ -64,7 +66,7 @@ export default class ViroSample extends Component {
             }}
             underlayColor="#00000000"
           >
-            <Text style={{ color: 'white' }}>Back</Text>
+            <Image style={styles.icon} source={Home} />
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.button}
@@ -92,7 +94,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(52,52,52,0)'
   },
-  button: { backgroundColor: 'rgba(10,10,10,0)', height: 50, width: 50 }
+  button: { backgroundColor: 'rgba(10,10,10,0)', height: 50, width: 50 },
+  icon: {
+    width: 60,
+    height: 60
+  }
 });
 
 module.exports = ViroSample;
