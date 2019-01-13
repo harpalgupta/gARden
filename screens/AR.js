@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import {
-  // AppRegistry,
-  Text,
-  View,
-  StyleSheet,
-  TouchableHighlight
+  Text, View, StyleSheet, TouchableHighlight
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -13,34 +9,12 @@ import PlantMenu from '../js/components/PlantMenu';
 import { createID, filterArray } from '../utils/index';
 
 const GardenARScene = require('../js/components/GardenARScene');
-const lavObj = require('../js/res/lavender/lavender_plant.obj');
-const lavMtl = require('../js/res/lavender/lavender_plant.mtl');
-const lavPng = require('../js/res/lavender/lavender_plant.png');
-const roseObj = require('../js/res/rose/rose.obj');
-const roseMtl = require('../js/res/rose/rose.mtl');
-const rosePng = require('../js/res/rose/rose.jpg');
 
 export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
-    plantsOnScreen: [],
-    plantFiles: {
-      lavender: {
-        source: lavObj,
-        resources: [lavMtl, lavPng],
-        position: [0, 0, 0],
-        scale: [0.0007, 0.0007, 0.0007],
-        type: 'OBJ'
-      },
-      rose: {
-        source: roseObj,
-        resources: [roseMtl, rosePng],
-        position: [0, 0, 0],
-        scale: [0.007, 0.007, 0.007],
-        type: 'OBJ'
-      }
-    }
+    plantsOnScreen: []
   };
 
   toggleMenu = () => {
@@ -70,9 +44,7 @@ export default class ViroSample extends Component {
   };
 
   render() {
-    const {
-      sharedProps, menuIsShown, plantFiles, plantsOnScreen
-    } = this.state;
+    const { sharedProps, menuIsShown, plantsOnScreen } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
@@ -80,7 +52,6 @@ export default class ViroSample extends Component {
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
           viroAppProps={{
-            plantFiles,
             plantsOnScreen,
             removePlantFromRenderList: this.removePlantFromRenderList
           }}

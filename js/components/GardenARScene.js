@@ -9,23 +9,18 @@ import {
   // ViroConstants,
 } from 'react-viro';
 
-import * as firebase from 'firebase';
-// import { checkForNewSlug } from '../../utils';
+import { checkForNewSlug } from '../../utils';
 import 'firebase/firestore';
-import { firestoreConfig } from '../../config/index';
+import { firebase } from '../../config/index';
 
 import PlantObject from './PlantObject';
 
-const settings = { timestampsInSnapshots: true };
-
-firebase.initializeApp(firestoreConfig);
-firebase.firestore().settings(settings);
-// const db = firebase.firestore();
+const db = firebase.firestore();
 
 class GardenARScene extends Component {
   state = {
-    // plantFiles: { lavender: { obj: '', texture: [], scale: [] } },
-    // plantSlugs: ['rose', 'lavender'],
+    plantFiles: {},
+    plantSlugs: [],
     newArray: []
   };
 
@@ -35,34 +30,30 @@ class GardenARScene extends Component {
         viroAppProps: { plantsOnScreen }
       }
     } = this.props;
-    const { newArray } = this.state;
-    // const isNewObj = checkForNewSlug(plantSlugs, plantsOnScreen);
-    // if (isNewObj.bool) {
-    //   const docRef = db.collection('plants').doc(isNewObj.slugName);
-    //   docRef.get().then((doc) => {
-    //     if (doc.exists) {
-    //       const {
-    //         objAttr: { obj, texture, scale }
-    //       } = doc.data();
-    //       this.setState(
-    //         prevState => ({
-    //           plantFiles: {
-    //             ...prevState.plantFiles,
-    //             [isNewObj.slugName]: { obj, texture, scale }
-    //           },
-    //           plantSlugs: [...prevState.plantSlugs, isNewObj.slugName]
-    //         }),
-    //         () => {
-    //           console.log(this.state);
-    //         }
-    //       );
-    //     } else {
-    //       // doc.data() will be undefined in this case
-    //       // console.log('No such document!');
-    //     }
-    //   });
-    // }
-    if (newArray !== plantsOnScreen) {
+    const { newArray, plantSlugs } = this.state;
+    const isNewObj = checkForNewSlug(plantSlugs, plantsOnScreen);
+    const { bool, slugName } = isNewObj;
+    if (bool && newArray !== plantsOnScreen) {
+      const docRef = db.collection('plants').doc(slugName);
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          const {
+            objAttr: { obj, texture, scale }
+          } = doc.data();
+          this.setState(prevState => ({
+            plantFiles: {
+              ...prevState.plantFiles,
+              [isNewObj.slugName]: { obj, texture, scale }
+            },
+            plantSlugs: [...prevState.plantSlugs, isNewObj.slugName]
+          }));
+        } else {
+          // doc.data() will be undefined in this case
+          // console.log('No such document!');
+        }
+      });
+    } else if (newArray !== plantsOnScreen) {
+      // console.log('line 69, not doing api');
       this.setState(() => ({
         newArray: plantsOnScreen
       }));
@@ -72,10 +63,10 @@ class GardenARScene extends Component {
   render() {
     const {
       sceneNavigator: {
-        viroAppProps: { removePlantFromRenderList, plantFiles }
+        viroAppProps: { removePlantFromRenderList }
       }
     } = this.props;
-    const { newArray } = this.state;
+    const { newArray, plantFiles } = this.state;
     return (
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" />
@@ -83,9 +74,9 @@ class GardenARScene extends Component {
           <PlantObject
             key={plant.id}
             removePlantFromRenderList={removePlantFromRenderList}
-            // filesForPlant={plantFiles[plant.name]}
             filesForPlant={plantFiles[plant.name]}
             plantID={plant.id}
+            plantName={plant.name}
           />
         ))}
       </ViroARScene>

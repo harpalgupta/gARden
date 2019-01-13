@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import { ViroNode, Viro3DObject, ViroQuad } from 'react-viro';
+import {
+  ViroNode, Viro3DObject, ViroQuad, ViroMaterials
+} from 'react-viro';
 
 class PlantObject extends Component {
   state = {
@@ -17,9 +19,15 @@ class PlantObject extends Component {
   };
 
   render() {
-    // console.log(this.props);
-    const { filesForPlant } = this.props;
+    const { filesForPlant, plantName } = this.props;
     const { isInFocus } = this.state;
+    ViroMaterials.createMaterials({
+      [plantName]: {
+        shininess: 2.0,
+        lightingModel: 'Lambert',
+        diffuseTexture: { uri: filesForPlant.texture[0] }
+      }
+    });
     return (
       <ViroNode
         position={[0, -1, -1]}
@@ -28,15 +36,14 @@ class PlantObject extends Component {
         onClick={this.toggleIsInFocus}
       >
         <Viro3DObject
-          source={filesForPlant.source}
-          resources={filesForPlant.resources}
+          source={{ uri: filesForPlant.obj }}
+          materials={[plantName]}
           position={[0, 0, 0]}
           scale={filesForPlant.scale}
           type="OBJ"
         />
         {isInFocus && (
           <ViroQuad
-            // source={{ uri: 'http://www.stickpng.com/assets/images/580b57fbd9996e24bc43bee1.png' }}
             height={0.2}
             width={0.2}
             onClick={this.handleDeleteClick}
