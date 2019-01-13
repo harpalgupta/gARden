@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "prestart": "./node_modules/react-viro/bin/run_ngrok.sh",
+    "prestart": "./node_modules/react-viro/bin/run_ngrok.sh && ./getip.sh",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "lint:fix": "eslint --fix ./"
@@ -11,10 +11,11 @@
   "dependencies": {
     "eslint-config-airbnb": "^17.1.0",
     "firebase": "^5.7.2",
-    "react": "16.3.1",
-    "react-native": "0.55.1",
+    "metro-config": "^0.51.1",
+    "react": "16.6.1",
+    "react-native": "0.57.7",
     "react-navigation": "^3.0.9",
-    "react-viro": "2.12.0"
+    "react-viro": "2.13.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -28,10 +29,14 @@
     "husky": "^1.3.1",
     "jest": "23.6.0",
     "ngrok": "^3.1.0",
-    "react-test-renderer": "16.3.1"
+    "react-test-renderer": "16.6.1",
+    "metro-react-native-babel-preset": "0.51.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    }
   },
   "husky": {
     "hooks": {
