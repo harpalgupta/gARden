@@ -4,6 +4,8 @@ import {
   ViroNode, Viro3DObject, ViroQuad, ViroMaterials
 } from 'react-viro';
 
+const deleteButton = require('../res/deleteButton.png');
+
 class PlantObject extends Component {
   state = {
     isInFocus: false
@@ -26,6 +28,11 @@ class PlantObject extends Component {
         shininess: 2.0,
         lightingModel: 'Lambert',
         diffuseTexture: { uri: filesForPlant.texture[0] }
+      },
+      deleteButton: {
+        shininess: 2.0,
+        lightingModel: 'Lambert',
+        diffuseTexture: deleteButton
       }
     });
     return (
@@ -48,6 +55,7 @@ class PlantObject extends Component {
             width={0.2}
             onClick={this.handleDeleteClick}
             position={[0, 0.7, 0]}
+            materials={['deleteButton']}
           />
         )}
       </ViroNode>
