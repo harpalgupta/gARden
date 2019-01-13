@@ -9,7 +9,7 @@ import {
   // ViroConstants,
 } from 'react-viro';
 
-import { checkForNewSlug } from '../../utils';
+import { checkForNewSlug, createID } from '../../utils';
 import 'firebase/firestore';
 import { firebase } from '../../config/index';
 
@@ -30,9 +30,15 @@ class GardenARScene extends Component {
         viroAppProps: { plantsOnScreen }
       }
     } = this.props;
-    const { newArray, plantSlugs } = this.state;
-    const isNewObj = checkForNewSlug(plantSlugs, plantsOnScreen);
+    const { newArray, plantFiles } = this.state;
+
+    const numOfPlants = Object.values(plantsOnScreen).reduce((acc, val) => acc + val, 0);
+    // console.log(numOfPlants);
+
+    const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantsOnScreen));
     const { bool, slugName } = isNewObj;
+    // const numOfPlants = Object.values(plantsOnScreen).reduce((acc, val) => acc + val, 0);
+    // console.log(numOfPlants);
     if (bool && newArray !== plantsOnScreen) {
       const docRef = db.collection('plants').doc(slugName);
       docRef.get().then((doc) => {
@@ -52,11 +58,13 @@ class GardenARScene extends Component {
           // console.log('No such document!');
         }
       });
-    } else if (newArray !== plantsOnScreen) {
+    } else if (newArray.length !== numOfPlants) {
       // console.log('line 69, not doing api');
-      this.setState(() => ({
-        newArray: plantsOnScreen
-      }));
+      // FIND OUT HOW TO ADD NEW ONE??
+      this.setState((prevState) => {
+        const newPlant = { name: 'rose', id: createID(prevState.newArray) };
+        return { newArray: [...prevState.newArray, newPlant] };
+      });
     }
   };
 

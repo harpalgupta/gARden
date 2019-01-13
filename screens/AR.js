@@ -6,7 +6,7 @@ import {
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
-import { createID, filterArray } from '../utils/index';
+import { filterArray } from '../utils/index';
 
 const GardenARScene = require('../js/components/GardenARScene');
 
@@ -14,7 +14,7 @@ export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
-    plantsOnScreen: []
+    plantsOnScreen: {}
   };
 
   toggleMenu = () => {
@@ -24,13 +24,29 @@ export default class ViroSample extends Component {
   };
 
   addPlantToRenderList = (plantSlug) => {
-    this.setState((prevState) => {
-      const { plantsOnScreen } = prevState;
-      const newID = createID(plantsOnScreen);
-      return {
-        plantsOnScreen: [...plantsOnScreen, { name: plantSlug, id: newID }]
-      };
-    });
+    this.setState(
+      (prevState) => {
+        const { plantsOnScreen } = prevState;
+        // const newID = createID(plantsOnScreen);
+        if (plantsOnScreen[plantSlug]) {
+          return {
+            plantsOnScreen: {
+              ...plantsOnScreen,
+              [plantSlug]: plantsOnScreen[plantSlug] + 1
+            }
+          };
+        }
+        return {
+          plantsOnScreen: {
+            ...plantsOnScreen,
+            [plantSlug]: 1
+          }
+        };
+      },
+      () => {
+        // console.log(this.state.plantsOnScreen, '<<< state');
+      }
+    );
   };
 
   removePlantFromRenderList = (id) => {

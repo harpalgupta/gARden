@@ -1,5 +1,9 @@
 import {
-  createID, getNumfrom65to90, checkUniqueID, filterArray, checkForNewSlug
+  createID,
+  getNumfrom65to90,
+  checkUniqueID,
+  filterArray
+  // checkForNewSlug
 } from '../utils/index';
 
 describe('createID', () => {
@@ -28,19 +32,45 @@ describe('createID', () => {
 
 describe('filterArray', () => {
   it('returns array with length one less than input array', () => {
-    expect(filterArray([{ name: 'rose', id: 'test34' }, { name: 'rose', id: 'test12' }, { name: 'rose', id: 'test35' }], 'test12')).toHaveLength(2);
+    expect(
+      filterArray(
+        [
+          { name: 'rose', id: 'test34' },
+          { name: 'rose', id: 'test12' },
+          { name: 'rose', id: 'test35' }
+        ],
+        'test12'
+      )
+    ).toHaveLength(2);
   });
 
   it('returns array with no objects with specified id', () => {
-    expect(filterArray([{ name: 'rose', id: 'test34' }, { name: 'rose', id: 'test12' }, { name: 'rose', id: 'test35' }], 'test12')).toEqual([{ name: 'rose', id: 'test34' }, { name: 'rose', id: 'test35' }]);
+    expect(
+      filterArray(
+        [
+          { name: 'rose', id: 'test34' },
+          { name: 'rose', id: 'test12' },
+          { name: 'rose', id: 'test35' }
+        ],
+        'test12'
+      )
+    ).toEqual([{ name: 'rose', id: 'test34' }, { name: 'rose', id: 'test35' }]);
   });
 });
 
-describe('checkForNewSlug', () => {
-  it('returns false if there is no new slug ', () => {
-    expect(checkForNewSlug(['lavender'], [{ name: 'lavender', id: 'fkksj4' }])).toEqual({ bool: false, slugName: null });
-  });
-  it('returns true if there is a new slug ', () => {
-    expect(checkForNewSlug(['lavender'], [{ name: 'lavender', id: 'fkksj4' }, { name: 'rose', id: '1FT4H6' }])).toEqual({ bool: true, slugName: 'rose' });
-  });
-});
+// describe('checkForNewSlug', () => {
+//   it('returns false if there is no new slug ', () => {
+//     expect(checkForNewSlug(['lavender'], [{ name: 'lavender', id: 'fkksj4' }])).toEqual({
+//       bool: false,
+//       slugName: null
+//     });
+//   });
+//   it('returns true if there is a new slug ', () => {
+//     expect(
+//       checkForNewSlug(
+//         ['lavender'],
+//         [{ name: 'lavender', id: 'fkksj4' }, { name: 'rose', id: '1FT4H6' }]
+//       )
+//     ).toEqual({ bool: true, slugName: 'rose' });
+//   });
+// });
