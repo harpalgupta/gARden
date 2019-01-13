@@ -51,11 +51,12 @@ class PlantObject extends Component {
         />
         {isInFocus && (
           <ViroQuad
-            height={0.2}
-            width={0.2}
+            height={0.15}
+            width={0.15}
             onClick={this.handleDeleteClick}
             position={[0, 0.7, 0]}
             materials={['deleteButton']}
+            transformBehaviors="billboardY"
           />
         )}
       </ViroNode>
