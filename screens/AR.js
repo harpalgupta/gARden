@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, TouchableHighlight, Image
+  View, StyleSheet, TouchableHighlight, Image, Text
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -17,6 +17,7 @@ export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
+    isARLoading: false,
     plantTypeCounter: {}
   };
 
@@ -25,6 +26,24 @@ export default class ViroSample extends Component {
       menuIsShown: !prevState.menuIsShown
     }));
   };
+
+  makeIsARLoadingTrue = () => {
+    const { isARLoading } = this.state;
+    if (isARLoading !== true) {
+      this.setState({
+        isARLoading: true
+      });
+    }
+  }
+
+  makeIsARLoadingFalse = () => {
+    const { isARLoading } = this.state;
+    if (isARLoading !== false) {
+      this.setState({
+        isARLoading: false
+      });
+    }
+  }
 
   addPlantToRenderList = (plantSlug) => {
     this.setState(
@@ -75,16 +94,22 @@ export default class ViroSample extends Component {
   };
 
   render() {
-    const { sharedProps, menuIsShown, plantTypeCounter } = this.state;
+    const {
+      sharedProps, menuIsShown, plantTypeCounter, isARLoading
+    } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
+        {isARLoading && (<Text>jlkjlkj</Text>)}
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
           viroAppProps={{
             plantTypeCounter,
-            lowerPlantCounterByType: this.lowerPlantCounterByType
+            lowerPlantCounterByType: this.lowerPlantCounterByType,
+            makeIsARLoadingTrue: this.makeIsARLoadingTrue,
+            makeIsARLoadingFalse: this.makeIsARLoadingFalse,
+
           }}
         />
         <View style={styles.buttonView}>
