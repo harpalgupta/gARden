@@ -16,4 +16,12 @@ api.getPlantAttributes = async (slugParam) => {
   return plantAttr;
 };
 
+api.getPlantInfo = async (slugParam) => {
+  const plantInfo = await db
+    .collection('plants')
+    .doc(slugParam)
+    .get();
+  return plantInfo;
+};
+
 export default api;

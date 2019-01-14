@@ -6,6 +6,7 @@ import {
   FlatList
 } from 'react-native';
 import FadeInView from './FadeInView';
+import InfoCard from './InfoCard';
 
 import PlantCard from './PlantCard';
 import api from '../api';
@@ -14,7 +15,8 @@ class PlantMenu extends Component {
   state = {
     data: [
       // { key: 'lavender' }, { key: 'rose' }
-    ]
+    ],
+    info: null
   };
 
   componentDidMount = () => {
@@ -30,9 +32,13 @@ class PlantMenu extends Component {
     });
   };
 
+  toggleInfoPage = (plantName) => {
+    this.setState({ info: plantName });
+  };
+
   render() {
     const { addPlantToRenderList } = this.props;
-    const { data } = this.state;
+    const { data, info } = this.state;
     return (
       <View style={styles.menu}>
         <FadeInView
@@ -44,12 +50,20 @@ class PlantMenu extends Component {
             backgroundColor: 'powderblue'
           }}
         >
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <PlantCard plantName={item.key} addPlantToRenderList={addPlantToRenderList} />
-            )}
-          />
+          {!info ? (
+            <FlatList
+              data={data}
+              renderItem={({ item }) => (
+                <PlantCard
+                  plantName={item.key}
+                  toggleInfoPage={this.toggleInfoPage}
+                  addPlantToRenderList={addPlantToRenderList}
+                />
+              )}
+            />
+          ) : (
+            <InfoCard plantName={info} toggleInfoPage={this.toggleInfoPage} />
+          )}
         </FadeInView>
       </View>
     );
