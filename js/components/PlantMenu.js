@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     width: 200,
     alignItems: 'center',
-    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
     position: 'absolute',
     right: 0,
     height: '100%'
