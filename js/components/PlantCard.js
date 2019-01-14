@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Text, View, Button, Image
+  Text, View, Button
 } from 'react-native';
 
 const PlantCard = (props) => {
@@ -14,8 +14,8 @@ const PlantCard = (props) => {
     <View>
       <Text>{plantName}</Text>
       <Button title={`Add ${plantName}`} onPress={handleClick} />
-      <Image source={{ uri: 'https://bootdey.com/img/Content/avatar/avatar6.png' }} />
-      <Text>Icon</Text>
+
+
     </View>
   );
 };
