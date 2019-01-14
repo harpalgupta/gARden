@@ -16,7 +16,6 @@ import PlantObject from './PlantObject';
 class GardenARScene extends Component {
   state = {
     plantFiles: {},
-    plantSlugs: [],
     plantsToRender: []
   };
 
@@ -70,8 +69,7 @@ class GardenARScene extends Component {
           plantFiles: {
             ...prevState.plantFiles,
             [slugName]: { obj, texture, scale }
-          },
-          plantSlugs: [...prevState.plantSlugs, slugName]
+          }
         }));
       } else {
         // doc.data() will be undefined in this case
