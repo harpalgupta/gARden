@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, TouchableHighlight, Image, Text, Button
+  View, StyleSheet, TouchableHighlight, Image, Text
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -96,51 +96,51 @@ export default class ViroSample extends Component {
     });
   };
 
-   _takeScreenshot = async (fileName, saveToCameraRoll) => fileName + saveToCameraRoll
 
-   render() {
-     const {
-       sharedProps, menuIsShown, plantTypeCounter, isARLoading
-     } = this.state;
-     const { navigation } = this.props;
-     return (
-       <View style={styles.containerView}>
-         {isARLoading && (<Text>jlkjlkj</Text>)}
-         <ViroARSceneNavigator
-           {...sharedProps}
-           initialScene={{ scene: GardenARScene }}
-           viroAppProps={{
-             plantTypeCounter,
-             lowerPlantCounterByType: this.lowerPlantCounterByType,
-             makeIsARLoadingTrue: this.makeIsARLoadingTrue,
-             makeIsARLoadingFalse: this.makeIsARLoadingFalse,
+  render() {
+    const {
+      sharedProps, menuIsShown, plantTypeCounter, isARLoading
+    } = this.state;
+    const { navigation } = this.props;
+    return (
+      <View style={styles.containerView}>
+        {isARLoading && (<Text>jlkjlkj</Text>)}
+        <ViroARSceneNavigator
+          {...sharedProps}
+          initialScene={{ scene: GardenARScene }}
+          viroAppProps={{
+            plantTypeCounter,
+            lowerPlantCounterByType: this.lowerPlantCounterByType,
+            makeIsARLoadingTrue: this.makeIsARLoadingTrue,
+            makeIsARLoadingFalse: this.makeIsARLoadingFalse,
 
-           }}
-         />
-         <View style={styles.buttonView}>
-           <TouchableHighlight
-             style={styles.button}
-             onPress={() => {
-               navigation.navigate('HomeScreen');
-             }}
-             underlayColor="#00000000"
-           >
-             <Image style={styles.icon} source={home} />
-           </TouchableHighlight>
-           <TouchableHighlight
-             style={styles.button}
-             onPress={this.toggleMenu}
-             underlayColor="#00000000"
-           >
-             <Image style={styles.icon} source={menu} />
-           </TouchableHighlight>
-           <Button onPress={() => this._takeScreenshot('screenshot1', true)} title="takeScreenshot" />
-         </View>
 
-         {menuIsShown && <PlantMenu addPlantToRenderList={this.addPlantToRenderList} />}
-       </View>
-     );
-   }
+          }}
+          takeScreenshot
+        />
+        <View style={styles.buttonView}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('HomeScreen');
+            }}
+            underlayColor="#00000000"
+          >
+            <Image style={styles.icon} source={home} />
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleMenu}
+            underlayColor="#00000000"
+          >
+            <Image style={styles.icon} source={menu} />
+          </TouchableHighlight>
+        </View>
+
+        {menuIsShown && <PlantMenu addPlantToRenderList={this.addPlantToRenderList} />}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
