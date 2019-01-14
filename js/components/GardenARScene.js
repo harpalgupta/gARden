@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 
-// import { StyleSheet } from 'react-native';
 import {
   ViroARScene,
   ViroAmbientLight
@@ -11,76 +10,71 @@ import {
 
 import { checkForNewSlug, createID, filterArray } from '../../utils';
 import 'firebase/firestore';
-import { firebase } from '../../config/index';
-
+import api from '../api';
 import PlantObject from './PlantObject';
-
-const db = firebase.firestore();
 
 class GardenARScene extends Component {
   state = {
     plantFiles: {},
-    plantSlugs: [],
-    newArray: []
+    plantsToRender: []
   };
 
   componentDidUpdate = () => {
     const {
       sceneNavigator: {
-        viroAppProps: { plantsOnScreen }
+        viroAppProps: { plantTypeCounter }
       }
     } = this.props;
-    const { newArray, plantFiles } = this.state;
-
-    const numOfPlants = Object.values(plantsOnScreen).reduce((acc, val) => acc + val, 0);
-    // console.log(numOfPlants);
-
-    const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantsOnScreen));
+    const { plantsToRender, plantFiles } = this.state;
+    const numOfPlants = Object.values(plantTypeCounter).reduce((acc, val) => acc + val, 0);
+    const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantTypeCounter));
     const { bool, slugName } = isNewObj;
-    // const numOfPlants = Object.values(plantsOnScreen).reduce((acc, val) => acc + val, 0);
-    // console.log(numOfPlants);
-    if (bool && newArray !== plantsOnScreen) {
-      const docRef = db.collection('plants').doc(slugName);
-      docRef.get().then((doc) => {
-        if (doc.exists) {
-          const {
-            objAttr: { obj, texture, scale }
-          } = doc.data();
-          this.setState(prevState => ({
-            plantFiles: {
-              ...prevState.plantFiles,
-              [isNewObj.slugName]: { obj, texture, scale }
-            },
-            plantSlugs: [...prevState.plantSlugs, isNewObj.slugName]
-          }));
-        } else {
-          // doc.data() will be undefined in this case
-          // console.log('No such document!');
-        }
-      });
-    } else if (newArray.length !== numOfPlants) {
+
+    if (bool && plantsToRender !== plantTypeCounter) {
+      this.fetchPlantAttributes(slugName);
+    } else if (plantsToRender.length !== numOfPlants) {
       let newTypeToRender = '';
-      Object.keys(plantsOnScreen).forEach((plantType) => {
+      Object.keys(plantTypeCounter).forEach((plantType) => {
         if (
-          plantsOnScreen[plantType] !== newArray.filter(plant => plant.name === plantType).length
+          plantTypeCounter[plantType]
+          !== plantsToRender.filter(plant => plant.name === plantType).length
         ) {
           newTypeToRender = plantType;
         }
       });
       this.setState((prevState) => {
-        const newPlant = { name: newTypeToRender, id: createID(prevState.newArray) };
-        return { newArray: [...prevState.newArray, newPlant] };
+        const newPlant = { name: newTypeToRender, id: createID(prevState.plantsToRender) };
+        return { plantsToRender: [...prevState.plantsToRender, newPlant] };
       });
     }
   };
 
   removePlantFromRenderList = (id) => {
     this.setState((prevState) => {
-      const { newArray } = prevState;
-      const filteredArray = filterArray(newArray, id);
+      const { plantsToRender } = prevState;
+      const filteredArray = filterArray(plantsToRender, id);
       return {
-        newArray: [...filteredArray]
+        plantsToRender: [...filteredArray]
       };
+    });
+  };
+
+  fetchPlantAttributes = (slugName) => {
+    api.getPlantAttributes(slugName).then((doc) => {
+      if (doc.exists) {
+        const {
+          objAttr: { obj, texture, scale }
+        } = doc.data();
+        this.setState(prevState => ({
+          plantFiles: {
+            ...prevState.plantFiles,
+            [slugName]: { obj, texture, scale }
+          }
+        }));
+      } else {
+        // doc.data() will be undefined in this case
+        // console.log('No such document!');
+      }
     });
   };
 
@@ -90,11 +84,11 @@ class GardenARScene extends Component {
         viroAppProps: { lowerPlantCounterByType }
       }
     } = this.props;
-    const { newArray, plantFiles } = this.state;
+    const { plantsToRender, plantFiles } = this.state;
     return (
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" />
-        {newArray.map(plant => (
+        {plantsToRender.map(plant => (
           <PlantObject
             key={plant.id}
             removePlantFromRenderList={this.removePlantFromRenderList}
