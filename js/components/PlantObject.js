@@ -77,6 +77,15 @@ class PlantObject extends Component {
             transformBehaviors="billboardY"
           />
         )}
+        <ViroQuad
+          height={10}
+          width={10}
+          rotation={[-90, 0, 0]}
+
+          position={[0, 0, 0]}
+          materials={['deleteButton']}
+          arShadowReceiver={true}
+        />
       </ViroNode>
     );
   }
