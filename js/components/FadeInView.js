@@ -25,7 +25,7 @@ class FadeInView extends Component {
         <Animated.View // Special animatable View
           style={{
             ...style,
-            opacity: fadeAnim, // Bind opacity to animated value
+            right: fadeAnim, // Bind opacity to animated value
           }}
         >
           {children}
