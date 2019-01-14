@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, StyleSheet } from 'react-native';
 
 const PlantCard = (props) => {
-  const { plantName, addPlantToRenderList } = props;
+  const { plantName, addPlantToRenderList, toggleInfoPage } = props;
 
   const handleClick = () => {
     addPlantToRenderList(plantName);
@@ -11,6 +11,7 @@ const PlantCard = (props) => {
   return (
     <View style={styles.plantCard}>
       <Button title={plantName} onPress={handleClick} />
+      <Button title="i" onPress={() => toggleInfoPage(plantName)} />
     </View>
   );
 };
