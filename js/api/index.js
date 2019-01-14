@@ -8,4 +8,12 @@ api.getMenuItems = async () => {
   return menuData;
 };
 
+api.getPlantAttributes = async (slugParam) => {
+  const plantAttr = await db
+    .collection('plants')
+    .doc(slugParam)
+    .get();
+  return plantAttr;
+};
+
 export default api;
