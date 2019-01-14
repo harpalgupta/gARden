@@ -17,7 +17,7 @@ class PlantMenu extends React.Component {
     ]
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     this.fetchMenuItems();
   }
 
