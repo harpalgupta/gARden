@@ -7,17 +7,48 @@ import {
 } from 'react-native';
 
 import PlantCard from './PlantCard';
+import api from '../api';
 
-const PlantMenu = ({ addPlantToRenderList }) => (
-  <View style={styles.menu}>
-    <FlatList
-      data={[{ key: 'lavender' }, { key: 'rose' }]}
-      renderItem={({ item }) => (
-        <PlantCard plantName={item.key} addPlantToRenderList={addPlantToRenderList} />
-      )}
-    />
-  </View>
-);
+
+class PlantMenu extends React.Component {
+  state = {
+    data: [
+      // { key: 'lavender' }, { key: 'rose' }
+    ]
+  }
+
+  componentDidMount = () => {
+    this.fetchMenuItems();
+  }
+
+  fetchMenuItems = () => {
+    api.getMenuItems().then(
+      (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const { data } = this.state;
+          this.setState(
+            { data: [...data, { key: doc.id }] }
+          );
+        });
+      }
+    );
+  }
+
+  render() {
+    const { addPlantToRenderList } = this.props;
+    const { data } = this.state;
+    return (
+      <View style={styles.menu}>
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <PlantCard plantName={item.key} addPlantToRenderList={addPlantToRenderList} />
+          )}
+        />
+      </View>
+    );
+  }
+}
 const styles = StyleSheet.create({
   menu: {
     backgroundColor: 'green',
