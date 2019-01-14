@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     position: 'absolute',
-    right: 0,
+    right: -150,
     height: '100%',
 
   }

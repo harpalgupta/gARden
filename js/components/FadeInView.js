@@ -12,7 +12,7 @@ class FadeInView extends Component {
       Animated.timing( // Animate over time
         fadeAnim, // The animated value to drive
         {
-          toValue: 1, // Animate to opacity: 1 (opaque)
+          toValue: 100, // Animate to opacity: 1 (opaque)
           duration: 500, // Make it take a while
         }
       ).start(); // Starts the animation
@@ -25,7 +25,7 @@ class FadeInView extends Component {
         <Animated.View // Special animatable View
           style={{
             ...style,
-            opacity: fadeAnim, // Bind opacity to animated value
+            right: fadeAnim, // Bind opacity to animated value
           }}
         >
           {children}
