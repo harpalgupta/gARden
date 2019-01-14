@@ -30,13 +30,28 @@ class PlantObject extends Component {
       [plantName]: {
         shininess: 2.0,
         lightingModel: 'Lambert',
-        diffuseTexture: { uri: filesForPlant.texture[0] }
+        diffuseTexture: { uri: filesForPlant.texture[2] }
       },
       deleteButton: {
         shininess: 2.0,
         lightingModel: 'Lambert',
         diffuseTexture: deleteButton
+      },
+      no2: {
+        shininess: 2.0,
+        lightingModel: 'Lambert',
+        diffuseTexture: { uri: filesForPlant.texture[0] }
+      },
+      no3: {
+        shininess: 2.0,
+        lightingModel: 'Lambert',
+        diffuseTexture: { uri: filesForPlant.texture[1] }
       }
+      // no4: {
+      //   shininess: 2.0,
+      //   lightingModel: 'Lambert',
+      //   diffuseTexture: { uri: filesForPlant.texture[3] }
+      // }
     });
     return (
       <ViroNode
@@ -47,7 +62,7 @@ class PlantObject extends Component {
       >
         <Viro3DObject
           source={{ uri: filesForPlant.obj }}
-          materials={[plantName]}
+          materials={[plantName, 'no2', 'no3']}
           position={[0, 0, 0]}
           scale={filesForPlant.scale}
           type="OBJ"
