@@ -22,7 +22,7 @@ class GardenARScene extends Component {
   componentDidUpdate = () => {
     const {
       sceneNavigator: {
-        viroAppProps: { plantTypeCounter }
+        viroAppProps: { plantTypeCounter, makeIsARLoadingTrue }
       }
     } = this.props;
     const { plantsToRender, plantFiles } = this.state;
@@ -31,6 +31,7 @@ class GardenARScene extends Component {
     const { bool, slugName } = isNewObj;
 
     if (bool && plantsToRender !== plantTypeCounter) {
+      makeIsARLoadingTrue();
       this.fetchPlantAttributes(slugName);
     } else if (plantsToRender.length !== numOfPlants) {
       let newTypeToRender = '';
@@ -60,6 +61,11 @@ class GardenARScene extends Component {
   };
 
   fetchPlantAttributes = (slugName) => {
+    const {
+      sceneNavigator: {
+        viroAppProps: { makeIsARLoadingFalse }
+      }
+    } = this.props;
     api.getPlantAttributes(slugName).then((doc) => {
       if (doc.exists) {
         const {
@@ -70,7 +76,9 @@ class GardenARScene extends Component {
             ...prevState.plantFiles,
             [slugName]: { obj, texture, scale }
           }
-        }));
+        }), () => {
+          makeIsARLoadingFalse();
+        });
       } else {
         // doc.data() will be undefined in this case
         // console.log('No such document!');

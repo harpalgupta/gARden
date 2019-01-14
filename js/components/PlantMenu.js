@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     position: 'absolute',
-    right: -150,
+    right: -100,
     height: '100%'
   }
 });
