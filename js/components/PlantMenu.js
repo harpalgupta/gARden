@@ -22,7 +22,11 @@ const styles = StyleSheet.create({
   menu: {
     backgroundColor: 'green',
     width: 200,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 10,
+    position: 'absolute',
+    right: 0,
+    height: '100%'
   }
 });
 
