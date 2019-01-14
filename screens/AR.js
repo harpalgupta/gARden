@@ -17,7 +17,7 @@ export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
-    plantsOnScreen: {}
+    plantTypeCounter: {}
   };
 
   toggleMenu = () => {
@@ -29,53 +29,53 @@ export default class ViroSample extends Component {
   addPlantToRenderList = (plantSlug) => {
     this.setState(
       (prevState) => {
-        const { plantsOnScreen } = prevState;
-        // const newID = createID(plantsOnScreen);
-        if (plantsOnScreen[plantSlug]) {
+        const { plantTypeCounter } = prevState;
+        // const newID = createID(plantTypeCounter);
+        if (plantTypeCounter[plantSlug]) {
           return {
-            plantsOnScreen: {
-              ...plantsOnScreen,
-              [plantSlug]: plantsOnScreen[plantSlug] + 1
+            plantTypeCounter: {
+              ...plantTypeCounter,
+              [plantSlug]: plantTypeCounter[plantSlug] + 1
             }
           };
         }
         return {
-          plantsOnScreen: {
-            ...plantsOnScreen,
+          plantTypeCounter: {
+            ...plantTypeCounter,
             [plantSlug]: 1
           }
         };
       },
       () => {
-        // console.log(this.state.plantsOnScreen, '<<< state');
+        // console.log(this.state.plantTypeCounter, '<<< state');
       }
     );
   };
 
   // removePlantFromRenderList = (id) => {
   //   this.setState((prevState) => {
-  //     const { plantsOnScreen } = prevState;
-  //     const filteredArray = filterArray(plantsOnScreen, id);
+  //     const { plantTypeCounter } = prevState;
+  //     const filteredArray = filterArray(plantTypeCounter, id);
   //     return {
-  //       plantsOnScreen: [...filteredArray]
+  //       plantTypeCounter: [...filteredArray]
   //     };
   //   });
   // };
 
   lowerPlantCounterByType = (plantType) => {
     this.setState((prevState) => {
-      const { plantsOnScreen } = prevState;
+      const { plantTypeCounter } = prevState;
       return {
-        plantsOnScreen: {
-          ...plantsOnScreen,
-          [plantType]: plantsOnScreen[plantType] - 1
+        plantTypeCounter: {
+          ...plantTypeCounter,
+          [plantType]: plantTypeCounter[plantType] - 1
         }
       };
     });
   };
 
   render() {
-    const { sharedProps, menuIsShown, plantsOnScreen } = this.state;
+    const { sharedProps, menuIsShown, plantTypeCounter } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
@@ -83,7 +83,7 @@ export default class ViroSample extends Component {
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
           viroAppProps={{
-            plantsOnScreen,
+            plantTypeCounter,
             lowerPlantCounterByType: this.lowerPlantCounterByType
           }}
         />

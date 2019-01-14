@@ -23,21 +23,21 @@ class GardenARScene extends Component {
   componentDidUpdate = () => {
     const {
       sceneNavigator: {
-        viroAppProps: { plantsOnScreen }
+        viroAppProps: { plantTypeCounter }
       }
     } = this.props;
     const { plantsToRender, plantFiles } = this.state;
-    const numOfPlants = Object.values(plantsOnScreen).reduce((acc, val) => acc + val, 0);
-    const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantsOnScreen));
+    const numOfPlants = Object.values(plantTypeCounter).reduce((acc, val) => acc + val, 0);
+    const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantTypeCounter));
     const { bool, slugName } = isNewObj;
 
-    if (bool && plantsToRender !== plantsOnScreen) {
+    if (bool && plantsToRender !== plantTypeCounter) {
       this.fetchPlantAttributes(slugName);
     } else if (plantsToRender.length !== numOfPlants) {
       let newTypeToRender = '';
-      Object.keys(plantsOnScreen).forEach((plantType) => {
+      Object.keys(plantTypeCounter).forEach((plantType) => {
         if (
-          plantsOnScreen[plantType]
+          plantTypeCounter[plantType]
           !== plantsToRender.filter(plant => plant.name === plantType).length
         ) {
           newTypeToRender = plantType;
