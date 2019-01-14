@@ -62,7 +62,7 @@ class PlantMenu extends Component {
               )}
             />
           ) : (
-            <InfoCard toggleInfoPage={this.toggleInfoPage} />
+            <InfoCard plantName={info} toggleInfoPage={this.toggleInfoPage} />
           )}
         </FadeInView>
       </View>
