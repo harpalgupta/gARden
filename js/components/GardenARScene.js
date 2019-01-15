@@ -13,7 +13,8 @@ class GardenARScene extends Component {
   state = {
     plantFiles: {},
     plantsToRender: [],
-    childIsScreenshotTaken: false
+    childIsScreenshotTaken: false,
+    childIsReset: false
   };
 
   addScreenshot = async () => {
@@ -24,10 +25,14 @@ class GardenARScene extends Component {
   componentDidUpdate = () => {
     const {
       sceneNavigator: {
-        viroAppProps: { plantTypeCounter, makeIsARLoadingTrue, parentIsScreenshotTaken }
+        viroAppProps: {
+          plantTypeCounter, makeIsARLoadingTrue, parentIsScreenshotTaken, isReset, resetCounter
+        }
       }
     } = this.props;
-    const { plantsToRender, plantFiles, childIsScreenshotTaken } = this.state;
+    const {
+      plantsToRender, plantFiles, childIsScreenshotTaken, childIsReset
+    } = this.state;
     const numOfPlants = Object.values(plantTypeCounter).reduce((acc, val) => acc + val, 0);
     const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantTypeCounter));
     const { bool, slugName } = isNewObj;
@@ -55,6 +60,15 @@ class GardenARScene extends Component {
       this.setState(prevState => ({
         childIsScreenshotTaken: !prevState.childIsScreenshotTaken
       }));
+    }
+    if (isReset !== childIsReset) {
+      this.setState({
+        childIsReset: isReset,
+        plantsToRender: [],
+        plantFiles: {}
+
+      });
+      resetCounter();
     }
   };
 
