@@ -4,7 +4,10 @@ const db = firebase.firestore();
 const api = {};
 
 api.getMenuItems = async () => {
-  const menuData = await db.collection('plants').get();
+  const menuData = await db
+    .collection('plants')
+    .doc('menuPlants')
+    .get();
   return menuData;
 };
 
