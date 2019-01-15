@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet
+  View, Text, StyleSheet, Button
 } from 'react-native';
 
 export default class Home extends Component {
@@ -9,11 +9,13 @@ export default class Home extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.text}>This is the about page.</Text>
-
+        <Button title="Back" onPress={() => { navigation.navigate('HomeScreen'); }} />
       </View>
+
     );
   }
 }

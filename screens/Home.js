@@ -45,7 +45,7 @@ export default class Home extends Component {
           }}
           underlayColor="#fff"
         >
-          <Text style={styles.text}>Go to AR!</Text>
+          <Text style={styles.text}> About! </Text>
         </TouchableHighlight>
       </View>
     );
