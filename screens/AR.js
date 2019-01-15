@@ -23,7 +23,14 @@ export default class ViroSample extends Component {
     menuIsShown: false,
     isARLoading: false,
     plantTypeCounter: {},
-    parentIsScreenshotTaken: false
+    parentIsScreenshotTaken: false,
+    isReset: false,
+  };
+
+  toggleReset = () => {
+    this.setState(prevState => ({
+      isReset: !prevState.isReset
+    }));
   };
 
   toggleMenu = () => {
@@ -82,6 +89,10 @@ export default class ViroSample extends Component {
     );
   };
 
+  resetCounter = () => {
+    this.setState({ plantTypeCounter: {} });
+  }
+
   // removePlantFromRenderList = (id) => {
   //   this.setState((prevState) => {
   //     const { plantTypeCounter } = prevState;
@@ -110,7 +121,8 @@ export default class ViroSample extends Component {
       menuIsShown,
       plantTypeCounter,
       isARLoading,
-      parentIsScreenshotTaken
+      parentIsScreenshotTaken,
+      isReset
     } = this.state;
     const { navigation } = this.props;
     return (
@@ -130,7 +142,10 @@ export default class ViroSample extends Component {
             parentIsScreenshotTaken,
             lowerPlantCounterByType: this.lowerPlantCounterByType,
             makeIsARLoadingTrue: this.makeIsARLoadingTrue,
-            makeIsARLoadingFalse: this.makeIsARLoadingFalse
+            makeIsARLoadingFalse: this.makeIsARLoadingFalse,
+            isReset,
+            resetCounter: this.resetCounter
+
           }}
           takeScreenshot
         />
@@ -154,6 +169,13 @@ export default class ViroSample extends Component {
           <TouchableHighlight
             style={styles.button}
             onPress={this.toggleScreenShotState}
+            underlayColor="#00000000"
+          >
+            <Image style={styles.icon} source={screenshot} />
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleReset}
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={screenshot} />
