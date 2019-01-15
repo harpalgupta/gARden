@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, Button, StyleSheet
+  View, Text, Button, StyleSheet, TouchableHighlight
 } from 'react-native';
 
 export default class Home extends Component {
@@ -26,6 +26,24 @@ export default class Home extends Component {
           }}
           style={styles.button}
         />
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('ARScreen');
+          }}
+          underlayColor="#fff"
+        >
+          <Text style={styles.text}>Go to AR!</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('About');
+          }}
+          underlayColor="#fff"
+        >
+          <Text style={styles.text}>Go to AR!</Text>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -35,12 +53,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'rgba(153, 238, 153, 0.329)'
   },
   text: {
-    fontSize: 40
+    fontSize: 25,
+    padding: 10,
+    paddingRight: 30,
+    paddingLeft: 30
   },
   button: {
-    border: '1px solid green'
+    borderWidth: 1,
+    borderColor: 'green',
+    borderRadius: 100,
+    backgroundColor: 'white',
+    marginBottom: '3%'
   }
 });
