@@ -5,6 +5,8 @@ import {
 } from 'react-viro';
 
 const deleteButton = require('../res/deleteButton.png');
+const shadowMaterial = require('../res/empty.png');
+
 
 class PlantObject extends Component {
   state = {
@@ -38,8 +40,8 @@ class PlantObject extends Component {
         diffuseTexture: deleteButton
       },
       shadowMaterial: {
-        shininess: 2.0,
         lightingModel: 'Lambert',
+        diffuseTexture: shadowMaterial
 
       }
     });
@@ -53,16 +55,17 @@ class PlantObject extends Component {
 
         <ViroSpotLight
           innerAngle={5}
-          outerAngle={45}
-          direction={[0, -1, -0.2]}
+          outerAngle={90}
+          direction={[0, -1, -0.91]}
           position={[0, 3, 0]}
           color="#ffffff"
           castsShadow
-          influenceBitMask={2}
+          lightinfluenceBitMask={2}
           shadowMapSize={2048}
           shadowNearZ={2}
           shadowFarZ={5}
-          shadowOpacity={0.7}
+          shadowOpacity={0.2}
+          intensity={250}
         />
 
         <Viro3DObject
@@ -88,7 +91,7 @@ class PlantObject extends Component {
           rotation={[-90, 0, 0]}
 
           position={[0, 0, 0]}
-          materials={['deleteButton']}
+          materials={['shadowMaterial']}
           arShadowReceiver
         />
       </ViroNode>
