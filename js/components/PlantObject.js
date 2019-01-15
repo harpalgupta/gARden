@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {
-  ViroNode, Viro3DObject, ViroQuad, ViroMaterials, ViroSpotLight
+  ViroNode, Viro3DObject, ViroQuad, ViroMaterials
 } from 'react-viro';
 
 const deleteButton = require('../res/deleteButton.png');
@@ -70,7 +70,7 @@ class PlantObject extends Component {
         onDrag={() => {}}
         onClick={this.toggleIsInFocus}
       >
-        <ViroSpotLight
+        {/* <ViroSpotLight
           innerAngle={5}
           outerAngle={90}
           direction={[0, -1, -0.91]}
@@ -83,7 +83,7 @@ class PlantObject extends Component {
           shadowFarZ={5}
           shadowOpacity={0.2}
           intensity={250}
-        />
+        /> */}
 
         <Viro3DObject
           source={{ uri: filesForPlant.obj }}
@@ -104,7 +104,7 @@ class PlantObject extends Component {
         )}
         <ViroQuad
           height={5}
-          width={5}
+          width={1}
           rotation={[-90, 0, 0]}
           position={[0, 0, 0]}
           materials={['shadowMaterial']}
