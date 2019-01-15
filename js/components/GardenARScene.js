@@ -4,8 +4,7 @@ import React, { Component } from 'react';
 
 import {
   ViroARScene,
-  ViroAmbientLight
-  // ViroConstants,
+  ViroAmbientLight,
 } from 'react-viro';
 
 import { checkForNewSlug, createID, filterArray } from '../../utils';
@@ -95,7 +94,16 @@ class GardenARScene extends Component {
     const { plantsToRender, plantFiles } = this.state;
     return (
       <ViroARScene>
-        <ViroAmbientLight color="#ffffff" />
+        <ViroAmbientLight color="#ffffff" influenceBitMask={1} />
+        {/* <ViroSpotLight
+          innerAngle={5}
+          outerAngle={90}
+          direction={[0, -1, -0.2]}
+          position={[0, 3, 1]}
+          color="#ffffff"
+          castsShadow
+        /> */}
+
         {plantsToRender.map(plant => (
           <PlantObject
             key={plant.id}
