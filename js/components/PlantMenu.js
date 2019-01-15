@@ -3,7 +3,8 @@ import {
   // AppRegistry,
   View,
   StyleSheet,
-  FlatList
+  FlatList,
+  Text
 } from 'react-native';
 import FadeInView from './FadeInView';
 import InfoCard from './InfoCard';
@@ -16,10 +17,12 @@ class PlantMenu extends Component {
     data: [
       // { key: 'lavender' }, { key: 'rose' }
     ],
-    info: null
+    info: null,
+    isMenuLoading: false
   };
 
   componentDidMount = () => {
+    this.makeIsMenuLoadingTrue();
     this.fetchMenuItems();
   };
 
@@ -27,7 +30,9 @@ class PlantMenu extends Component {
     api.getMenuItems().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const { data } = this.state;
-        this.setState({ data: [...data, { key: doc.id }] });
+        this.setState({ data: [...data, { key: doc.id }] }, () => {
+          this.makeIsMenuLoadingFalse();
+        });
       });
     });
   };
@@ -36,9 +41,27 @@ class PlantMenu extends Component {
     this.setState({ info: plantName });
   };
 
+  makeIsMenuLoadingTrue = () => {
+    const { isMenuLoading } = this.state;
+    if (isMenuLoading !== true) {
+      this.setState({
+        isMenuLoading: true
+      });
+    }
+  };
+
+  makeIsMenuLoadingFalse = () => {
+    const { isMenuLoading } = this.state;
+    if (isMenuLoading !== false) {
+      this.setState({
+        isMenuLoading: false
+      });
+    }
+  };
+
   render() {
     const { addPlantToRenderList } = this.props;
-    const { data, info } = this.state;
+    const { data, info, isMenuLoading } = this.state;
     return (
       <View style={styles.menu}>
         <FadeInView
@@ -50,6 +73,11 @@ class PlantMenu extends Component {
             backgroundColor: 'powderblue'
           }}
         >
+          {isMenuLoading && (
+            <View>
+              <Text>lOADING</Text>
+            </View>
+          )}
           {!info ? (
             <FlatList
               data={data}

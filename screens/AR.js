@@ -160,11 +160,7 @@ const styles = StyleSheet.create({
   },
   loadingScreen: {
     backgroundColor: 'rgba(150,150,150,0.5)',
-    // height: 90,
-    // width: 90,
     position: 'absolute',
-    // right: '50%',
-    // left: '50%',
     zIndex: 1,
     height: '100%',
     width: '100%',
@@ -174,7 +170,6 @@ const styles = StyleSheet.create({
     width: 15,
     height: 5,
     flex: 1
-    // backgroundColor: 'blue'
   }
 });
 
