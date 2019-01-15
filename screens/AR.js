@@ -103,7 +103,6 @@ export default class ViroSample extends Component {
       <View style={styles.containerView}>
         {isARLoading && (
           <View style={styles.loadingScreen}>
-            {/* <Text style={styles.loadingImg}>hello loading</Text> */}
             <Image source={wateringCanGif} styles={styles.loadingImg} />
           </View>
         )}
@@ -167,9 +166,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   loadingImg: {
-    width: 15,
-    height: 5,
-    flex: 1
+    width: '100%',
+    height: '50%'
   }
 });
 

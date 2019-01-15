@@ -4,13 +4,15 @@ import {
   View,
   StyleSheet,
   FlatList,
-  Text
+  Image
 } from 'react-native';
 import FadeInView from './FadeInView';
 import InfoCard from './InfoCard';
 
 import PlantCard from './PlantCard';
 import api from '../api';
+
+const wateringCanGif = require('../res/wateringCanGif.gif');
 
 class PlantMenu extends Component {
   state = {
@@ -74,8 +76,8 @@ class PlantMenu extends Component {
           }}
         >
           {isMenuLoading && (
-            <View>
-              <Text>lOADING</Text>
+            <View style={styles.loadingScreen}>
+              <Image source={wateringCanGif} style={styles.loadingImg} />
             </View>
           )}
           {!info ? (
@@ -108,6 +110,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: -100,
     height: '100%'
+  },
+  loadingScreen: {
+    backgroundColor: 'rgba(150,150,150,0.5)',
+    position: 'absolute',
+    flex: 1,
+    zIndex: 1,
+    height: '100%',
+    left: 0,
+    width: '100%',
+    justifyContent: 'space-around'
+  },
+  loadingImg: {
+    height: '40%',
+    width: '100%'
   }
 });
 
