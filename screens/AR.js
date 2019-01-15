@@ -103,7 +103,7 @@ export default class ViroSample extends Component {
       <View style={styles.containerView}>
         {isARLoading && (
           <View style={styles.loadingScreen}>
-            <Image source={wateringCanGif} styles={styles.loadingImg} />
+            <Image source={wateringCanGif} style={styles.loadingImg} />
           </View>
         )}
         <ViroARSceneNavigator
@@ -163,11 +163,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
     height: '100%',
     width: '100%',
-    justifyContent: 'space-around'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   loadingImg: {
-    width: '100%',
-    height: '50%'
+    height: '50%',
+    width: '50%'
   }
 });
 

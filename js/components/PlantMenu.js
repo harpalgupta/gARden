@@ -123,7 +123,9 @@ const styles = StyleSheet.create({
   },
   loadingImg: {
     height: '40%',
-    width: '100%'
+    width: '100%',
+    marginLeft: 10,
+    marginRight: 10
   }
 });
 
