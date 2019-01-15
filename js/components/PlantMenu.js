@@ -29,13 +29,21 @@ class PlantMenu extends Component {
   };
 
   fetchMenuItems = () => {
-    api.getMenuItems().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const { data } = this.state;
-        this.setState({ data: [...data, { key: doc.id }] }, () => {
+    api.getMenuItems().then((doc) => {
+      if (doc.exists) {
+        const { menuArray } = doc.data();
+        this.setState({ data: menuArray }, () => {
           this.makeIsMenuLoadingFalse();
         });
-      });
+      } else {
+        // console.log('file request unsuccessful');
+      }
+      // querySnapshot.forEach((doc) => {
+      //   const { data } = this.state;
+      //   this.setState({ data: [...data, { key: doc.id }] }, () => {
+      //     this.makeIsMenuLoadingFalse();
+      //   });
+      // });
     });
   };
 
@@ -85,7 +93,8 @@ class PlantMenu extends Component {
               data={data}
               renderItem={({ item }) => (
                 <PlantCard
-                  plantName={item.key}
+                  plantName={item.name}
+                  icon={item.icon}
                   toggleInfoPage={this.toggleInfoPage}
                   addPlantToRenderList={addPlantToRenderList}
                 />

@@ -7,7 +7,6 @@ import {
 const deleteButton = require('../res/deleteButton.png');
 const shadowMaterial = require('../res/empty.png');
 
-
 class PlantObject extends Component {
   state = {
     isInFocus: false
@@ -42,17 +41,35 @@ class PlantObject extends Component {
       shadowMaterial: {
         lightingModel: 'Lambert',
         diffuseTexture: shadowMaterial
-
+      },
+      no1: {
+        shininess: 2.0,
+        lightingModel: 'Lambert',
+        diffuseTexture: { uri: filesForPlant.texture[1] }
+      },
+      no2: {
+        shininess: 2.0,
+        lightingModel: 'Lambert',
+        diffuseTexture: { uri: filesForPlant.texture[2] }
+      },
+      no3: {
+        shininess: 2.0,
+        lightingModel: 'Lambert',
+        diffuseTexture: { uri: filesForPlant.texture[3] }
       }
+      // no4: {
+      //   shininess: 2.0,
+      //   lightingModel: 'Lambert',
+      //   diffuseTexture: { uri: filesForPlant.texture[5] }
+      // }
     });
     return (
       <ViroNode
         position={[0, -1, -1]}
         dragType="FixedToWorld"
-        onDrag={() => { }}
+        onDrag={() => {}}
         onClick={this.toggleIsInFocus}
       >
-
         <ViroSpotLight
           innerAngle={5}
           outerAngle={90}
@@ -70,7 +87,7 @@ class PlantObject extends Component {
 
         <Viro3DObject
           source={{ uri: filesForPlant.obj }}
-          materials={[plantName]}
+          materials={[plantName, 'no1', 'no2', 'no3']}
           position={[0, 0, 0]}
           scale={filesForPlant.scale}
           type="OBJ"
@@ -89,7 +106,6 @@ class PlantObject extends Component {
           height={5}
           width={5}
           rotation={[-90, 0, 0]}
-
           position={[0, 0, 0]}
           materials={['shadowMaterial']}
           arShadowReceiver

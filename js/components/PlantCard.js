@@ -1,8 +1,12 @@
 import React from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import {
+  View, Button, StyleSheet, Image
+} from 'react-native';
 
 const PlantCard = (props) => {
-  const { plantName, addPlantToRenderList, toggleInfoPage } = props;
+  const {
+    plantName, addPlantToRenderList, toggleInfoPage, icon
+  } = props;
 
   const handleClick = () => {
     addPlantToRenderList(plantName);
@@ -12,6 +16,7 @@ const PlantCard = (props) => {
     <View style={styles.plantCard}>
       <Button title={plantName} onPress={handleClick} />
       <Button title="i" onPress={() => toggleInfoPage(plantName)} />
+      <Image source={{ uri: icon }} style={{ height: 30, width: 30 }} />
     </View>
   );
 };

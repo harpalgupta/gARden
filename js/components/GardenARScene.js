@@ -2,10 +2,7 @@
 
 import React, { Component } from 'react';
 
-import {
-  ViroARScene,
-  ViroAmbientLight,
-} from 'react-viro';
+import { ViroARScene, ViroAmbientLight } from 'react-viro';
 
 import { checkForNewSlug, createID, filterArray } from '../../utils';
 import 'firebase/firestore';
@@ -77,10 +74,12 @@ class GardenARScene extends Component {
         viroAppProps: { makeIsARLoadingFalse }
       }
     } = this.props;
-    api.getPlantAttributes(slugName).then((doc) => {
+    api.getPlantAttributes().then((doc) => {
       if (doc.exists) {
         const {
-          objAttr: { obj, texture, scale }
+          attrsObj: {
+            [slugName]: { obj, texture, scale }
+          }
         } = doc.data();
         this.setState(
           prevState => ({
