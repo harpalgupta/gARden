@@ -22,8 +22,7 @@ class GardenARScene extends Component {
 
   addScreenshot = async () => {
     const { sceneNavigator } = this.props;
-    const res = await sceneNavigator.takeScreenshot('aFile', true);
-    console.log(res);
+    sceneNavigator.takeScreenshot('aFile', true);
   };
 
   componentDidUpdate = () => {

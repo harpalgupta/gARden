@@ -8,10 +8,6 @@ export default class Home extends Component {
     // plantsUrlArray: []
   };
 
-  componentDidMount = () => {
-    console.log('MOUNT');
-  };
-
   render() {
     const { navigation } = this.props;
     return (
