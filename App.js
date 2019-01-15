@@ -4,6 +4,7 @@ import Home from './screens/Home';
 import AR from './screens/AR';
 import AboutPage from './screens/About';
 import Welcome from './screens/Welcome';
+import SignUpComp from './screens/SignUp';
 
 
 export default class App extends Component {
@@ -18,7 +19,8 @@ const SwitchNav = createSwitchNavigator({
   WelcomeScreen: Welcome,
   HomeScreen: Home,
   ARScreen: AR,
-  About: AboutPage
+  About: AboutPage,
+  SignUp: SignUpComp
 });
 
 const SwitchNavContainer = createAppContainer(SwitchNav);
