@@ -19,6 +19,13 @@ export default class Home extends Component {
             navigation.navigate('ARScreen');
           }}
         />
+        <Button
+          title="go to About!"
+          onPress={() => {
+            navigation.navigate('About');
+          }}
+          style={styles.button}
+        />
       </View>
     );
   }
@@ -32,5 +39,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 40
+  },
+  button: {
+    border: '1px solid green'
   }
 });
