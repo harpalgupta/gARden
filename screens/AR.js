@@ -12,6 +12,7 @@ import PlantMenu from '../js/components/PlantMenu';
 
 const home = require('../js/res/home.png');
 const menu = require('../js/res/menu.png');
+const screenshot = require('../js/res/screenshot.png');
 
 const GardenARScene = require('../js/components/GardenARScene');
 
@@ -143,13 +144,12 @@ export default class ViroSample extends Component {
           >
             <Image style={styles.icon} source={menu} />
           </TouchableHighlight>
-          {/* take screenshot */}
           <TouchableHighlight
             style={styles.button}
             onPress={this.toggleScreenShotState}
             underlayColor="#00000000"
           >
-            <Image style={styles.icon} source={menu} />
+            <Image style={styles.icon} source={screenshot} />
           </TouchableHighlight>
         </View>
 
