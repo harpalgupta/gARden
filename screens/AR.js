@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, TouchableHighlight, Image, Text
+  View, StyleSheet, TouchableHighlight, Image
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -15,6 +15,7 @@ const menu = require('../js/res/menu.png');
 const screenshot = require('../js/res/screenshot.png');
 
 const GardenARScene = require('../js/components/GardenARScene');
+const wateringCanGif = require('../js/res/wateringCanGif.gif');
 
 export default class ViroSample extends Component {
   state = {
@@ -114,7 +115,13 @@ export default class ViroSample extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
-        {isARLoading && <Text>jlkjlkj</Text>}
+
+        {isARLoading && (
+          <View style={styles.loadingScreen}>
+            <Image source={wateringCanGif} style={styles.loadingImg} />
+          </View>
+        )}
+
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
@@ -174,6 +181,19 @@ const styles = StyleSheet.create({
   icon: {
     width: 60,
     height: 60
+  },
+  loadingScreen: {
+    backgroundColor: 'rgba(150,150,150,0.5)',
+    position: 'absolute',
+    zIndex: 1,
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  loadingImg: {
+    height: '50%',
+    width: '50%'
   }
 });
 

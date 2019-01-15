@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
 import {
-  ViroNode, Viro3DObject, ViroQuad, ViroMaterials
+  ViroNode, Viro3DObject, ViroQuad, ViroMaterials, ViroSpotLight
 } from 'react-viro';
 
 const deleteButton = require('../res/deleteButton.png');
+const shadowMaterial = require('../res/empty.png');
+
 
 class PlantObject extends Component {
   state = {
@@ -36,15 +38,36 @@ class PlantObject extends Component {
         shininess: 2.0,
         lightingModel: 'Lambert',
         diffuseTexture: deleteButton
+      },
+      shadowMaterial: {
+        lightingModel: 'Lambert',
+        diffuseTexture: shadowMaterial
+
       }
     });
     return (
       <ViroNode
         position={[0, -1, -1]}
         dragType="FixedToWorld"
-        onDrag={() => {}}
+        onDrag={() => { }}
         onClick={this.toggleIsInFocus}
       >
+
+        <ViroSpotLight
+          innerAngle={5}
+          outerAngle={90}
+          direction={[0, -1, -0.91]}
+          position={[0, 3, 0]}
+          color="#ffffff"
+          castsShadow
+          lightinfluenceBitMask={2}
+          shadowMapSize={2048}
+          shadowNearZ={2}
+          shadowFarZ={5}
+          shadowOpacity={0.2}
+          intensity={250}
+        />
+
         <Viro3DObject
           source={{ uri: filesForPlant.obj }}
           materials={[plantName]}
@@ -62,6 +85,15 @@ class PlantObject extends Component {
             transformBehaviors="billboardY"
           />
         )}
+        <ViroQuad
+          height={5}
+          width={5}
+          rotation={[-90, 0, 0]}
+
+          position={[0, 0, 0]}
+          materials={['shadowMaterial']}
+          arShadowReceiver
+        />
       </ViroNode>
     );
   }

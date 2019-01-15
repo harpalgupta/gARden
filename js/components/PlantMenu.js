@@ -3,7 +3,8 @@ import {
   // AppRegistry,
   View,
   StyleSheet,
-  FlatList
+  FlatList,
+  Image
 } from 'react-native';
 import FadeInView from './FadeInView';
 import InfoCard from './InfoCard';
@@ -11,15 +12,19 @@ import InfoCard from './InfoCard';
 import PlantCard from './PlantCard';
 import api from '../api';
 
+const wateringCanGif = require('../res/wateringCanGif.gif');
+
 class PlantMenu extends Component {
   state = {
     data: [
       // { key: 'lavender' }, { key: 'rose' }
     ],
-    info: null
+    info: null,
+    isMenuLoading: false
   };
 
   componentDidMount = () => {
+    this.makeIsMenuLoadingTrue();
     this.fetchMenuItems();
   };
 
@@ -27,7 +32,9 @@ class PlantMenu extends Component {
     api.getMenuItems().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const { data } = this.state;
-        this.setState({ data: [...data, { key: doc.id }] });
+        this.setState({ data: [...data, { key: doc.id }] }, () => {
+          this.makeIsMenuLoadingFalse();
+        });
       });
     });
   };
@@ -36,9 +43,27 @@ class PlantMenu extends Component {
     this.setState({ info: plantName });
   };
 
+  makeIsMenuLoadingTrue = () => {
+    const { isMenuLoading } = this.state;
+    if (isMenuLoading !== true) {
+      this.setState({
+        isMenuLoading: true
+      });
+    }
+  };
+
+  makeIsMenuLoadingFalse = () => {
+    const { isMenuLoading } = this.state;
+    if (isMenuLoading !== false) {
+      this.setState({
+        isMenuLoading: false
+      });
+    }
+  };
+
   render() {
     const { addPlantToRenderList } = this.props;
-    const { data, info } = this.state;
+    const { data, info, isMenuLoading } = this.state;
     return (
       <View style={styles.menu}>
         <FadeInView
@@ -50,6 +75,11 @@ class PlantMenu extends Component {
             backgroundColor: 'powderblue'
           }}
         >
+          {isMenuLoading && (
+            <View style={styles.loadingScreen}>
+              <Image source={wateringCanGif} style={styles.loadingImg} />
+            </View>
+          )}
           {!info ? (
             <FlatList
               data={data}
@@ -80,6 +110,22 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: -100,
     height: '100%'
+  },
+  loadingScreen: {
+    backgroundColor: 'rgba(150,150,150,0.5)',
+    position: 'absolute',
+    flex: 1,
+    zIndex: 1,
+    height: '100%',
+    left: 0,
+    width: '100%',
+    justifyContent: 'space-around'
+  },
+  loadingImg: {
+    height: '40%',
+    width: '100%',
+    marginLeft: 10,
+    marginRight: 10
   }
 });
 
