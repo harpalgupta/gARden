@@ -12,7 +12,8 @@ import {
   ScrollView
 
 } from 'react-native';
-import firebase from '../config/index';
+import { firebase } from '../config/index';
+
 
 const backGroundImage = require('../assets/erda-estremera-786462-unsplash.jpg');
 
@@ -34,8 +35,9 @@ export default class Login extends Component {
 
   onClickListener = () => {
     const {
-      confirmEmail, email, password, confirmPassword, navigation
+      confirmEmail, email, password, confirmPassword
     } = this.state;
+    const { navigation } = this.props;
     if (confirmEmail !== email || confirmPassword !== password) {
       Alert.alert('Alert', 'Password is not equal to confirmed password');
     } else {
@@ -43,7 +45,7 @@ export default class Login extends Component {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          navigation.navigate('InnerStuff');
+          navigation.navigate('HomeScreen');
         })
         .catch(() => {
           Alert.alert('Alert', 'Something went wrong, please try again');
