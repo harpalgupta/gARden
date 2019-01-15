@@ -20,13 +20,19 @@ export default class ViroSample extends Component {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
     isARLoading: false,
-    plantTypeCounter: {}
+    plantTypeCounter: {},
+    parentIsScreenshotTaken: false
   };
-
 
   toggleMenu = () => {
     this.setState(prevState => ({
       menuIsShown: !prevState.menuIsShown
+    }));
+  };
+
+  toggleScreenShotState = () => {
+    this.setState(prevState => ({
+      parentIsScreenshotTaken: !prevState.parentIsScreenshotTaken
     }));
   };
 
@@ -37,7 +43,7 @@ export default class ViroSample extends Component {
         isARLoading: true
       });
     }
-  }
+  };
 
   makeIsARLoadingFalse = () => {
     const { isARLoading } = this.state;
@@ -46,7 +52,7 @@ export default class ViroSample extends Component {
         isARLoading: false
       });
     }
-  }
+  };
 
   addPlantToRenderList = (plantSlug) => {
     this.setState(
@@ -96,25 +102,27 @@ export default class ViroSample extends Component {
     });
   };
 
-
   render() {
     const {
-      sharedProps, menuIsShown, plantTypeCounter, isARLoading
+      sharedProps,
+      menuIsShown,
+      plantTypeCounter,
+      isARLoading,
+      parentIsScreenshotTaken
     } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
-        {isARLoading && (<Text>jlkjlkj</Text>)}
+        {isARLoading && <Text>jlkjlkj</Text>}
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
           viroAppProps={{
             plantTypeCounter,
+            parentIsScreenshotTaken,
             lowerPlantCounterByType: this.lowerPlantCounterByType,
             makeIsARLoadingTrue: this.makeIsARLoadingTrue,
-            makeIsARLoadingFalse: this.makeIsARLoadingFalse,
-
-
+            makeIsARLoadingFalse: this.makeIsARLoadingFalse
           }}
           takeScreenshot
         />
@@ -131,6 +139,14 @@ export default class ViroSample extends Component {
           <TouchableHighlight
             style={styles.button}
             onPress={this.toggleMenu}
+            underlayColor="#00000000"
+          >
+            <Image style={styles.icon} source={menu} />
+          </TouchableHighlight>
+          {/* take screenshot */}
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleScreenShotState}
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={menu} />

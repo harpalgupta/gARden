@@ -16,30 +16,23 @@ import PlantObject from './PlantObject';
 class GardenARScene extends Component {
   state = {
     plantFiles: {},
-    plantsToRender: []
+    plantsToRender: [],
+    childIsScreenshotTaken: false
   };
 
-  // screenshotWrapper = async () => {
-  //   const { sceneNavigator } = this.props;
-  //   const res = await sceneNavigator.takeScreenshot('aFile', true);
-  //   console.log(res);
-  // }
-
+  addScreenshot = async () => {
+    const { sceneNavigator } = this.props;
+    const res = await sceneNavigator.takeScreenshot('aFile', true);
+    console.log(res);
+  };
 
   componentDidUpdate = () => {
-    // const { sceneNavigator } = this.props;
-    // const sShot = sceneNavigator.takeScreenshot('bPlant', true);
-    // const sShot2 = sceneNavigator.takeScreenshot('cPlant', false);
-    setTimeout(() => {
-      // console.error(sShot);
-    }, 1000);
-
     const {
       sceneNavigator: {
-        viroAppProps: { plantTypeCounter, makeIsARLoadingTrue }
+        viroAppProps: { plantTypeCounter, makeIsARLoadingTrue, parentIsScreenshotTaken }
       }
     } = this.props;
-    const { plantsToRender, plantFiles } = this.state;
+    const { plantsToRender, plantFiles, childIsScreenshotTaken } = this.state;
     const numOfPlants = Object.values(plantTypeCounter).reduce((acc, val) => acc + val, 0);
     const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantTypeCounter));
     const { bool, slugName } = isNewObj;
@@ -61,6 +54,12 @@ class GardenARScene extends Component {
         const newPlant = { name: newTypeToRender, id: createID(prevState.plantsToRender) };
         return { plantsToRender: [...prevState.plantsToRender, newPlant] };
       });
+    }
+    if (parentIsScreenshotTaken !== childIsScreenshotTaken) {
+      this.addScreenshot();
+      this.setState(prevState => ({
+        childIsScreenshotTaken: !prevState.childIsScreenshotTaken
+      }));
     }
   };
 
@@ -85,14 +84,17 @@ class GardenARScene extends Component {
         const {
           objAttr: { obj, texture, scale }
         } = doc.data();
-        this.setState(prevState => ({
-          plantFiles: {
-            ...prevState.plantFiles,
-            [slugName]: { obj, texture, scale }
+        this.setState(
+          prevState => ({
+            plantFiles: {
+              ...prevState.plantFiles,
+              [slugName]: { obj, texture, scale }
+            }
+          }),
+          () => {
+            makeIsARLoadingFalse();
           }
-        }), () => {
-          makeIsARLoadingFalse();
-        });
+        );
       } else {
         // doc.data() will be undefined in this case
         // console.log('No such document!');
