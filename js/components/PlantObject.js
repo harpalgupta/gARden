@@ -36,6 +36,11 @@ class PlantObject extends Component {
         shininess: 2.0,
         lightingModel: 'Lambert',
         diffuseTexture: deleteButton
+      },
+      shadowMaterial: {
+        shininess: 2.0,
+        lightingModel: 'Lambert',
+
       }
     });
     return (
@@ -78,8 +83,8 @@ class PlantObject extends Component {
           />
         )}
         <ViroQuad
-          height={10}
-          width={10}
+          height={5}
+          width={5}
           rotation={[-90, 0, 0]}
 
           position={[0, 0, 0]}
