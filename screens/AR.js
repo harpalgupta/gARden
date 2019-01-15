@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: 0 */
+
 import React, { Component } from 'react';
 import {
   View, StyleSheet, TouchableHighlight, Image
@@ -10,6 +12,7 @@ import PlantMenu from '../js/components/PlantMenu';
 
 const home = require('../js/res/home.png');
 const menu = require('../js/res/menu.png');
+const screenshot = require('../js/res/screenshot.png');
 
 const GardenARScene = require('../js/components/GardenARScene');
 const wateringCanGif = require('../js/res/wateringCanGif.gif');
@@ -19,12 +22,19 @@ export default class ViroSample extends Component {
     sharedProps: { apiKey: viroAPIKey },
     menuIsShown: false,
     isARLoading: false,
-    plantTypeCounter: {}
+    plantTypeCounter: {},
+    parentIsScreenshotTaken: false
   };
 
   toggleMenu = () => {
     this.setState(prevState => ({
       menuIsShown: !prevState.menuIsShown
+    }));
+  };
+
+  toggleScreenShotState = () => {
+    this.setState(prevState => ({
+      parentIsScreenshotTaken: !prevState.parentIsScreenshotTaken
     }));
   };
 
@@ -96,25 +106,33 @@ export default class ViroSample extends Component {
 
   render() {
     const {
-      sharedProps, menuIsShown, plantTypeCounter, isARLoading
+      sharedProps,
+      menuIsShown,
+      plantTypeCounter,
+      isARLoading,
+      parentIsScreenshotTaken
     } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
+
         {isARLoading && (
           <View style={styles.loadingScreen}>
             <Image source={wateringCanGif} style={styles.loadingImg} />
           </View>
         )}
+
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
           viroAppProps={{
             plantTypeCounter,
+            parentIsScreenshotTaken,
             lowerPlantCounterByType: this.lowerPlantCounterByType,
             makeIsARLoadingTrue: this.makeIsARLoadingTrue,
             makeIsARLoadingFalse: this.makeIsARLoadingFalse
           }}
+          takeScreenshot
         />
         <View style={styles.buttonView}>
           <TouchableHighlight
@@ -132,6 +150,13 @@ export default class ViroSample extends Component {
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={menu} />
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleScreenShotState}
+            underlayColor="#00000000"
+          >
+            <Image style={styles.icon} source={screenshot} />
           </TouchableHighlight>
         </View>
 
