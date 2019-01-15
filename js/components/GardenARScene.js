@@ -19,7 +19,21 @@ class GardenARScene extends Component {
     plantsToRender: []
   };
 
+  // screenshotWrapper = async () => {
+  //   const { sceneNavigator } = this.props;
+  //   const res = await sceneNavigator.takeScreenshot('aFile', true);
+  //   console.log(res);
+  // }
+
+
   componentDidUpdate = () => {
+    // const { sceneNavigator } = this.props;
+    // const sShot = sceneNavigator.takeScreenshot('bPlant', true);
+    // const sShot2 = sceneNavigator.takeScreenshot('cPlant', false);
+    setTimeout(() => {
+      // console.error(sShot);
+    }, 1000);
+
     const {
       sceneNavigator: {
         viroAppProps: { plantTypeCounter, makeIsARLoadingTrue }
