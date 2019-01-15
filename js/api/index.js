@@ -11,15 +11,15 @@ api.getMenuItems = async () => {
   return menuData;
 };
 
-api.getPlantAttributes = async (slugParam) => {
-  const plantAttr = await db
+api.getPlantAttributes = async () => {
+  const plantAttrs = await db
     .collection('plants')
-    .doc(slugParam)
+    .doc('plantAttrs')
     .get();
-  return plantAttr;
+  return plantAttrs;
 };
 
-api.getPlantInfo = async (slugParam) => {
+api.getPlantInfo = async () => {
   const plantInfo = await db
     .collection('plants')
     .doc('plantInfo')
