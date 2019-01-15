@@ -78,9 +78,10 @@ class PlantMenu extends Component {
           style={{
             width: '100%',
             height: '100%',
-            borderTopLeftRadius: 10,
-            borderBottomLeftRadius: 10,
-            backgroundColor: 'powderblue'
+            borderTopLeftRadius: 1,
+            borderBottomLeftRadius: 1,
+            paddingLeft: 5,
+            backgroundColor: '#FAE1DF'
           }}
         >
           {isMenuLoading && (

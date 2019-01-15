@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 const info = require('../res/infoImg.png');
-// const addImg = require('../res/addImg.png');
+const add = require('../res/addImg.png');
 
 const PlantCard = (props) => {
   const {
@@ -21,10 +21,10 @@ const PlantCard = (props) => {
       <View style={{ flex: 3, flexDirection: 'row' }}>
         <View style={styles.buttonContainer}>
           <TouchableHighlight style={styles.button} onPress={handleClick}>
-            <Image style={styles.icon} source={info} />
+            <Image style={styles.icon} source={add} />
           </TouchableHighlight>
           <TouchableHighlight style={styles.button} onPress={() => toggleInfoPage(plantName)}>
-            <Text>i</Text>
+            <Image style={styles.icon} source={info} />
           </TouchableHighlight>
         </View>
 
@@ -36,9 +36,11 @@ const PlantCard = (props) => {
 
 const styles = StyleSheet.create({
   plantCard: {
-    backgroundColor: '#73BFAC',
+    backgroundColor: '#8FBB99',
     height: 175,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderBottomColor: '#8FBB99',
+    borderBottomWidth: 3
   },
   buttonContainer: {
     flexDirection: 'column',
