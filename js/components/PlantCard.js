@@ -3,6 +3,9 @@ import {
   View, TouchableHighlight, StyleSheet, Image, Text
 } from 'react-native';
 
+const info = require('../res/infoImg.png');
+const addImg = require('../res/addImg.png');
+
 const PlantCard = (props) => {
   const {
     plantName, addPlantToRenderList, toggleInfoPage, icon
@@ -18,7 +21,7 @@ const PlantCard = (props) => {
       <View style={{ flex: 3, flexDirection: 'row' }}>
         <View style={styles.buttonContainer}>
           <TouchableHighlight style={styles.button} onPress={handleClick}>
-            <Text>+</Text>
+            <Image style={styles.icon} source={info} />
           </TouchableHighlight>
           <TouchableHighlight style={styles.button} onPress={() => toggleInfoPage(plantName)}>
             <Text>i</Text>
@@ -48,6 +51,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  icon: {
+    height: 70,
+    width: 70
   }
 });
 
