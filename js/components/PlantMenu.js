@@ -36,7 +36,7 @@ class PlantMenu extends Component {
           this.makeIsMenuLoadingFalse();
         });
       } else {
-        console.log('not worked lol');
+        // console.log('file request unsuccessful');
       }
       // querySnapshot.forEach((doc) => {
       //   const { data } = this.state;

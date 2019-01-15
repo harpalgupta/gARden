@@ -7,33 +7,61 @@ import api from '../api';
 
 export default class InfoCard extends Component {
   state = {
-    aspect: [], botanicalName: '', commonName: '', difficulty: '', floweringTime: '', height: '', plantingTime: '', spread: ''
+    aspect: [],
+    botanicalName: '',
+    commonName: '',
+    difficulty: '',
+    floweringTime: '',
+    height: '',
+    plantingTime: '',
+    spread: ''
   };
 
   componentDidMount = () => {
     const { plantName } = this.props;
     this.fetchPlantInfo(plantName);
-  }
+  };
 
   fetchPlantInfo = (plantName) => {
     api.getPlantInfo(plantName).then((doc) => {
       const {
-        info: {
-          aspect, botanicalName, commonName,
-          difficulty, floweringTime, height, plantingTime, spread
+        infoObj: {
+          [plantName]: {
+            aspect,
+            botanicalName,
+            commonName,
+            difficulty,
+            floweringTime,
+            height,
+            plantingTime,
+            spread
+          }
         }
-
       } = doc.data();
       this.setState({
-        aspect, botanicalName, commonName, difficulty, floweringTime, height, plantingTime, spread
+        aspect,
+        botanicalName,
+        commonName,
+        difficulty,
+        floweringTime,
+        height,
+        plantingTime,
+        spread
       });
     });
-  }
+  };
 
   render() {
     const { toggleInfoPage } = this.props;
     const {
-      aspect, botanicalName, commonName, difficulty, floweringTime, height, plantingTime, spread
+      aspect,
+      botanicalName,
+      commonName,
+      difficulty,
+      floweringTime,
+      height,
+      plantingTime,
+      spread
     } = this.state;
     return (
       <View style={styles.plantCard}>
@@ -45,8 +73,9 @@ export default class InfoCard extends Component {
         <Text>{height}</Text>
         <Text>{plantingTime}</Text>
         <Text>{spread}</Text>
-        {aspect.map(direction => <Text key={direction}>{direction}</Text>)}
-
+        {aspect.map(direction => (
+          <Text key={direction}>{direction}</Text>
+        ))}
       </View>
     );
   }

@@ -22,7 +22,7 @@ api.getPlantAttributes = async (slugParam) => {
 api.getPlantInfo = async (slugParam) => {
   const plantInfo = await db
     .collection('plants')
-    .doc(slugParam)
+    .doc('plantInfo')
     .get();
   return plantInfo;
 };
