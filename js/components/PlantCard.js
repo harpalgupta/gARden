@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 const info = require('../res/infoImg.png');
-const addImg = require('../res/addImg.png');
+// const addImg = require('../res/addImg.png');
 
 const PlantCard = (props) => {
   const {
@@ -47,14 +47,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   },
   button: {
-    backgroundColor: 'yellow',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
   icon: {
-    height: 70,
-    width: 70
+    height: 60,
+    width: 60
   }
 });
 
