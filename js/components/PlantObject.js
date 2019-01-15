@@ -84,7 +84,7 @@ class PlantObject extends Component {
 
           position={[0, 0, 0]}
           materials={['deleteButton']}
-          arShadowReceiver={true}
+          arShadowReceiver
         />
       </ViroNode>
     );
