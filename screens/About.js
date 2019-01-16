@@ -23,7 +23,7 @@ export default class Home extends Component {
           </TouchableHighlight>
         </View>
         <View style={styles.shoppingListView}>
-          <Text style={styles.text}>Saved plants</Text>
+          <Text style={styles.text}>Your wishlist</Text>
           <ShoppingList />
         </View>
       </View>

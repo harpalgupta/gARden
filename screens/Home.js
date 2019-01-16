@@ -36,7 +36,7 @@ export default class Home extends Component {
           }}
           underlayColor="#fff"
         >
-          <Text style={styles.text}>Go to AR!</Text>
+          <Text style={styles.text}>Design your garden</Text>
         </TouchableHighlight>
         <TouchableHighlight
           style={styles.button}
@@ -45,7 +45,7 @@ export default class Home extends Component {
           }}
           underlayColor="#fff"
         >
-          <Text style={styles.text}> About! </Text>
+          <Text style={styles.text}>See your wish-list</Text>
         </TouchableHighlight>
       </View>
     );
