@@ -26,7 +26,11 @@ class GardenARScene extends Component {
     const {
       sceneNavigator: {
         viroAppProps: {
-          plantTypeCounter, makeIsARLoadingTrue, parentIsScreenshotTaken, isReset, resetCounter
+          plantTypeCounter,
+          makeIsARLoadingTrue,
+          parentIsScreenshotTaken,
+          isReset,
+          resetCounter
         }
       }
     } = this.props;
@@ -66,7 +70,6 @@ class GardenARScene extends Component {
         childIsReset: isReset,
         plantsToRender: [],
         plantFiles: {}
-
       });
       resetCounter();
     }
@@ -127,7 +130,7 @@ class GardenARScene extends Component {
           innerAngle={5}
           outerAngle={90}
           direction={[0, -1, -0.91]}
-          position={[0, 3, 0]}
+          position={[0, 3, 3]}
           color="#ffffff"
           castsShadow
           lightinfluenceBitMask={2}
