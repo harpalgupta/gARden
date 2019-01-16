@@ -7,9 +7,7 @@ import { firebase } from '../config';
 const logo = require('../assets/logo.png');
 
 export default class Home extends Component {
-  state = {
-    // plantsUrlArray: []
-  };
+  state = {};
 
   logOut = () => {
     const { navigation } = this.props;
@@ -25,20 +23,6 @@ export default class Home extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        {/* <Text style={styles.text2}>This is the home page.</Text> */}
-        {/* <Button
-          title="go to AR!"
-          onPress={() => {
-            navigation.navigate('ARScreen');
-          }}
-        />
-        <Button
-          title="go to About!"
-          onPress={() => {
-            navigation.navigate('About');
-          }}
-          style={styles.button}
-        /> */}
         <Image style={{ height: 280, width: 280, marginBottom: 20 }} source={logo} />
         <TouchableHighlight
           style={styles.button}
