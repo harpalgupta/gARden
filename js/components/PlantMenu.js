@@ -39,12 +39,6 @@ class PlantMenu extends Component {
       } else {
         // console.log('file request unsuccessful');
       }
-      // querySnapshot.forEach((doc) => {
-      //   const { data } = this.state;
-      //   this.setState({ data: [...data, { key: doc.id }] }, () => {
-      //     this.makeIsMenuLoadingFalse();
-      //   });
-      // });
     });
   };
 

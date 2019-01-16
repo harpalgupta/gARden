@@ -9,7 +9,6 @@ import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
 import api from '../js/api';
-// import { filterArray } from '../utils/index';
 
 const home = require('../js/res/home.png');
 const menu = require('../js/res/menu.png');
@@ -76,7 +75,6 @@ export default class ViroSample extends Component {
   addPlantToRenderList = (plantSlug) => {
     this.setState((prevState) => {
       const { plantTypeCounter } = prevState;
-      // const newID = createID(plantTypeCounter);
       if (plantTypeCounter[plantSlug]) {
         return {
           plantTypeCounter: {
