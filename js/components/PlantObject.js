@@ -91,6 +91,7 @@ class PlantObject extends Component {
           position={[0, 0, 0]}
           scale={filesForPlant.scale}
           type="OBJ"
+          rotation={plantName === 'New Zealand Flax' ? [90, 90, 180] : [90, 90, 90]}
         />
         {isInFocus && (
           <ViroQuad
