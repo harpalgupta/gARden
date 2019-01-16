@@ -6,7 +6,6 @@ import {
 import api from '../api';
 
 const back = require('../res/backButton.png');
-const empty = require('../res/empty.png');
 
 export default class InfoCard extends Component {
   state = {
@@ -55,7 +54,7 @@ export default class InfoCard extends Component {
   };
 
   render() {
-    const { toggleInfoPage } = this.props;
+    const { toggleInfoPage, icon } = this.props;
     const {
       aspect,
       botanicalName,
@@ -78,7 +77,7 @@ export default class InfoCard extends Component {
         </TouchableHighlight>
         <View style={styles.infoHeader}>
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{commonName}</Text>
-          <Image style={{ width: 150, height: 150 }} source={empty} />
+          <Image style={{ width: 150, height: 150 }} source={{ uri: icon }} />
         </View>
         <ScrollView>
           <Text style={styles.textLine}>{`Botanical name: ${botanicalName}`}</Text>

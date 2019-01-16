@@ -5,7 +5,6 @@ import {
 
 const info = require('../res/infoImg.png');
 const add = require('../res/addImg.png');
-const wateringCan = require('../res/wateringCanGif.gif');
 
 const PlantCard = (props) => {
   const {
@@ -46,7 +45,7 @@ const PlantCard = (props) => {
           </TouchableHighlight>
         </View>
 
-        <Image source={wateringCan} style={{ flex: 2 }} />
+        <Image source={{ uri: icon }} style={{ flex: 2 }} />
       </View>
     </View>
   );
