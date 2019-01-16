@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, TouchableHighlight, Image
+  View, StyleSheet, TouchableHighlight, Image, Modal, Text
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -20,7 +20,6 @@ const saveButton = require('../js/res/saveButton.png');
 const GardenARScene = require('../js/components/GardenARScene');
 const wateringCanGif = require('../js/res/wateringCanGif.gif');
 
-
 export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
@@ -28,7 +27,14 @@ export default class ViroSample extends Component {
     isARLoading: false,
     plantTypeCounter: {},
     parentIsScreenshotTaken: false,
-    isReset: false
+    isReset: false,
+    showAlert: false
+  };
+
+  toggleShowAlert = () => {
+    this.setState(prevState => ({
+      showAlert: !prevState.showAlert
+    }));
   };
 
   toggleReset = () => {
@@ -106,9 +112,8 @@ export default class ViroSample extends Component {
 
   handleSaveClick = () => {
     const { plantTypeCounter } = this.state;
-    api.setShopplingList(plantTypeCounter)
-      .then(api.getShopplingList());
-  }
+    api.setShopplingList(plantTypeCounter).then(api.getShopplingList());
+  };
 
   render() {
     const {
@@ -117,7 +122,8 @@ export default class ViroSample extends Component {
       plantTypeCounter,
       isARLoading,
       parentIsScreenshotTaken,
-      isReset
+      isReset,
+      showAlert
     } = this.state;
     const { navigation } = this.props;
     return (
@@ -127,6 +133,14 @@ export default class ViroSample extends Component {
             <Image source={wateringCanGif} style={styles.loadingImg} />
           </View>
         )}
+        <Modal visible={showAlert} transparent>
+          <View style={{ height: 100, width: 100, backgroundColor: 'red' }}>
+            <Text>Hi</Text>
+            <TouchableHighlight>
+              <Text>Hide me</Text>
+            </TouchableHighlight>
+          </View>
+        </Modal>
 
         <ViroARSceneNavigator
           {...sharedProps}
@@ -168,7 +182,7 @@ export default class ViroSample extends Component {
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.button}
-            onPress={this.toggleReset}
+            onPress={this.toggleShowAlert}
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={resetButton} />
