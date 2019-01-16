@@ -51,7 +51,7 @@ export default class Login extends Component {
   };
 
   logOut = () => {
-    firebase.auth().signOut();
+    // firebase.auth().signOut();
   };
 
   render() {

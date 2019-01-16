@@ -12,7 +12,8 @@ import {
   ScrollView
 
 } from 'react-native';
-import { firebase } from '../config/index';
+
+import api from '../js/api/index';
 
 
 const backGroundImage = require('../assets/splash.jpg');
@@ -41,9 +42,7 @@ export default class Login extends Component {
     if (confirmEmail !== email || confirmPassword !== password) {
       Alert.alert('Alert', 'Password is not equal to confirmed password');
     } else {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
+      api.userSignUp(email, password)
         .then(() => {
           navigation.navigate('HomeScreen');
         })

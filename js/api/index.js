@@ -47,10 +47,17 @@ api.getShopplingList = async () => {
 };
 
 api.userSignIn = async (email, password) => {
-  const signIn = firebase
+  const signIn = await firebase
     .auth()
     .signInWithEmailAndPassword(email, password);
   return signIn;
+};
+
+api.userSignUp = async (email, password) => {
+  const signUp = await firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password);
+  return signUp;
 };
 
 export default api;
