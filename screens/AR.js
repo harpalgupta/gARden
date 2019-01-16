@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, TouchableHighlight, Image
+  View, StyleSheet, TouchableHighlight, Image, Modal, Text
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
@@ -20,7 +20,6 @@ const saveButton = require('../js/res/saveButton.png');
 const GardenARScene = require('../js/components/GardenARScene');
 const wateringCanGif = require('../js/res/wateringCanGif.gif');
 
-
 export default class ViroSample extends Component {
   state = {
     sharedProps: { apiKey: viroAPIKey },
@@ -28,7 +27,14 @@ export default class ViroSample extends Component {
     isARLoading: false,
     plantTypeCounter: {},
     parentIsScreenshotTaken: false,
-    isReset: false
+    isReset: false,
+    showAlert: false
+  };
+
+  toggleShowAlert = () => {
+    this.setState(prevState => ({
+      showAlert: !prevState.showAlert
+    }));
   };
 
   toggleReset = () => {
@@ -106,9 +112,13 @@ export default class ViroSample extends Component {
 
   handleSaveClick = () => {
     const { plantTypeCounter } = this.state;
-    api.setShopplingList(plantTypeCounter)
-      .then(api.getShopplingList());
-  }
+    api.setShopplingList(plantTypeCounter).then(api.getShopplingList());
+  };
+
+  handleClearAllPlants = () => {
+    this.toggleReset();
+    this.toggleShowAlert();
+  };
 
   render() {
     const {
@@ -117,7 +127,8 @@ export default class ViroSample extends Component {
       plantTypeCounter,
       isARLoading,
       parentIsScreenshotTaken,
-      isReset
+      isReset,
+      showAlert
     } = this.state;
     const { navigation } = this.props;
     return (
@@ -127,7 +138,43 @@ export default class ViroSample extends Component {
             <Image source={wateringCanGif} style={styles.loadingImg} />
           </View>
         )}
-
+        <Modal visible={showAlert} transparent supportedOrientations={['landscape', 'portrait']}>
+          <View
+            style={{
+              height: 200,
+              width: 350,
+              backgroundColor: 'rgba(255,255,255,0.7)',
+              justifyContent: 'center',
+              alignItems: 'center',
+              margin: 100
+            }}
+          >
+            <Text>Are you sure you want to clear all plants?</Text>
+            <Text>You can delete one plant by tapping it, </Text>
+            <Text>then selecting the red cross above it</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableHighlight
+                onPress={this.toggleShowAlert}
+                style={{
+                  backgroundColor: '#8FBB99', flex: 1, marginLeft: 20, textAlign: 'center'
+                }}
+              >
+                <Text>No, take me back to my plants</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                onPress={this.handleClearAllPlants}
+                style={{
+                  backgroundColor: 'rgb(203,82,94)',
+                  flex: 1,
+                  marginRight: 20,
+                  textAlign: 'center'
+                }}
+              >
+                <Text>Yes, clear all plants from the screen</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
@@ -168,7 +215,7 @@ export default class ViroSample extends Component {
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.button}
-            onPress={this.toggleReset}
+            onPress={this.toggleShowAlert}
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={resetButton} />
