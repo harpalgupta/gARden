@@ -8,7 +8,9 @@ const add = require('../res/addImg.png');
 const wateringCan = require('../res/wateringCanGif.gif');
 
 const PlantCard = (props) => {
-  const { plantName, addPlantToRenderList, toggleInfoPage } = props;
+  const {
+    plantName, addPlantToRenderList, toggleInfoPage, icon
+  } = props;
 
   const handleClick = () => {
     addPlantToRenderList(plantName);
@@ -22,7 +24,7 @@ const PlantCard = (props) => {
           <TouchableHighlight style={styles.button} onPress={handleClick}>
             <Image style={styles.icon} source={add} />
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={() => toggleInfoPage(plantName)}>
+          <TouchableHighlight style={styles.button} onPress={() => toggleInfoPage(plantName, icon)}>
             <Image style={styles.icon} source={info} />
           </TouchableHighlight>
         </View>

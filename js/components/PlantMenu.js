@@ -20,7 +20,8 @@ class PlantMenu extends Component {
       // { key: 'lavender' }, { key: 'rose' }
     ],
     info: null,
-    isMenuLoading: false
+    isMenuLoading: false,
+    iconUrl: null
   };
 
   componentDidMount = () => {
@@ -47,8 +48,8 @@ class PlantMenu extends Component {
     });
   };
 
-  toggleInfoPage = (plantName) => {
-    this.setState({ info: plantName });
+  toggleInfoPage = (plantName, icon) => {
+    this.setState({ info: plantName, iconUrl: icon });
   };
 
   makeIsMenuLoadingTrue = () => {
@@ -71,7 +72,9 @@ class PlantMenu extends Component {
 
   render() {
     const { addPlantToRenderList } = this.props;
-    const { data, info, isMenuLoading } = this.state;
+    const {
+      data, info, isMenuLoading, iconUrl
+    } = this.state;
     return (
       <View style={styles.menu}>
         <FadeInView
@@ -102,7 +105,7 @@ class PlantMenu extends Component {
               )}
             />
           ) : (
-            <InfoCard plantName={info} toggleInfoPage={this.toggleInfoPage} />
+            <InfoCard plantName={info} toggleInfoPage={this.toggleInfoPage} icon={iconUrl} />
           )}
         </FadeInView>
       </View>
@@ -126,10 +129,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     zIndex: 1,
-    height: '100%',
-    left: 0,
-    width: '100%',
-    justifyContent: 'space-around'
+    justifyContent: 'center'
   },
   loadingImg: {
     height: '40%',
