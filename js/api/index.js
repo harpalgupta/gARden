@@ -29,7 +29,6 @@ api.getPlantInfo = async () => {
 
 api.setShopplingList = async (shoppingList) => {
   const { uid } = firebase.auth().currentUser;
-
   await db
     .collection('userCollection')
     .doc(uid)
