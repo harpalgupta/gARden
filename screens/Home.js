@@ -5,7 +5,7 @@ import {
 import { firebase } from '../config';
 
 const logo = require('../js/res/gARden.png');
-const backgroundImage = require('../assets/splash.jpg');
+const backgroundImage = require('../js/res/background.jpg');
 
 export default class Home extends Component {
   state = {};

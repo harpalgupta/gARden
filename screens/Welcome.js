@@ -7,7 +7,7 @@ import { withNavigationFocus } from 'react-navigation';
 
 const logo = require('../js/res/gARden.png');
 
-const backgroundImage = require('../assets/splash.jpg');
+const backgroundImage = require('../js/res/background.jpg');
 
 class Login extends Component {
   state = {};

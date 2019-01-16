@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import ShoppingList from '../js/components/ShoppingList';
 
-const backgroundImage = require('../assets/splash.jpg');
+const backgroundImage = require('../js/res/background.jpg');
 const backButton = require('../js/res/backButton.png');
 
 export default class Home extends Component {

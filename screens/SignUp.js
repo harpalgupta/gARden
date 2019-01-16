@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { firebase } from '../config/index';
 
-const backGroundImage = require('../assets/splash.jpg');
+const backGroundImage = require('../js/res/background.jpg');
 
 export default class Login extends Component {
   state = {
