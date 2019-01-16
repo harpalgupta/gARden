@@ -37,11 +37,6 @@ class PlantObject extends Component {
       });
     });
     ViroMaterials.createMaterials({
-      // [plantName]: {
-      //   shininess: 2.0,
-      //   lightingModel: 'Lambert',
-      //   diffuseTexture: { uri: filesForPlant.texture[0] }
-      // },
       deleteButton: {
         shininess: 2.0,
         lightingModel: 'Lambert',
@@ -51,27 +46,6 @@ class PlantObject extends Component {
         lightingModel: 'Lambert',
         diffuseTexture: shadowMaterial
       }
-      // },
-      // no1: {
-      //   shininess: 2.0,
-      //   lightingModel: 'Lambert',
-      //   diffuseTexture: { uri: filesForPlant.texture[1] }
-      // },
-      // no2: {
-      //   shininess: 2.0,
-      //   lightingModel: 'Lambert',
-      //   diffuseTexture: { uri: filesForPlant.texture[2] }
-      // },
-      // no3: {
-      //   shininess: 2.0,
-      //   lightingModel: 'Lambert',
-      //   diffuseTexture: { uri: filesForPlant.texture[3] }
-      // }
-      // no4: {
-      //   shininess: 2.0,
-      //   lightingModel: 'Lambert',
-      //   diffuseTexture: { uri: filesForPlant.texture[5] }
-      // }
     });
     return (
       <ViroNode
