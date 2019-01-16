@@ -29,34 +29,36 @@ export default class Login extends Component {
     if (uid) {
       navigation.navigate('HomeScreen');
     }
-  }
+  };
 
   onClickListener = () => {
     const { email, password } = this.state;
-    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password).then(() => {
-      firebase.auth().onAuthStateChanged((res) => {
-        if (res) {
-          this.setState({
-            uid: res.uid
-          });
-        }
+    firebase
+      .auth()
+      .signInAndRetrieveDataWithEmailAndPassword(email, password)
+      .then(() => {
+        firebase.auth().onAuthStateChanged((res) => {
+          if (res) {
+            this.setState({
+              uid: res.uid
+            });
+          }
+        });
+      })
+      .catch(() => {
+        Alert.alert('Alert', 'password or email is incorrect. Please try again');
       });
-    }).catch(() => {
-      Alert.alert('Alert', 'password or email is incorrect. Please try again');
-    });
   };
 
   logOut = () => {
     firebase.auth().signOut();
-  }
+  };
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <ImageBackground
-          style={styles.bgImage}
-          source={backGroundImage}
-        >
+        <ImageBackground style={styles.bgImage} source={backGroundImage}>
           <View style={styles.imCover}>
             <View style={styles.inputContainer}>
               <TextInput
@@ -104,13 +106,11 @@ export default class Login extends Component {
               <Text style={styles.loginText}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.buttonContainer, styles.loginButton]}
-              onPress={this.logOut}
-
+              style={styles.buttonContainer}
+              onPress={() => navigation.navigate('WelcomeScreen')}
             >
-              <Text style={styles.loginText}>Logout</Text>
+              <Text style={styles.btnText}>Back to welcome screen</Text>
             </TouchableOpacity>
-
 
             <TouchableOpacity
               style={styles.buttonContainer}

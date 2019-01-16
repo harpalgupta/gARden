@@ -2,32 +2,27 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, TouchableHighlight, Image
 } from 'react-native';
+import { firebase } from '../config';
 
 const logo = require('../assets/logo.png');
 
 export default class Home extends Component {
-  state = {
-    // plantsUrlArray: []
+  state = {};
+
+  logOut = () => {
+    const { navigation } = this.props;
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        navigation.navigate('WelcomeScreen');
+      });
   };
 
   render() {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        {/* <Text style={styles.text2}>This is the home page.</Text> */}
-        {/* <Button
-          title="go to AR!"
-          onPress={() => {
-            navigation.navigate('ARScreen');
-          }}
-        />
-        <Button
-          title="go to About!"
-          onPress={() => {
-            navigation.navigate('About');
-          }}
-          style={styles.button}
-        /> */}
         <Image style={{ height: 280, width: 280, marginBottom: 20 }} source={logo} />
         <TouchableHighlight
           style={styles.button}
@@ -46,6 +41,9 @@ export default class Home extends Component {
           underlayColor="#fff"
         >
           <Text style={styles.text}>See your wish-list</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this.logOut} underlayColor="#fff">
+          <Text style={styles.text}>Log Out</Text>
         </TouchableHighlight>
       </View>
     );
