@@ -25,7 +25,7 @@ class PlantObject extends Component {
   };
 
   render() {
-    const { filesForPlant } = this.props;
+    const { filesForPlant, plantName } = this.props;
     const { isInFocus } = this.state;
     filesForPlant.texture.forEach((file, index) => {
       ViroMaterials.createMaterials({
