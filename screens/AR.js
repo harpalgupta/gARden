@@ -14,6 +14,7 @@ const home = require('../js/res/home.png');
 const menu = require('../js/res/menu.png');
 const screenshot = require('../js/res/screenshot.png');
 const resetButton = require('../js/res/resetButton.png');
+const saveButton = require('../js/res/saveButton.png');
 
 const GardenARScene = require('../js/components/GardenARScene');
 const wateringCanGif = require('../js/res/wateringCanGif.gif');
@@ -65,44 +66,29 @@ export default class ViroSample extends Component {
   };
 
   addPlantToRenderList = (plantSlug) => {
-    this.setState(
-      (prevState) => {
-        const { plantTypeCounter } = prevState;
-        // const newID = createID(plantTypeCounter);
-        if (plantTypeCounter[plantSlug]) {
-          return {
-            plantTypeCounter: {
-              ...plantTypeCounter,
-              [plantSlug]: plantTypeCounter[plantSlug] + 1
-            }
-          };
-        }
+    this.setState((prevState) => {
+      const { plantTypeCounter } = prevState;
+      // const newID = createID(plantTypeCounter);
+      if (plantTypeCounter[plantSlug]) {
         return {
           plantTypeCounter: {
             ...plantTypeCounter,
-            [plantSlug]: 1
+            [plantSlug]: plantTypeCounter[plantSlug] + 1
           }
         };
-      },
-      () => {
-        // console.log(this.state.plantTypeCounter, '<<< state');
       }
-    );
+      return {
+        plantTypeCounter: {
+          ...plantTypeCounter,
+          [plantSlug]: 1
+        }
+      };
+    });
   };
 
   resetCounter = () => {
     this.setState({ plantTypeCounter: {} });
   };
-
-  // removePlantFromRenderList = (id) => {
-  //   this.setState((prevState) => {
-  //     const { plantTypeCounter } = prevState;
-  //     const filteredArray = filterArray(plantTypeCounter, id);
-  //     return {
-  //       plantTypeCounter: [...filteredArray]
-  //     };
-  //   });
-  // };
 
   lowerPlantCounterByType = (plantType) => {
     this.setState((prevState) => {
@@ -114,6 +100,10 @@ export default class ViroSample extends Component {
         }
       };
     });
+  };
+
+  handleSaveClick = () => {
+    // console.log('working');
   };
 
   render() {
@@ -178,6 +168,13 @@ export default class ViroSample extends Component {
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={resetButton} />
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.handleSaveClick}
+            underlayColor="#00000000"
+          >
+            <Image style={styles.icon} source={saveButton} />
           </TouchableHighlight>
         </View>
 
