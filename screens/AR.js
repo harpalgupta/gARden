@@ -66,26 +66,24 @@ export default class ViroSample extends Component {
   };
 
   addPlantToRenderList = (plantSlug) => {
-    this.setState(
-      (prevState) => {
-        const { plantTypeCounter } = prevState;
-        // const newID = createID(plantTypeCounter);
-        if (plantTypeCounter[plantSlug]) {
-          return {
-            plantTypeCounter: {
-              ...plantTypeCounter,
-              [plantSlug]: plantTypeCounter[plantSlug] + 1
-            }
-          };
-        }
+    this.setState((prevState) => {
+      const { plantTypeCounter } = prevState;
+      // const newID = createID(plantTypeCounter);
+      if (plantTypeCounter[plantSlug]) {
         return {
           plantTypeCounter: {
             ...plantTypeCounter,
-            [plantSlug]: 1
+            [plantSlug]: plantTypeCounter[plantSlug] + 1
           }
         };
       }
-    );
+      return {
+        plantTypeCounter: {
+          ...plantTypeCounter,
+          [plantSlug]: 1
+        }
+      };
+    });
   };
 
   resetCounter = () => {
@@ -102,6 +100,10 @@ export default class ViroSample extends Component {
         }
       };
     });
+  };
+
+  handleSaveClick = () => {
+    console.log('working');
   };
 
   render() {
@@ -167,7 +169,11 @@ export default class ViroSample extends Component {
           >
             <Image style={styles.icon} source={resetButton} />
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={() => {}} underlayColor="#00000000">
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.handleSaveClick}
+            underlayColor="#00000000"
+          >
             <Image style={styles.icon} source={saveButton} />
           </TouchableHighlight>
         </View>
