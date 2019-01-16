@@ -35,7 +35,7 @@ export default class Login extends Component {
     const { email, password } = this.state;
     firebase
       .auth()
-      .signInAndRetrieveDataWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
         firebase.auth().onAuthStateChanged((res) => {
           if (res) {
