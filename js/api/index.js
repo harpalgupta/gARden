@@ -35,14 +35,14 @@ api.setShopplingList = async (shoppingList) => {
     .set({ shoppingList });
 };
 
-
 api.getShopplingList = async () => {
   const { uid } = firebase.auth().currentUser;
 
   const shoppingListGet = await db
     .collection('userCollection')
     .doc(uid)
-    .get().then((res) => { console.log(res.data()); });
+    .get()
+    .then(list => list.data().shoppingList);
   return shoppingListGet;
 };
 export default api;
