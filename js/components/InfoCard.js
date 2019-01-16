@@ -69,7 +69,11 @@ export default class InfoCard extends Component {
 
     return (
       <View style={styles.plantCard}>
-        <TouchableHighlight style={styles.button} onPress={() => toggleInfoPage(null)}>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => toggleInfoPage(null)}
+          underlayColor="#00000000"
+        >
           <Image style={styles.icon} source={back} />
         </TouchableHighlight>
         <View style={styles.infoHeader}>

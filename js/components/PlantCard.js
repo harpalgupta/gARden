@@ -34,10 +34,14 @@ const PlantCard = (props) => {
 
       <View style={{ flex: 3, flexDirection: 'row' }}>
         <View style={styles.buttonContainer}>
-          <TouchableHighlight style={styles.button} onPress={handleClick}>
+          <TouchableHighlight style={styles.button} onPress={handleClick} underlayColor="#00000000">
             <Image style={styles.icon} source={add} />
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={() => toggleInfoPage(plantName, icon)}>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={() => toggleInfoPage(plantName, icon)}
+            underlayColor="#00000000"
+          >
             <Image style={styles.icon} source={info} />
           </TouchableHighlight>
         </View>
