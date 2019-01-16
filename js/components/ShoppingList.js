@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   tableContainer: {
     width: 300,
     height: 300
-  },
-  table: {}
+  }
 });
 export default ShoppingList;
