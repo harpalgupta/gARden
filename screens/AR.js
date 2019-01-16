@@ -135,13 +135,17 @@ export default class ViroSample extends Component {
         )}
         <Modal visible={showAlert} transparent>
           <View style={{ height: 100, width: 100, backgroundColor: 'red' }}>
-            <Text>Hi</Text>
-            <TouchableHighlight>
-              <Text>Hide me</Text>
+            <Text>Are you sure you want to clear all plants?</Text>
+            <Text>You can delete one plant by tapping it, </Text>
+            <Text>then selecting the red cross above it</Text>
+            <TouchableHighlight onPress={this.toggleShowAlert} style={{ backgroundColor: 'green' }}>
+              <Text>No, take me back to my plants</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this.toggleReset} style={{ backgroundColor: 'red' }}>
+              <Text>Yes, clear all plants from the screen</Text>
             </TouchableHighlight>
           </View>
         </Modal>
-
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
