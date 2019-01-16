@@ -40,7 +40,7 @@ export default class Home extends Component {
               <TouchableOpacity
                 style={[styles.buttonContainer, styles.loginButton, styles.buttonColorMedium]}
                 onPress={() => {
-                  navigation.navigate('About');
+                  navigation.navigate('WishListScreen');
                 }}
                 underlayColor="#fff"
               >

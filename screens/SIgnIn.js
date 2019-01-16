@@ -55,7 +55,7 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
         <ImageBackground style={styles.bgImage} source={backGroundImage}>
-          <View style={styles.imCover}>
+          <View style={styles.darkenImage}>
             <View style={styles.inputContainer}>
               <TextInput
                 style={styles.inputs}
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DCDCDC'
   },
-  imCover: {
+  darkImage: {
     backgroundColor: 'rgba(0, 0, 0, 0.456)',
     height: '100%',
     width: '100%',
