@@ -8,6 +8,7 @@ import {
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
+import api from '../js/api';
 // import { filterArray } from '../utils/index';
 
 const home = require('../js/res/home.png');
@@ -18,6 +19,7 @@ const saveButton = require('../js/res/saveButton.png');
 
 const GardenARScene = require('../js/components/GardenARScene');
 const wateringCanGif = require('../js/res/wateringCanGif.gif');
+
 
 export default class ViroSample extends Component {
   state = {
@@ -103,8 +105,10 @@ export default class ViroSample extends Component {
   };
 
   handleSaveClick = () => {
-    // console.log('working');
-  };
+    const { plantTypeCounter } = this.state;
+    api.setShopplingList(plantTypeCounter)
+      .then(api.getShopplingList());
+  }
 
   render() {
     const {
