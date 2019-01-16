@@ -84,9 +84,6 @@ export default class ViroSample extends Component {
             [plantSlug]: 1
           }
         };
-      },
-      () => {
-        // console.log(this.state.plantTypeCounter, '<<< state');
       }
     );
   };
@@ -94,16 +91,6 @@ export default class ViroSample extends Component {
   resetCounter = () => {
     this.setState({ plantTypeCounter: {} });
   };
-
-  // removePlantFromRenderList = (id) => {
-  //   this.setState((prevState) => {
-  //     const { plantTypeCounter } = prevState;
-  //     const filteredArray = filterArray(plantTypeCounter, id);
-  //     return {
-  //       plantTypeCounter: [...filteredArray]
-  //     };
-  //   });
-  // };
 
   lowerPlantCounterByType = (plantType) => {
     this.setState((prevState) => {
