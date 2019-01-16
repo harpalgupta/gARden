@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { ViroARScene, ViroAmbientLight } from 'react-viro';
+import { ViroARScene, ViroAmbientLight, ViroSpotLight } from 'react-viro';
 
 import { checkForNewSlug, createID, filterArray } from '../../utils';
 import 'firebase/firestore';
@@ -123,14 +123,20 @@ class GardenARScene extends Component {
     return (
       <ViroARScene>
         <ViroAmbientLight color="#ffffff" influenceBitMask={1} />
-        {/* <ViroSpotLight
+        <ViroSpotLight
           innerAngle={5}
           outerAngle={90}
-          direction={[0, -1, -0.2]}
-          position={[0, 3, 1]}
+          direction={[0, -1, -0.91]}
+          position={[0, 3, 0]}
           color="#ffffff"
           castsShadow
-        /> */}
+          lightinfluenceBitMask={2}
+          shadowMapSize={2048}
+          shadowNearZ={2}
+          shadowFarZ={5}
+          shadowOpacity={0.2}
+          intensity={250}
+        />
 
         {plantsToRender.map(plant => (
           <PlantObject

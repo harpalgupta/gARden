@@ -25,7 +25,7 @@ export default class ViroSample extends Component {
     isARLoading: false,
     plantTypeCounter: {},
     parentIsScreenshotTaken: false,
-    isReset: false,
+    isReset: false
   };
 
   toggleReset = () => {
@@ -92,7 +92,7 @@ export default class ViroSample extends Component {
 
   resetCounter = () => {
     this.setState({ plantTypeCounter: {} });
-  }
+  };
 
   // removePlantFromRenderList = (id) => {
   //   this.setState((prevState) => {
@@ -128,7 +128,6 @@ export default class ViroSample extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.containerView}>
-
         {isARLoading && (
           <View style={styles.loadingScreen}>
             <Image source={wateringCanGif} style={styles.loadingImg} />
@@ -146,7 +145,6 @@ export default class ViroSample extends Component {
             makeIsARLoadingFalse: this.makeIsARLoadingFalse,
             isReset,
             resetCounter: this.resetCounter
-
           }}
           takeScreenshot
         />

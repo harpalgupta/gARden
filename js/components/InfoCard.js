@@ -66,13 +66,30 @@ export default class InfoCard extends Component {
     return (
       <View style={styles.plantCard}>
         <Button title="back" onPress={() => toggleInfoPage(null)} />
-        <Text>{commonName}</Text>
-        <Text>{botanicalName}</Text>
-        <Text>{difficulty}</Text>
-        <Text>{floweringTime}</Text>
-        <Text>{height}</Text>
-        <Text>{plantingTime}</Text>
-        <Text>{spread}</Text>
+        <Text style={{ fontSize: 20, alignText: 'center' }}>{commonName}</Text>
+        <Text style={styles.textLine}>
+          Botanical name:
+          {botanicalName}
+        </Text>
+        <Text style={styles.textLine}>
+          Difficulty:
+          {difficulty}
+          {' '}
+/ 5
+        </Text>
+        <Text style={styles.textLine}>
+          Flowering season:
+          {floweringTime}
+        </Text>
+        <Text style={styles.textLine}>{height}</Text>
+        <Text style={styles.textLine}>
+Propagation :
+          {plantingTime}
+        </Text>
+        <Text style={styles.textLine}>
+          Maximum Spread:
+          {spread}
+        </Text>
         {aspect.map(direction => (
           <Text key={direction}>{direction}</Text>
         ))}
@@ -88,5 +105,8 @@ const styles = StyleSheet.create({
     marginLeft: 6,
     marginRight: 6,
     flex: 1
+  },
+  textLine: {
+    marginTop: 10
   }
 });
