@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { firebase } from '../config';
 
-const backGroundImage = require('../assets/erda-estremera-786462-unsplash.jpg');
+const backGroundImage = require('../assets/splash.jpg');
 
 export default class Login extends Component {
   constructor(props) {

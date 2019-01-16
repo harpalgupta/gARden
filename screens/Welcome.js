@@ -12,7 +12,7 @@ import {
 // import { Font } from 'expo';
 import { NavigationEvents, withNavigationFocus } from 'react-navigation';
 
-const image1 = require('../assets/erda-estremera-786462-unsplash.jpg');
+const image1 = require('../assets/splash.jpg');
 
 class Login extends Component {
   static navigationOptions = {
