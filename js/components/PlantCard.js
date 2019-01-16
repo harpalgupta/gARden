@@ -15,10 +15,23 @@ const PlantCard = (props) => {
   const handleClick = () => {
     addPlantToRenderList(plantName);
   };
-
+  console.log(props);
   return (
     <View style={styles.plantCard}>
-      <Text style={{ flex: 1, width: '100%', textAlign: 'center' }}>{plantName}</Text>
+      <View style={styles.header}>
+        <Text
+          style={{
+            flex: 1,
+            marginTop: 20,
+            textAlign: 'center',
+            fontWeight: 'bold',
+            fontSize: 20
+          }}
+        >
+          {plantName}
+        </Text>
+      </View>
+
       <View style={{ flex: 3, flexDirection: 'row' }}>
         <View style={styles.buttonContainer}>
           <TouchableHighlight style={styles.button} onPress={handleClick}>
@@ -40,8 +53,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#8FBB99',
     height: 175,
     alignItems: 'center',
-    borderBottomColor: '#8FBB99',
-    borderBottomWidth: 3
+    margin: 3,
+    borderRadius: 2
   },
   buttonContainer: {
     flexDirection: 'column',
@@ -57,6 +70,11 @@ const styles = StyleSheet.create({
   icon: {
     height: 60,
     width: 60
+  },
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1
   }
 });
 

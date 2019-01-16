@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {
-  View, Button, StyleSheet, Text
+  View, TouchableHighlight, StyleSheet, Text, Image, ScrollView
 } from 'react-native';
 
 import api from '../api';
+
+const back = require('../res/backButton.png');
+const empty = require('../res/empty.png');
 
 export default class InfoCard extends Component {
   state = {
@@ -52,7 +55,7 @@ export default class InfoCard extends Component {
   };
 
   render() {
-    const { toggleInfoPage } = this.props;
+    const { toggleInfoPage, icon } = this.props;
     const {
       aspect,
       botanicalName,
@@ -63,50 +66,48 @@ export default class InfoCard extends Component {
       plantingTime,
       spread
     } = this.state;
+    console.log(aspect.length);
     return (
       <View style={styles.plantCard}>
-        <Button title="back" onPress={() => toggleInfoPage(null)} />
-        <Text style={{ fontSize: 20, alignText: 'center' }}>{commonName}</Text>
-        <Text style={styles.textLine}>
-          Botanical name:
-          {botanicalName}
-        </Text>
-        <Text style={styles.textLine}>
-          Difficulty:
-          {difficulty}
-          {' '}
-/ 5
-        </Text>
-        <Text style={styles.textLine}>
-          Flowering season:
-          {floweringTime}
-        </Text>
-        <Text style={styles.textLine}>{height}</Text>
-        <Text style={styles.textLine}>
-Propagation :
-          {plantingTime}
-        </Text>
-        <Text style={styles.textLine}>
-          Maximum Spread:
-          {spread}
-        </Text>
-        {aspect.map(direction => (
-          <Text key={direction}>{direction}</Text>
-        ))}
+        <TouchableHighlight style={styles.button} onPress={() => toggleInfoPage(null)}>
+          <Image style={styles.icon} source={back} />
+        </TouchableHighlight>
+        <View style={styles.infoHeader}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{commonName}</Text>
+          <Image style={{ width: 150, height: 150 }} source={empty} />
+        </View>
+        <ScrollView>
+          <Text style={styles.textLine}>{`Botanical name: ${botanicalName}`}</Text>
+          <Text style={styles.textLine}>{`Difficulty: ${difficulty} /5`}</Text>
+          <Text style={styles.textLine}>{`Flowering season: ${floweringTime}`}</Text>
+          <Text style={styles.textLine}>{`Maximum height: ${height}`}</Text>
+          <Text style={styles.textLine}>{`Potting season: ${plantingTime}`}</Text>
+          <Text style={styles.textLine}>{`Maximum Spread:${spread}`}</Text>
+          <Text>{`Prefered aspect: ${aspect.map(direction => `${direction} `)}`}</Text>
+        </ScrollView>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   plantCard: {
-    backgroundColor: 'white',
-    marginTop: 2,
-    marginBottom: 2,
+    backgroundColor: '#8FBB99',
+    marginTop: 6,
+    marginBottom: 6,
     marginLeft: 6,
     marginRight: 6,
+    padding: 3,
     flex: 1
   },
+  infoHeader: {
+    alignItems: 'center'
+  },
   textLine: {
-    marginTop: 10
+    marginTop: 20
+  },
+  button: { backgroundColor: 'rgba(10,10,10,0)', height: 50, width: 50 },
+  icon: {
+    width: 60,
+    height: 60
   }
 });
