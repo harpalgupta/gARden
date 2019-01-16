@@ -55,7 +55,7 @@ export default class InfoCard extends Component {
   };
 
   render() {
-    const { toggleInfoPage, icon } = this.props;
+    const { toggleInfoPage } = this.props;
     const {
       aspect,
       botanicalName,
@@ -66,7 +66,7 @@ export default class InfoCard extends Component {
       plantingTime,
       spread
     } = this.state;
-    console.log(aspect.length);
+
     return (
       <View style={styles.plantCard}>
         <TouchableHighlight style={styles.button} onPress={() => toggleInfoPage(null)}>

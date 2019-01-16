@@ -15,7 +15,7 @@ const PlantCard = (props) => {
   const handleClick = () => {
     addPlantToRenderList(plantName);
   };
-  console.log(props);
+
   return (
     <View style={styles.plantCard}>
       <View style={styles.header}>
