@@ -10,6 +10,8 @@ import {
   ImageBackground
 } from 'react-native';
 import { firebase } from '../config';
+import api from '../js/api/index';
+
 
 const backGroundImage = require('../assets/splash.jpg');
 
@@ -33,9 +35,7 @@ export default class Login extends Component {
 
   onClickListener = () => {
     const { email, password } = this.state;
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    api.userSignIn(email, password)
       .then(() => {
         firebase.auth().onAuthStateChanged((res) => {
           if (res) {

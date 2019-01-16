@@ -45,4 +45,12 @@ api.getShopplingList = async () => {
     .then(list => list.data().shoppingList);
   return shoppingListGet;
 };
+
+api.userSignIn = async (email, password) => {
+  const signIn = firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password);
+  return signIn;
+};
+
 export default api;
