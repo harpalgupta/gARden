@@ -5,11 +5,10 @@ import {
 
 const info = require('../res/infoImg.png');
 const add = require('../res/addImg.png');
+const wateringCan = require('../res/wateringCanGif.gif');
 
 const PlantCard = (props) => {
-  const {
-    plantName, addPlantToRenderList, toggleInfoPage, icon
-  } = props;
+  const { plantName, addPlantToRenderList, toggleInfoPage } = props;
 
   const handleClick = () => {
     addPlantToRenderList(plantName);
@@ -28,7 +27,7 @@ const PlantCard = (props) => {
           </TouchableHighlight>
         </View>
 
-        <Image source={{ uri: icon }} style={{ flex: 2 }} />
+        <Image source={wateringCan} style={{ flex: 2 }} />
       </View>
     </View>
   );
