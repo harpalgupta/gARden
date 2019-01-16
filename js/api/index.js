@@ -27,4 +27,23 @@ api.getPlantInfo = async () => {
   return plantInfo;
 };
 
+api.setShopplingList = async (shoppingList) => {
+  const { uid } = firebase.auth().currentUser;
+
+  await db
+    .collection('userCollection')
+    .doc(uid)
+    .set({ shoppingList });
+};
+
+
+api.getShopplingList = async () => {
+  const { uid } = firebase.auth().currentUser;
+
+  const shoppingListGet = await db
+    .collection('userCollection')
+    .doc(uid)
+    .get().then((res) => { console.log(res.data()); });
+  return shoppingListGet;
+};
 export default api;
