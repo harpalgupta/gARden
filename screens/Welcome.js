@@ -1,71 +1,39 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-
-  TouchableOpacity,
-  Image,
-
-  ImageBackground
+  StyleSheet, Text, View, TouchableOpacity, ImageBackground, Image
 } from 'react-native';
 // import { Font } from 'expo';
-import { NavigationEvents, withNavigationFocus } from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
+
+const logo = require('../js/res/gARden.png');
 
 const image1 = require('../assets/splash.jpg');
 
 class Login extends Component {
-  static navigationOptions = {
-    header: null
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
-  }
-
-  async componentDidMount() {
-    // await Font.loadAsync({
-    //   'open-sans-bold': require('./assets/Charm-Regular.ttf')
-    // });
-    // this.setState({ fontLoaded: true });
-  }
+  state = {};
 
   render() {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <ImageBackground
-          style={styles.bgImage}
-          source={image1}
-        >
-          <View style={styles.imCover}>
-
-            <View style={styles.imCover}>
-              <Text
+        <ImageBackground style={styles.bgImage} source={image1}>
+          <View style={styles.darkenImage}>
+            <View style={styles.loginContainer}>
+              <Image
                 style={{
-                  // fontFamily: 'open-sans-bold',
-                  fontSize: 80,
-                  color: 'white',
-                  marginBottom: 10
+                  flex: 1,
+                  marginBottom: 10,
+                  width: 200,
+                  height: 100
                 }}
+                source={logo}
+              />
 
-              >
-                  gARden
-              </Text>
               <TouchableOpacity
-                style={[
-                  styles.buttonContainer,
-                  styles.loginButton,
-                  styles.buttonColor
-                ]}
+                style={[styles.buttonContainer, styles.loginButton, styles.buttonColor]}
                 onPress={() => navigation.navigate('SignUp')}
               >
-                <Text style={[styles.loginText, styles.buttonColor]}>
-                    Sign up
-                </Text>
+                <Text style={[styles.loginText, styles.buttonColor]}>Sign up</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.buttonContainer, styles.loginButton]}
@@ -73,12 +41,7 @@ class Login extends Component {
               >
                 <Text style={styles.loginText}>Login</Text>
               </TouchableOpacity>
-              <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/mondayw1.appspot.com/o/eberhard-grossgasteiger-338314-unsplash.jpg?alt=media' }} style={{ height: 50, width: 50 }} />
-              <NavigationEvents>
-                <NavigationEvents />
-              </NavigationEvents>
             </View>
-
           </View>
         </ImageBackground>
       </View>
@@ -95,16 +58,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DCDCDC'
   },
-  imCover: {
+  darkenImage: {
     backgroundColor: 'rgba(0, 0, 0, 0.256)',
     height: '100%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center'
   },
+  loginContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    width: 320,
+    height: 300,
+    paddingBottom: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    alignItems: 'center',
+    borderRadius: 6
+  },
   inputContainer: {
     borderBottomColor: '#F5FCFF',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'white',
     borderRadius: 30,
     borderBottomWidth: 1,
     width: 300,
@@ -145,17 +119,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: 'transparent'
   },
-  btnForgotPassword: {
-    height: 15,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    marginBottom: 10,
-    width: 300,
-    backgroundColor: 'transparent'
-  },
+
   loginButton: {
-    backgroundColor: '#00b5ec',
+    backgroundColor: 'rgb(190,96,61)',
 
     shadowColor: '#808080',
     shadowOffset: {
@@ -168,7 +134,8 @@ const styles = StyleSheet.create({
     elevation: 19
   },
   loginText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 18
   },
   bgImage: {
     flex: 1,
@@ -182,10 +149,11 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: 'white',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 30
   },
   buttonColor: {
-    backgroundColor: 'red'
+    backgroundColor: 'rgb(203,122,91)'
   }
 });
 
