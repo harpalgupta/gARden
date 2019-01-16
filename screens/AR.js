@@ -103,7 +103,7 @@ export default class ViroSample extends Component {
   };
 
   handleSaveClick = () => {
-    console.log('working');
+    // console.log('working');
   };
 
   render() {
