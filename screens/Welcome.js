@@ -30,16 +30,16 @@ class Login extends Component {
               />
 
               <TouchableOpacity
-                style={[styles.buttonContainer, styles.loginButton, styles.buttonColor]}
-                onPress={() => navigation.navigate('SignUp')}
-              >
-                <Text style={[styles.loginText, styles.buttonColor]}>Sign up</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
                 style={[styles.buttonContainer, styles.loginButton]}
                 onPress={() => navigation.navigate('SignIn')}
               >
                 <Text style={styles.loginText}>Login</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.buttonContainer, styles.loginButton, styles.buttonColor]}
+                onPress={() => navigation.navigate('SignUp')}
+              >
+                <Text style={[styles.loginText, styles.buttonColor]}>Sign up</Text>
               </TouchableOpacity>
             </View>
           </View>

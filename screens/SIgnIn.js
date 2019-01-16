@@ -5,7 +5,6 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Image,
   Alert,
   ImageBackground
 } from 'react-native';
@@ -14,14 +13,11 @@ import { firebase } from '../config';
 const backGroundImage = require('../assets/splash.jpg');
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      uid: ''
-    };
-  }
+  state = {
+    email: '',
+    password: '',
+    uid: ''
+  };
 
   componentDidUpdate = () => {
     const { uid } = this.state;
@@ -68,12 +64,6 @@ export default class Login extends Component {
                 underlineColorAndroid="transparent"
                 onChangeText={email => this.setState({ email })}
               />
-              <Image
-                style={styles.inputIcon}
-                source={{
-                  uri: 'https://img.icons8.com/nolan/40/000000/email.png'
-                }}
-              />
             </View>
 
             <View style={styles.inputContainer}>
@@ -84,20 +74,7 @@ export default class Login extends Component {
                 underlineColorAndroid="transparent"
                 onChangeText={password => this.setState({ password })}
               />
-              <Image
-                style={styles.inputIcon}
-                source={{
-                  uri: 'https://img.icons8.com/nolan/40/000000/key.png'
-                }}
-              />
             </View>
-
-            <TouchableOpacity
-              style={styles.btnForgotPassword}
-              onPress={() => this.onClickListener('restore_password')}
-            >
-              <Text style={styles.btnText}>Forgot your password?</Text>
-            </TouchableOpacity>
 
             <TouchableOpacity
               style={[styles.buttonContainer, styles.loginButton]}
@@ -105,16 +82,10 @@ export default class Login extends Component {
             >
               <Text style={styles.loginText}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => navigation.navigate('WelcomeScreen')}
-            >
-              <Text style={styles.btnText}>Back to welcome screen</Text>
-            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={() => this.onClickListener('register')}
+              onPress={() => navigation.navigate('SignUp')}
             >
               <Text style={styles.btnText}>Register</Text>
             </TouchableOpacity>
@@ -194,7 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   loginButton: {
-    backgroundColor: '#00b5ec',
+    backgroundColor: 'rgb(190,96,61)',
 
     shadowColor: '#808080',
     shadowOffset: {
@@ -207,7 +178,8 @@ const styles = StyleSheet.create({
     elevation: 19
   },
   loginText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 18
   },
   bgImage: {
     flex: 1,
