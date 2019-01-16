@@ -13,9 +13,13 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>This is the about page.</Text>
-        <Button title="Back" onPress={() => { navigation.navigate('HomeScreen'); }} />
+        <Button
+          title="Back"
+          onPress={() => {
+            navigation.navigate('HomeScreen');
+          }}
+        />
       </View>
-
     );
   }
 }
