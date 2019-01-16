@@ -37,20 +37,32 @@ class GardenARScene extends Component {
     }
   };
 
+  callResetCounter = () => {
+    const {
+      sceneNavigator: {
+        viroAppProps: { isReset, resetCounter }
+      }
+    } = this.props;
+    const { childIsReset } = this.state;
+    if (isReset !== childIsReset) {
+      this.setState({
+        childIsReset: isReset,
+        plantsToRender: [],
+        plantFiles: {}
+      });
+      resetCounter();
+    }
+  };
+
   componentDidUpdate = () => {
     const {
       sceneNavigator: {
         viroAppProps: {
-          plantTypeCounter,
-          makeIsARLoadingTrue,
-          isReset,
-          resetCounter
+          plantTypeCounter, makeIsARLoadingTrue,
         }
       }
     } = this.props;
-    const {
-      plantsToRender, plantFiles, childIsReset
-    } = this.state;
+    const { plantsToRender, plantFiles } = this.state;
     const numOfPlants = Object.values(plantTypeCounter).reduce((acc, val) => acc + val, 0);
     const isNewObj = checkForNewSlug(Object.keys(plantFiles), Object.keys(plantTypeCounter));
     const { bool, slugName } = isNewObj;
@@ -74,14 +86,7 @@ class GardenARScene extends Component {
       });
     }
     this.callScreenshot();
-    if (isReset !== childIsReset) {
-      this.setState({
-        childIsReset: isReset,
-        plantsToRender: [],
-        plantFiles: {}
-      });
-      resetCounter();
-    }
+    this.callResetCounter();
   };
 
   removePlantFromRenderList = (id) => {
