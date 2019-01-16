@@ -14,6 +14,7 @@ const home = require('../js/res/home.png');
 const menu = require('../js/res/menu.png');
 const screenshot = require('../js/res/screenshot.png');
 const resetButton = require('../js/res/resetButton.png');
+const saveButton = require('../js/res/saveButton.png');
 
 const GardenARScene = require('../js/components/GardenARScene');
 const wateringCanGif = require('../js/res/wateringCanGif.gif');
@@ -178,6 +179,9 @@ export default class ViroSample extends Component {
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={resetButton} />
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={() => {}} underlayColor="#00000000">
+            <Image style={styles.icon} source={saveButton} />
           </TouchableHighlight>
         </View>
 
