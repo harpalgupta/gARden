@@ -2,12 +2,23 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, TouchableHighlight, Image
 } from 'react-native';
+import { firebase } from '../config';
 
 const logo = require('../assets/logo.png');
 
 export default class Home extends Component {
   state = {
     // plantsUrlArray: []
+  };
+
+  logOut = () => {
+    const { navigation } = this.props;
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        navigation.navigate('WelcomeScreen');
+      });
   };
 
   render() {
@@ -46,6 +57,9 @@ export default class Home extends Component {
           underlayColor="#fff"
         >
           <Text style={styles.text}> About! </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this.logOut} underlayColor="#fff">
+          <Text style={styles.text}>Log Out</Text>
         </TouchableHighlight>
       </View>
     );
