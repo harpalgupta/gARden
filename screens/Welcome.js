@@ -7,7 +7,7 @@ import { withNavigationFocus } from 'react-navigation';
 
 const logo = require('../js/res/gARden.png');
 
-const image1 = require('../assets/splash.jpg');
+const backgroundImage = require('../assets/splash.jpg');
 
 class Login extends Component {
   state = {};
@@ -16,18 +16,10 @@ class Login extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <ImageBackground style={styles.bgImage} source={image1}>
+        <ImageBackground style={styles.bgImage} source={backgroundImage}>
           <View style={styles.darkenImage}>
             <View style={styles.loginContainer}>
-              <Image
-                style={{
-                  flex: 1,
-                  marginBottom: 10,
-                  width: 200,
-                  height: 100
-                }}
-                source={logo}
-              />
+              <Image style={styles.logo} source={logo} />
 
               <TouchableOpacity
                 style={[styles.buttonContainer, styles.loginButton]}
@@ -36,10 +28,10 @@ class Login extends Component {
                 <Text style={styles.loginText}>Login</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.buttonContainer, styles.loginButton, styles.buttonColor]}
+                style={[styles.buttonContainer, styles.buttonColor]}
                 onPress={() => navigation.navigate('SignUp')}
               >
-                <Text style={[styles.loginText, styles.buttonColor]}>Sign up</Text>
+                <Text style={styles.loginText}>Sign up</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -154,6 +146,12 @@ const styles = StyleSheet.create({
   },
   buttonColor: {
     backgroundColor: 'rgb(203,122,91)'
+  },
+  logo: {
+    flex: 1,
+    marginBottom: 10,
+    width: 200,
+    height: 100
   }
 });
 

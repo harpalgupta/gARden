@@ -7,7 +7,6 @@ import Welcome from './screens/Welcome';
 import SignUpComp from './screens/SignUp';
 import SignInComp from './screens/SIgnIn';
 
-
 export default class App extends Component {
   state = {};
 
@@ -17,8 +16,8 @@ export default class App extends Component {
 }
 // fdfdfsf
 const SwitchNav = createSwitchNavigator({
-  WelcomeScreen: Welcome,
   HomeScreen: Home,
+  WelcomeScreen: Welcome,
   ARScreen: AR,
   About: AboutPage,
   SignUp: SignUpComp,
