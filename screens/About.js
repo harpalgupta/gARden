@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, Button
 } from 'react-native';
+import ShoppingList from '../js/components/ShoppingList';
 
 export default class Home extends Component {
-  state = {
-    // plantsUrlArray: []
-  };
+  state = {};
 
   render() {
     const { navigation } = this.props;
@@ -19,6 +18,7 @@ export default class Home extends Component {
             navigation.navigate('HomeScreen');
           }}
         />
+        <ShoppingList />
       </View>
     );
   }
