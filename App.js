@@ -3,6 +3,10 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import Home from './screens/Home';
 import AR from './screens/AR';
 import AboutPage from './screens/About';
+import Welcome from './screens/Welcome';
+import SignUpComp from './screens/SignUp';
+import SignInComp from './screens/SIgnIn';
+
 
 export default class App extends Component {
   state = {};
@@ -11,11 +15,14 @@ export default class App extends Component {
     return <SwitchNavContainer />;
   }
 }
-
+// fdfdfsf
 const SwitchNav = createSwitchNavigator({
+  WelcomeScreen: Welcome,
   HomeScreen: Home,
   ARScreen: AR,
-  About: AboutPage
+  About: AboutPage,
+  SignUp: SignUpComp,
+  SignIn: SignInComp
 });
 
 const SwitchNavContainer = createAppContainer(SwitchNav);
