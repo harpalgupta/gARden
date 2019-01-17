@@ -24,7 +24,7 @@ class Stores extends Component {
       <View>
         <Text style={styles.storesNearYou}>Plant stores close to you:</Text>
         {stores.length > 0 && (
-          <FlatList data={stores} renderItem={({ item }) => <StoreCard storeInfo={item} />} />
+          <FlatList data={stores} renderItem={({ item }) => <StoreCard storeInfo={item} />} keyExtractor={item => item.title} />
         )}
       </View>
     );
