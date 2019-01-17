@@ -24,10 +24,6 @@ class PlantObject extends Component {
     lowerPlantCounterByType(plantName);
   };
 
-  _setARNodeRef(component) {
-    this.arNodeRef = component;
-  }
-
   render() {
     const { filesForPlant, plantName } = this.props;
     const { isInFocus } = this.state;
@@ -57,8 +53,6 @@ class PlantObject extends Component {
         dragType="FixedToWorld"
         onDrag={() => {}}
         onClick={this.toggleIsInFocus}
-
-        onClickState={(clickstate) => { if (clickstate === 3) { this.arNodeRef.getTransformAsync().then((item) => { console.log(item); }); } }}
       >
         {/* <ViroSpotLight
           innerAngle={5}
@@ -101,8 +95,6 @@ class PlantObject extends Component {
           materials={['shadowMaterial']}
           arShadowReceiver
         />
-
-
       </ViroNode>
     );
   }
