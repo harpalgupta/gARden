@@ -11,7 +11,6 @@ import {
 import { firebase } from '../config';
 import api from '../js/api/index';
 
-
 const backGroundImage = require('../js/res/background.jpg');
 
 export default class Login extends Component {
@@ -31,7 +30,8 @@ export default class Login extends Component {
 
   onClickListener = () => {
     const { email, password } = this.state;
-    api.userSignIn(email, password)
+    api
+      .userSignIn(email, password)
       .then(() => {
         firebase.auth().onAuthStateChanged((res) => {
           if (res) {
@@ -95,8 +95,6 @@ export default class Login extends Component {
     );
   }
 }
-
-const resizeMode = 'center';
 
 const styles = StyleSheet.create({
   container: {
@@ -183,7 +181,7 @@ const styles = StyleSheet.create({
   },
   bgImage: {
     flex: 1,
-    resizeMode,
+    resizeMode: 'center',
     position: 'absolute',
     width: '100%',
     height: '100%',
@@ -194,5 +192,12 @@ const styles = StyleSheet.create({
   btnText: {
     color: 'white',
     fontWeight: 'bold'
+  },
+  darkenImage: {
+    backgroundColor: 'rgba(0, 0, 0, 0.256)',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

@@ -44,7 +44,7 @@ export default class Home extends Component {
                 }}
                 underlayColor="#fff"
               >
-                <Text style={styles.buttonText}>See your wish-list</Text>
+                <Text style={styles.buttonText}>See your wish list</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.buttonContainer, styles.loginButton, styles.buttonColorLight]}
@@ -61,37 +61,7 @@ export default class Home extends Component {
   }
 }
 
-const resizeMode = 'center';
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: 'white'
-  // },
-  // text: {
-  //   fontSize: 25,
-  //   padding: 10,
-  //   paddingRight: 30,
-  //   paddingLeft: 30,
-  //   color: 'rgba(74,111,165,0.7)'
-  // },
-  // text2: {
-  //   fontSize: 25,
-  //   padding: 10,
-  //   paddingRight: 30,
-  //   paddingLeft: 30,
-  //   marginBottom: 10,
-  //   color: 'rgba(74,111,165,0.7)'
-  // },
-  // button: {
-  //   borderWidth: 1,
-  //   borderColor: 'rgba(74,111,165,0.5)',
-  //   borderRadius: 100,
-  //   backgroundColor: 'white',
-  //   marginBottom: '4%'
-  // }
-
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -107,12 +77,11 @@ const styles = StyleSheet.create({
   },
   bgImage: {
     flex: 1,
-    resizeMode,
+    resizeMode: 'center',
     position: 'absolute',
     width: '100%',
     height: '100%',
     justifyContent: 'center',
-
     alignItems: 'center'
   },
   loginButton: {
