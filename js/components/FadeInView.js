@@ -4,28 +4,28 @@ import { Animated } from 'react-native';
 
 class FadeInView extends Component {
     state = {
-      fadeAnim: new Animated.Value(0), // Initial value for opacity: 0
+      fadeAnim: new Animated.Value(0),
     }
 
     componentDidMount() {
       const { fadeAnim } = this.state;
-      Animated.timing( // Animate over time
-        fadeAnim, // The animated value to drive
+      Animated.timing(
+        fadeAnim,
         {
-          toValue: 100, // Animate to opacity: 1 (opaque)
-          duration: 500, // Make it take a while
+          toValue: 100,
+          duration: 500,
         }
-      ).start(); // Starts the animation
+      ).start();
     }
 
     render() {
       const { fadeAnim } = this.state;
       const { style, children } = this.props;
       return (
-        <Animated.View // Special animatable View
+        <Animated.View
           style={{
             ...style,
-            right: fadeAnim, // Bind opacity to animated value
+            right: fadeAnim,
           }}
         >
           {children}

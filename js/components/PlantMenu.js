@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 import {
-  // AppRegistry,
   View,
   StyleSheet,
   FlatList,
   Image,
-  ImageBackground
+  ImageBackground,
+  Alert
 } from 'react-native';
 import FadeInView from './FadeInView';
 import InfoCard from './InfoCard';
@@ -39,7 +39,7 @@ class PlantMenu extends Component {
           this.makeIsMenuLoadingFalse();
         });
       } else {
-        // console.log('file request unsuccessful');
+        Alert.alert('Alert', 'File request unsucessful');
       }
     });
   };

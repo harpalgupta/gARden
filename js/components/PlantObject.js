@@ -54,20 +54,6 @@ class PlantObject extends Component {
         onDrag={() => {}}
         onClick={this.toggleIsInFocus}
       >
-        {/* <ViroSpotLight
-          innerAngle={5}
-          outerAngle={90}
-          direction={[0, -1, -0.91]}
-          position={[0, 3, 0]}
-          color="#ffffff"
-          castsShadow
-          lightinfluenceBitMask={2}
-          shadowMapSize={2048}
-          shadowNearZ={2}
-          shadowFarZ={5}
-          shadowOpacity={0.2}
-          intensity={250}
-        /> */}
 
         <Viro3DObject
           source={{ uri: filesForPlant.obj }}

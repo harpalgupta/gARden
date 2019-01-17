@@ -29,6 +29,7 @@ class Stores extends Component {
   }
 }
 
+
 const styles = StyleSheet.create({
   storesNearYou: {
     fontWeight: 'bold',
