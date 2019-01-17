@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import {
+  View, FlatList, Text, StyleSheet
+} from 'react-native';
 import api from '../api';
 import StoreCard from './StoreCard';
 
@@ -18,6 +20,7 @@ class Stores extends Component {
     const { stores } = this.state;
     return (
       <View>
+        <Text style={styles.storesNearYou}>Plant stores close to you:</Text>
         {stores.length > 0 && (
           <FlatList data={stores} renderItem={({ item }) => <StoreCard storeInfo={item} />} />
         )}
@@ -25,5 +28,13 @@ class Stores extends Component {
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  storesNearYou: {
+    fontWeight: 'bold',
+    fontSize: 18
+  }
+});
 
 export default Stores;
