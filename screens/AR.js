@@ -243,8 +243,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   loadingImg: {
-    height: '50%',
-    width: '50%'
+    height: 100,
+    width: 150
   },
   deleteModal: {
     height: 150,

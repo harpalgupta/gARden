@@ -74,23 +74,20 @@ class PlantMenu extends Component {
         <FadeInView style={styles.plantMenuBackgorund}>
           <ImageBackground style={styles.bgImage} source={backgroundImage}>
             <View style={styles.darkenImage}>
-              {isMenuLoading && (
+              {isMenuLoading ? (
                 <View style={styles.loadingScreen}>
                   <Image source={wateringCanGif} style={styles.loadingImg} />
                 </View>
-              )}
-              {!info ? (
+              ) : !info ? (
                 <FlatList
                   data={data}
                   renderItem={({ item }) => (
                     <PlantCard
-
                       plantName={item.name}
                       icon={item.icon}
                       toggleInfoPage={this.toggleInfoPage}
                       addPlantToRenderList={addPlantToRenderList}
                     />
-
                   )}
                   keyExtractor={item => item.name}
                 />
@@ -118,16 +115,14 @@ const styles = StyleSheet.create({
   },
   loadingScreen: {
     backgroundColor: 'rgba(150,150,150,0.5)',
-    position: 'absolute',
     flex: 1,
-    zIndex: 1,
-    justifyContent: 'center'
+    width: 200,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   loadingImg: {
-    height: '40%',
-    width: '100%',
-    marginLeft: 10,
-    marginRight: 10
+    height: 70,
+    width: 100
   },
   plantMenuBackgorund: {
     width: '100%',
