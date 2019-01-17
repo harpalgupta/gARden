@@ -28,15 +28,18 @@ export default class Login extends Component {
       confirmEmail, email, password, confirmPassword
     } = this.state;
     const { navigation } = this.props;
-    if (confirmEmail !== email || confirmPassword !== password) {
+    if (!email || !password) Alert.alert('Alert', 'The email and password fields must be filled in!');
+    else if (confirmEmail !== email) {
+      Alert.alert('Alert', 'Email is not equal to confirmed email');
+    } else if (confirmPassword !== password) {
       Alert.alert('Alert', 'Password is not equal to confirmed password');
     } else {
       api.userSignUp(email, password)
         .then(() => {
           navigation.navigate('HomeScreen');
         })
-        .catch(() => {
-          Alert.alert('Alert', 'Something went wrong, please try again');
+        .catch((err) => {
+          Alert.alert('Alert', err.message);
         });
     }
   };
