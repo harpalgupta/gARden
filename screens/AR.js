@@ -137,38 +137,22 @@ export default class ViroSample extends Component {
           </View>
         )}
         <Modal visible={showAlert} transparent supportedOrientations={['landscape', 'portrait']}>
-          <View
-            style={{
-              height: 200,
-              width: 350,
-              backgroundColor: 'rgba(255,255,255,0.7)',
-              justifyContent: 'center',
-              alignItems: 'center',
-              margin: 100
-            }}
-          >
+          <View style={styles.deleteModal}>
             <Text>Are you sure you want to clear all plants?</Text>
             <Text>You can delete one plant by tapping it, </Text>
             <Text>then selecting the red cross above it</Text>
             <View style={{ flexDirection: 'row' }}>
               <TouchableHighlight
                 onPress={this.toggleShowAlert}
-                style={{
-                  backgroundColor: '#8FBB99', flex: 1, marginLeft: 20, textAlign: 'center'
-                }}
+                style={[styles.buttonContainer, styles.loginButton, styles.buttonColorMedium]}
               >
-                <Text>No, take me back to my plants</Text>
+                <Text style={styles.buttonText}>No, take me back.</Text>
               </TouchableHighlight>
               <TouchableHighlight
                 onPress={this.handleClearAllPlants}
-                style={{
-                  backgroundColor: 'rgb(203,82,94)',
-                  flex: 1,
-                  marginRight: 20,
-                  textAlign: 'center'
-                }}
+                style={[styles.buttonContainer, styles.loginButton, styles.buttonColorMedium]}
               >
-                <Text>Yes, clear all plants from the screen</Text>
+                <Text style={styles.buttonText}>Yes, clear all.</Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -261,6 +245,43 @@ const styles = StyleSheet.create({
   loadingImg: {
     height: '50%',
     width: '50%'
+  },
+  deleteModal: {
+    height: 150,
+    width: 300,
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 100,
+    borderRadius: 6
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 12
+  },
+  loginButton: {
+    shadowColor: '#808080',
+    shadowOffset: {
+      width: 0,
+      height: 9
+    }
+  },
+  buttonContainer: {
+    height: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    width: 100,
+    borderRadius: 30,
+    backgroundColor: 'transparent',
+    margin: 10
+  },
+  buttonColorMedium: {
+    backgroundColor: 'rgb(203,122,91)'
+  },
+  buttonColorLight: {
+    backgroundColor: 'rgb(223,142,114)'
   }
 });
 

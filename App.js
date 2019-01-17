@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import Home from './screens/Home';
 import AR from './screens/AR';
-import AboutPage from './screens/About';
+import WishList from './screens/WishList';
 import Welcome from './screens/Welcome';
 import SignUpComp from './screens/SignUp';
 import SignInComp from './screens/SIgnIn';
-
 
 export default class App extends Component {
   state = {};
@@ -19,8 +18,8 @@ export default class App extends Component {
 const SwitchNav = createSwitchNavigator({
   WelcomeScreen: Welcome,
   HomeScreen: Home,
+  WishListScreen: WishList,
   ARScreen: AR,
-  About: AboutPage,
   SignUp: SignUpComp,
   SignIn: SignInComp
 });

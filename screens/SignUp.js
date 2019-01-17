@@ -5,34 +5,23 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Image,
   Alert,
   ImageBackground,
   KeyboardAvoidingView,
   ScrollView
-
 } from 'react-native';
 
 import api from '../js/api/index';
 
-
-const backGroundImage = require('../assets/splash.jpg');
-
+const backGroundImage = require('../js/res/background.jpg');
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      confirmPassword: '',
-      confirmEmail: ''
-    };
-  }
-
-  componentDidMount = () => {
-
-  }
+  state = {
+    email: '',
+    password: '',
+    confirmPassword: '',
+    confirmEmail: ''
+  };
 
   onClickListener = () => {
     const {
@@ -55,7 +44,6 @@ export default class Login extends Component {
   render() {
     const { navigation } = this.props;
     return (
-
       <KeyboardAvoidingView
         keyboardVerticalOffset={-130}
         style={{ flex: 1 }}
@@ -63,10 +51,7 @@ export default class Login extends Component {
         enabled
       >
         <ScrollView contentContainerStyle={styles.container}>
-          <ImageBackground
-            style={styles.bgImage}
-            source={backGroundImage}
-          >
+          <ImageBackground style={styles.bgImage} source={backGroundImage}>
             <View style={styles.imCover}>
               <View style={styles.inputContainer}>
                 <TextInput
@@ -76,12 +61,6 @@ export default class Login extends Component {
                   underlineColorAndroid="transparent"
                   onChangeText={email => this.setState({ email })}
                 />
-                <Image
-                  style={styles.inputIcon}
-                  source={{
-                    uri: 'https://img.icons8.com/nolan/40/000000/email.png'
-                  }}
-                />
               </View>
               <View style={styles.inputContainer}>
                 <TextInput
@@ -90,12 +69,6 @@ export default class Login extends Component {
                   keyboardType="email-address"
                   underlineColorAndroid="transparent"
                   onChangeText={confirmEmail => this.setState({ confirmEmail })}
-                />
-                <Image
-                  style={styles.inputIcon}
-                  source={{
-                    uri: 'https://img.icons8.com/nolan/40/000000/email.png'
-                  }}
                 />
               </View>
 
@@ -107,12 +80,6 @@ export default class Login extends Component {
                   underlineColorAndroid="transparent"
                   onChangeText={password => this.setState({ password })}
                 />
-                <Image
-                  style={styles.inputIcon}
-                  source={{
-                    uri: 'https://img.icons8.com/nolan/40/000000/key.png'
-                  }}
-                />
               </View>
               <View style={styles.inputContainer}>
                 <TextInput
@@ -122,20 +89,7 @@ export default class Login extends Component {
                   underlineColorAndroid="transparent"
                   onChangeText={confirmPassword => this.setState({ confirmPassword })}
                 />
-                <Image
-                  style={styles.inputIcon}
-                  source={{
-                    uri: 'https://img.icons8.com/nolan/40/000000/key.png'
-                  }}
-                />
               </View>
-
-              <TouchableOpacity
-                style={styles.btnForgotPassword}
-                onPress={() => this.onClickListener('restore_password')}
-              >
-                <Text style={styles.btnText}>Forgot your password?</Text>
-              </TouchableOpacity>
 
               <TouchableOpacity
                 style={[styles.buttonContainer, styles.loginButton]}
@@ -146,15 +100,14 @@ export default class Login extends Component {
 
               <TouchableOpacity
                 style={styles.buttonContainer}
-                onPress={() => navigation.navigate('WelcomeScreen')}
+                onPress={() => navigation.navigate('SignIn')}
               >
-                <Text style={styles.btnText}>Back to welcome screen</Text>
+                <Text style={styles.btnText}>Already have an account? Login in here.</Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
         </ScrollView>
       </KeyboardAvoidingView>
-
     );
   }
 }
@@ -228,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   loginButton: {
-    backgroundColor: '#00b5ec',
+    backgroundColor: 'rgb(203,122,91)',
 
     shadowColor: '#808080',
     shadowOffset: {
@@ -241,7 +194,8 @@ const styles = StyleSheet.create({
     elevation: 19
   },
   loginText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 18
   },
   bgImage: {
     flex: 1,
