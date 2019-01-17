@@ -57,14 +57,14 @@ api.userSignUp = async (email, password) => {
   return signUp;
 };
 
-api.getStores = async () => {
+api.getStores = async ({ latitude, longitude }) => {
   const { appid, appcode } = hereConfig;
   const URL = `https://places.api.here.com/places/v1/discover/search?q=garden+centre&app_id=${appid}&size=5&app_code=${appcode}`;
   const response = await axios
     .get(URL, {
       headers: {
         'Content-Type': 'application/json',
-        Geolocation: 'geo:53.491482,-2.222166',
+        Geolocation: `geo:${latitude},${longitude}`,
         'Accept-Language': 'en-US,en;q=0.9'
       }
     })

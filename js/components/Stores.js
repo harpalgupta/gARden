@@ -7,13 +7,15 @@ import StoreCard from './StoreCard';
 
 class Stores extends Component {
   state = {
-    stores: []
+    stores: [],
   };
 
   componentDidMount = () => {
-    api.getStores().then((stores) => {
-      this.setState({ stores });
-    });
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      api.getStores(coords).then((stores) => {
+        this.setState({ stores });
+      });
+    }, () => {});
   };
 
   render() {
