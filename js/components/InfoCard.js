@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   button: { backgroundColor: 'rgba(10,10,10,0)', height: 50, width: 50 },
   icon: {
-    width: 60,
-    height: 60
+    width: 50,
+    height: 50
   }
 });

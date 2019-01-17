@@ -10,9 +10,9 @@ import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
 import api from '../js/api';
 
-const home = require('../js/res/home.png');
-const menu = require('../js/res/menu.png');
-const screenshot = require('../js/res/screenshot.png');
+const home = require('../js/res/homeButton.png');
+const menu = require('../js/res/menuButton.png');
+const screenshot = require('../js/res/screenshotButton.png');
 const resetButton = require('../js/res/resetButton.png');
 const saveButton = require('../js/res/saveButton.png');
 
@@ -197,17 +197,17 @@ export default class ViroSample extends Component {
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.button}
-            onPress={this.toggleShowAlert}
-            underlayColor="#00000000"
-          >
-            <Image style={styles.icon} source={resetButton} />
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={styles.button}
             onPress={this.handleSaveClick}
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={saveButton} />
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleShowAlert}
+            underlayColor="#00000000"
+          >
+            <Image style={styles.icon} source={resetButton} />
           </TouchableHighlight>
         </View>
 
