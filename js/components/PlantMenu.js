@@ -84,12 +84,15 @@ class PlantMenu extends Component {
                   data={data}
                   renderItem={({ item }) => (
                     <PlantCard
+
                       plantName={item.name}
                       icon={item.icon}
                       toggleInfoPage={this.toggleInfoPage}
                       addPlantToRenderList={addPlantToRenderList}
                     />
+
                   )}
+                  keyExtractor={item => item.name}
                 />
               ) : (
                 <InfoCard plantName={info} toggleInfoPage={this.toggleInfoPage} icon={iconUrl} />
