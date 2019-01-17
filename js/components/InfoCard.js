@@ -6,6 +6,7 @@ import {
 import api from '../api';
 
 const back = require('../res/backButton.png');
+const empty = require('../res/empty.png');
 
 export default class InfoCard extends Component {
   state = {
@@ -54,7 +55,7 @@ export default class InfoCard extends Component {
   };
 
   render() {
-    const { toggleInfoPage, icon } = this.props;
+    const { toggleInfoPage } = this.props;
     const {
       aspect,
       botanicalName,
@@ -77,16 +78,18 @@ export default class InfoCard extends Component {
         </TouchableHighlight>
         <View style={styles.infoHeader}>
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{commonName}</Text>
-          <Image style={{ width: 150, height: 150 }} source={{ uri: icon }} />
         </View>
         <ScrollView>
+          <Image style={{ width: 150, height: 150 }} source={empty} />
           <Text style={styles.textLine}>{`Botanical name: ${botanicalName}`}</Text>
           <Text style={styles.textLine}>{`Difficulty: ${difficulty} /5`}</Text>
           <Text style={styles.textLine}>{`Flowering season: ${floweringTime}`}</Text>
           <Text style={styles.textLine}>{`Maximum height: ${height}`}</Text>
           <Text style={styles.textLine}>{`Potting season: ${plantingTime}`}</Text>
           <Text style={styles.textLine}>{`Maximum Spread:${spread}`}</Text>
-          <Text>{`Prefered aspect: ${aspect.map(direction => `${direction} `)}`}</Text>
+          <Text style={styles.textLine}>
+            {`Prefered aspect: ${aspect.map(direction => ` ${direction}`)}`}
+          </Text>
         </ScrollView>
       </View>
     );
@@ -94,13 +97,14 @@ export default class InfoCard extends Component {
 }
 const styles = StyleSheet.create({
   plantCard: {
-    backgroundColor: '#8FBB99',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
     marginTop: 6,
     marginBottom: 6,
     marginLeft: 6,
     marginRight: 6,
     padding: 3,
-    flex: 1
+    flex: 1,
+    borderRadius: 2
   },
   infoHeader: {
     alignItems: 'center'

@@ -14,12 +14,12 @@ export default class App extends Component {
     return <SwitchNavContainer />;
   }
 }
-// fdfdfsf
+
 const SwitchNav = createSwitchNavigator({
+  ARScreen: AR,
   WelcomeScreen: Welcome,
   HomeScreen: Home,
   WishListScreen: WishList,
-  ARScreen: AR,
   SignUp: SignUpComp,
   SignIn: SignInComp
 });
