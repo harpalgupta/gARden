@@ -148,7 +148,10 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderLeftWidth: 6,
+
+    borderColor: 'white'
   }
 });
 
