@@ -30,25 +30,24 @@ export default class Login extends Component {
 
   onClickListener = () => {
     const { email, password } = this.state;
-    api
-      .userSignIn(email, password)
-      .then(() => {
-        firebase.auth().onAuthStateChanged((res) => {
-          if (res) {
-            this.setState({
-              uid: res.uid
-            });
-          }
+    if (!email || !password) Alert.alert('Alert', 'The email and password fields must be filled in!');
+    else {
+      api.userSignIn(email, password)
+        .then(() => {
+          firebase.auth().onAuthStateChanged((res) => {
+            if (res) {
+              this.setState({
+                uid: res.uid
+              });
+            }
+          });
+        })
+        .catch((error) => {
+          Alert.alert('Alert', error.message);
         });
-      })
-      .catch(() => {
-        Alert.alert('Alert', 'password or email is incorrect. Please try again');
-      });
+    }
   };
 
-  logOut = () => {
-    // firebase.auth().signOut();
-  };
 
   render() {
     const { navigation } = this.props;
