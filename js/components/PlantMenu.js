@@ -1,3 +1,5 @@
+/* eslint no-nested-ternary: 0 */
+
 import React, { Component } from 'react';
 import {
   // AppRegistry,
