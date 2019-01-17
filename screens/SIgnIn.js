@@ -6,7 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  ImageBackground
+  ImageBackground,
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native';
 import { firebase } from '../config';
 import api from '../js/api/index';
@@ -52,45 +54,52 @@ export default class Login extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View style={styles.container}>
-        <ImageBackground style={styles.bgImage} source={backGroundImage}>
-          <View style={styles.darkenImage}>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.inputs}
-                placeholder="Email"
-                keyboardType="email-address"
-                underlineColorAndroid="transparent"
-                onChangeText={email => this.setState({ email })}
-              />
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={-130}
+        style={{ flex: 1 }}
+        behavior="padding"
+        enabled
+      >
+        <ScrollView contentContainerStyle={styles.container}>
+          <ImageBackground style={styles.bgImage} source={backGroundImage}>
+            <View style={styles.darkenImage}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.inputs}
+                  placeholder="Email"
+                  keyboardType="email-address"
+                  underlineColorAndroid="transparent"
+                  onChangeText={email => this.setState({ email })}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.inputs}
+                  placeholder="Password"
+                  secureTextEntry
+                  underlineColorAndroid="transparent"
+                  onChangeText={password => this.setState({ password })}
+                />
+              </View>
+
+              <TouchableOpacity
+                style={[styles.buttonContainer, styles.loginButton]}
+                onPress={() => this.onClickListener('login')}
+              >
+                <Text style={styles.loginText}>Login</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => navigation.navigate('SignUp')}
+              >
+                <Text style={styles.btnText}>Register</Text>
+              </TouchableOpacity>
             </View>
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.inputs}
-                placeholder="Password"
-                secureTextEntry
-                underlineColorAndroid="transparent"
-                onChangeText={password => this.setState({ password })}
-              />
-            </View>
-
-            <TouchableOpacity
-              style={[styles.buttonContainer, styles.loginButton]}
-              onPress={() => this.onClickListener('login')}
-            >
-              <Text style={styles.loginText}>Login</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => navigation.navigate('SignUp')}
-            >
-              <Text style={styles.btnText}>Register</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
-      </View>
+          </ImageBackground>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -136,12 +145,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#FFFFFF',
     flex: 1
   },
-  inputIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 15,
-    justifyContent: 'center'
-  },
+
   buttonContainer: {
     height: 45,
     flexDirection: 'row',
@@ -152,15 +156,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: 'transparent'
   },
-  btnForgotPassword: {
-    height: 15,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    marginBottom: 10,
-    width: 300,
-    backgroundColor: 'transparent'
-  },
+
   loginButton: {
     backgroundColor: 'rgb(190,96,61)',
 
