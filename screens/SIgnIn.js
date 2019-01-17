@@ -5,23 +5,22 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Image,
   Alert,
-  ImageBackground
+  ImageBackground,
+  KeyboardAvoidingView,
+  ScrollView
 } from 'react-native';
 import { firebase } from '../config';
+import api from '../js/api/index';
 
-const backGroundImage = require('../assets/splash.jpg');
+const backGroundImage = require('../js/res/background.jpg');
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      uid: ''
-    };
-  }
+  state = {
+    email: '',
+    password: '',
+    uid: ''
+  };
 
   componentDidUpdate = () => {
     const { uid } = this.state;
@@ -29,103 +28,81 @@ export default class Login extends Component {
     if (uid) {
       navigation.navigate('HomeScreen');
     }
-  }
+  };
 
   onClickListener = () => {
     const { email, password } = this.state;
-    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password).then(() => {
-      firebase.auth().onAuthStateChanged((res) => {
-        if (res) {
-          this.setState({
-            uid: res.uid
+    if (!email || !password) Alert.alert('Alert', 'The email and password fields must be filled in!');
+    else {
+      api.userSignIn(email, password)
+        .then(() => {
+          firebase.auth().onAuthStateChanged((res) => {
+            if (res) {
+              this.setState({
+                uid: res.uid
+              });
+            }
           });
-        }
-      });
-    }).catch(() => {
-      Alert.alert('Alert', 'password or email is incorrect. Please try again');
-    });
+        })
+        .catch((error) => {
+          Alert.alert('Alert', error.message);
+        });
+    }
   };
 
-  logOut = () => {
-    firebase.auth().signOut();
-  }
 
   render() {
+    const { navigation } = this.props;
     return (
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles.bgImage}
-          source={backGroundImage}
-        >
-          <View style={styles.imCover}>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.inputs}
-                placeholder="Email"
-                keyboardType="email-address"
-                underlineColorAndroid="transparent"
-                onChangeText={email => this.setState({ email })}
-              />
-              <Image
-                style={styles.inputIcon}
-                source={{
-                  uri: 'https://img.icons8.com/nolan/40/000000/email.png'
-                }}
-              />
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={-130}
+        style={{ flex: 1 }}
+        behavior="padding"
+        enabled
+      >
+        <ScrollView contentContainerStyle={styles.container}>
+          <ImageBackground style={styles.bgImage} source={backGroundImage}>
+            <View style={styles.darkenImage}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.inputs}
+                  placeholder="Email"
+                  keyboardType="email-address"
+                  underlineColorAndroid="transparent"
+                  onChangeText={email => this.setState({ email })}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.inputs}
+                  placeholder="Password"
+                  secureTextEntry
+                  underlineColorAndroid="transparent"
+                  onChangeText={password => this.setState({ password })}
+                />
+              </View>
+
+              <TouchableOpacity
+                style={[styles.buttonContainer, styles.loginButton]}
+                onPress={() => this.onClickListener('login')}
+              >
+                <Text style={styles.loginText}>Login</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => navigation.navigate('SignUp')}
+              >
+                <Text style={styles.btnText}>Register</Text>
+              </TouchableOpacity>
             </View>
-
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={styles.inputs}
-                placeholder="Password"
-                secureTextEntry
-                underlineColorAndroid="transparent"
-                onChangeText={password => this.setState({ password })}
-              />
-              <Image
-                style={styles.inputIcon}
-                source={{
-                  uri: 'https://img.icons8.com/nolan/40/000000/key.png'
-                }}
-              />
-            </View>
-
-            <TouchableOpacity
-              style={styles.btnForgotPassword}
-              onPress={() => this.onClickListener('restore_password')}
-            >
-              <Text style={styles.btnText}>Forgot your password?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.buttonContainer, styles.loginButton]}
-              onPress={() => this.onClickListener('login')}
-            >
-              <Text style={styles.loginText}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.buttonContainer, styles.loginButton]}
-              onPress={this.logOut}
-
-            >
-              <Text style={styles.loginText}>Logout</Text>
-            </TouchableOpacity>
-
-
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => this.onClickListener('register')}
-            >
-              <Text style={styles.btnText}>Register</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
-      </View>
+          </ImageBackground>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
-
-const resizeMode = 'center';
 
 const styles = StyleSheet.create({
   container: {
@@ -134,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DCDCDC'
   },
-  imCover: {
+  darkImage: {
     backgroundColor: 'rgba(0, 0, 0, 0.456)',
     height: '100%',
     width: '100%',
@@ -168,12 +145,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#FFFFFF',
     flex: 1
   },
-  inputIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 15,
-    justifyContent: 'center'
-  },
+
   buttonContainer: {
     height: 45,
     flexDirection: 'row',
@@ -184,17 +156,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: 'transparent'
   },
-  btnForgotPassword: {
-    height: 15,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    marginBottom: 10,
-    width: 300,
-    backgroundColor: 'transparent'
-  },
+
   loginButton: {
-    backgroundColor: '#00b5ec',
+    backgroundColor: 'rgb(190,96,61)',
 
     shadowColor: '#808080',
     shadowOffset: {
@@ -207,11 +171,12 @@ const styles = StyleSheet.create({
     elevation: 19
   },
   loginText: {
-    color: 'white'
+    color: 'white',
+    fontSize: 18
   },
   bgImage: {
     flex: 1,
-    resizeMode,
+    resizeMode: 'center',
     position: 'absolute',
     width: '100%',
     height: '100%',
@@ -222,5 +187,12 @@ const styles = StyleSheet.create({
   btnText: {
     color: 'white',
     fontWeight: 'bold'
+  },
+  darkenImage: {
+    backgroundColor: 'rgba(0, 0, 0, 0.256)',
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });

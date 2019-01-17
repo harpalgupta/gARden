@@ -31,12 +31,16 @@ class PlantObject extends Component {
   render() {
     const { filesForPlant, plantName } = this.props;
     const { isInFocus } = this.state;
+    filesForPlant.texture.forEach((file, index) => {
+      ViroMaterials.createMaterials({
+        [index]: {
+          shininess: 2.0,
+          lightingModel: 'Lambert',
+          diffuseTexture: { uri: file }
+        }
+      });
+    });
     ViroMaterials.createMaterials({
-      [plantName]: {
-        shininess: 2.0,
-        lightingModel: 'Lambert',
-        diffuseTexture: { uri: filesForPlant.texture[0] }
-      },
       deleteButton: {
         shininess: 2.0,
         lightingModel: 'Lambert',
@@ -45,27 +49,7 @@ class PlantObject extends Component {
       shadowMaterial: {
         lightingModel: 'Lambert',
         diffuseTexture: shadowMaterial
-      },
-      no1: {
-        shininess: 2.0,
-        lightingModel: 'Lambert',
-        diffuseTexture: { uri: filesForPlant.texture[1] }
-      },
-      no2: {
-        shininess: 2.0,
-        lightingModel: 'Lambert',
-        diffuseTexture: { uri: filesForPlant.texture[2] }
-      },
-      no3: {
-        shininess: 2.0,
-        lightingModel: 'Lambert',
-        diffuseTexture: { uri: filesForPlant.texture[3] }
       }
-      // no4: {
-      //   shininess: 2.0,
-      //   lightingModel: 'Lambert',
-      //   diffuseTexture: { uri: filesForPlant.texture[5] }
-      // }
     });
     return (
       <ViroNode
@@ -93,10 +77,11 @@ class PlantObject extends Component {
 
         <Viro3DObject
           source={{ uri: filesForPlant.obj }}
-          materials={[plantName, 'no1', 'no2', 'no3']}
+          materials={filesForPlant.texture.map((file, index) => `${index}`)}
           position={[0, 0, 0]}
           scale={filesForPlant.scale}
           type="OBJ"
+          rotation={plantName === 'New Zealand Flax' ? [90, 90, 180] : [90, 90, 90]}
         />
         {isInFocus && (
           <ViroQuad

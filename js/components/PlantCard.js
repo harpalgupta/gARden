@@ -3,8 +3,9 @@ import {
   View, TouchableHighlight, StyleSheet, Image, Text
 } from 'react-native';
 
-const info = require('../res/infoImg.png');
-const add = require('../res/addImg.png');
+const info = require('../res/infoButton.png');
+const add = require('../res/addButton.png');
+const empty = require('../res/empty.png');
 
 const PlantCard = (props) => {
   const {
@@ -45,7 +46,7 @@ const PlantCard = (props) => {
           </TouchableHighlight>
         </View>
 
-        <Image source={{ uri: icon }} style={{ flex: 2 }} />
+        <Image source={empty} style={{ flex: 2 }} />
       </View>
     </View>
   );
@@ -53,7 +54,7 @@ const PlantCard = (props) => {
 
 const styles = StyleSheet.create({
   plantCard: {
-    backgroundColor: '#8FBB99',
+    backgroundColor: 'rgba(255,255,255,0.6)',
     height: 175,
     alignItems: 'center',
     margin: 3,
@@ -71,8 +72,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   icon: {
-    height: 60,
-    width: 60
+    height: 50,
+    width: 50,
+    borderRadius: 2,
+    borderColor: 'red'
   },
   header: {
     justifyContent: 'center',

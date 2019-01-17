@@ -2,24 +2,22 @@
 
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, TouchableHighlight, Image
+  View, StyleSheet, TouchableHighlight, Image, Modal, Text
 } from 'react-native';
 
 import { ViroARSceneNavigator } from 'react-viro';
 import { viroAPIKey } from '../config';
 import PlantMenu from '../js/components/PlantMenu';
 import api from '../js/api';
-// import { filterArray } from '../utils/index';
 
-const home = require('../js/res/home.png');
-const menu = require('../js/res/menu.png');
-const screenshot = require('../js/res/screenshot.png');
+const home = require('../js/res/homeButton.png');
+const menu = require('../js/res/menuButton.png');
+const screenshot = require('../js/res/screenshotButton.png');
 const resetButton = require('../js/res/resetButton.png');
 const saveButton = require('../js/res/saveButton.png');
 
 const GardenARScene = require('../js/components/GardenARScene');
 const wateringCanGif = require('../js/res/wateringCanGif.gif');
-
 
 export default class ViroSample extends Component {
   state = {
@@ -28,7 +26,14 @@ export default class ViroSample extends Component {
     isARLoading: false,
     plantTypeCounter: {},
     parentIsScreenshotTaken: false,
-    isReset: false
+    isReset: false,
+    showAlert: false
+  };
+
+  toggleShowAlert = () => {
+    this.setState(prevState => ({
+      showAlert: !prevState.showAlert
+    }));
   };
 
   toggleReset = () => {
@@ -70,7 +75,6 @@ export default class ViroSample extends Component {
   addPlantToRenderList = (plantSlug) => {
     this.setState((prevState) => {
       const { plantTypeCounter } = prevState;
-      // const newID = createID(plantTypeCounter);
       if (plantTypeCounter[plantSlug]) {
         return {
           plantTypeCounter: {
@@ -106,9 +110,13 @@ export default class ViroSample extends Component {
 
   handleSaveClick = () => {
     const { plantTypeCounter } = this.state;
-    api.setShopplingList(plantTypeCounter)
-      .then(api.getShopplingList());
-  }
+    api.setShopplingList(plantTypeCounter).then(api.getShopplingList());
+  };
+
+  handleClearAllPlants = () => {
+    this.toggleReset();
+    this.toggleShowAlert();
+  };
 
   render() {
     const {
@@ -117,7 +125,8 @@ export default class ViroSample extends Component {
       plantTypeCounter,
       isARLoading,
       parentIsScreenshotTaken,
-      isReset
+      isReset,
+      showAlert
     } = this.state;
     const { navigation } = this.props;
     return (
@@ -127,7 +136,27 @@ export default class ViroSample extends Component {
             <Image source={wateringCanGif} style={styles.loadingImg} />
           </View>
         )}
-
+        <Modal visible={showAlert} transparent supportedOrientations={['landscape', 'portrait']}>
+          <View style={styles.deleteModal}>
+            <Text>Are you sure you want to clear all plants?</Text>
+            <Text>You can delete one plant by tapping it, </Text>
+            <Text>then selecting the red cross above it</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableHighlight
+                onPress={this.toggleShowAlert}
+                style={[styles.buttonContainer, styles.loginButton, styles.buttonColorMedium]}
+              >
+                <Text style={styles.buttonText}>No, take me back.</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                onPress={this.handleClearAllPlants}
+                style={[styles.buttonContainer, styles.loginButton, styles.buttonColorMedium]}
+              >
+                <Text style={styles.buttonText}>Yes, clear all.</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
         <ViroARSceneNavigator
           {...sharedProps}
           initialScene={{ scene: GardenARScene }}
@@ -168,17 +197,17 @@ export default class ViroSample extends Component {
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.button}
-            onPress={this.toggleReset}
-            underlayColor="#00000000"
-          >
-            <Image style={styles.icon} source={resetButton} />
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={styles.button}
             onPress={this.handleSaveClick}
             underlayColor="#00000000"
           >
             <Image style={styles.icon} source={saveButton} />
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.toggleShowAlert}
+            underlayColor="#00000000"
+          >
+            <Image style={styles.icon} source={resetButton} />
           </TouchableHighlight>
         </View>
 
@@ -214,8 +243,45 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   loadingImg: {
-    height: '50%',
-    width: '50%'
+    height: 100,
+    width: 150
+  },
+  deleteModal: {
+    height: 150,
+    width: 300,
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 100,
+    borderRadius: 6
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 12
+  },
+  loginButton: {
+    shadowColor: '#808080',
+    shadowOffset: {
+      width: 0,
+      height: 9
+    }
+  },
+  buttonContainer: {
+    height: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    width: 100,
+    borderRadius: 30,
+    backgroundColor: 'transparent',
+    margin: 10
+  },
+  buttonColorMedium: {
+    backgroundColor: 'rgb(203,122,91)'
+  },
+  buttonColorLight: {
+    backgroundColor: 'rgb(223,142,114)'
   }
 });
 
