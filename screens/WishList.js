@@ -3,6 +3,7 @@ import {
   View, Text, StyleSheet, TouchableHighlight, Image, ImageBackground
 } from 'react-native';
 import ShoppingList from '../js/components/ShoppingList';
+import Stores from '../js/components/Stores';
 
 const backgroundImage = require('../js/res/background.jpg');
 const backButton = require('../js/res/backButton.png');
@@ -29,6 +30,9 @@ export default class Home extends Component {
               <View style={styles.shoppingListView}>
                 <Text style={styles.text}>Your wishlist</Text>
                 <ShoppingList />
+              </View>
+              <View style={styles.storesView}>
+                <Stores />
               </View>
             </View>
           </View>
@@ -82,6 +86,9 @@ const styles = StyleSheet.create({
     flex: 1
   },
   shoppingListView: {
+    flex: 4
+  },
+  storesView: {
     flex: 4
   }
 });
