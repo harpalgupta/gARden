@@ -55,7 +55,7 @@ export default class Login extends Component {
       >
         <ScrollView contentContainerStyle={styles.container}>
           <ImageBackground style={styles.bgImage} source={backGroundImage}>
-            <View style={styles.imCover}>
+            <View style={styles.darkenImage}>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={styles.inputs}
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DCDCDC'
   },
-  imCover: {
+  darkenImage: {
     backgroundColor: 'rgba(0, 0, 0, 0.456)',
     height: '100%',
     width: '100%',
@@ -158,12 +158,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#FFFFFF',
     flex: 1
   },
-  inputIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 15,
-    justifyContent: 'center'
-  },
+
   buttonContainer: {
     height: 45,
     flexDirection: 'row',
@@ -174,15 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: 'transparent'
   },
-  btnForgotPassword: {
-    height: 15,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    marginBottom: 10,
-    width: 300,
-    backgroundColor: 'transparent'
-  },
+
   loginButton: {
     backgroundColor: 'rgb(203,122,91)',
 
