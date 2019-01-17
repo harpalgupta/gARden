@@ -27,8 +27,3 @@ class Stores extends Component {
 }
 
 export default Stores;
-
-// distance (in meters we think)
-// title
-// vicinity
-// id
