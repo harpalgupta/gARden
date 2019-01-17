@@ -150,8 +150,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderLeftWidth: 6,
-
-    borderColor: 'white'
+    borderLeftColor: 'white'
   }
 });
 
