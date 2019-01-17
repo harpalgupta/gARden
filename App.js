@@ -16,9 +16,9 @@ export default class App extends Component {
 }
 // fdfdfsf
 const SwitchNav = createSwitchNavigator({
-  WishListScreen: WishList,
   WelcomeScreen: Welcome,
   HomeScreen: Home,
+  WishListScreen: WishList,
   ARScreen: AR,
   SignUp: SignUpComp,
   SignIn: SignInComp
