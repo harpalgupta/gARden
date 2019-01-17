@@ -1,4 +1,5 @@
-import { firebase } from '../../config/index';
+import axios from 'axios';
+import { firebase, hereConfig } from '../../config/index';
 
 const db = firebase.firestore();
 const api = {};
@@ -47,17 +48,32 @@ api.getShopplingList = async () => {
 };
 
 api.userSignIn = async (email, password) => {
-  const signIn = await firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password);
+  const signIn = await firebase.auth().signInWithEmailAndPassword(email, password);
   return signIn;
 };
 
 api.userSignUp = async (email, password) => {
-  const signUp = await firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password);
+  const signUp = await firebase.auth().createUserWithEmailAndPassword(email, password);
   return signUp;
+};
+
+api.getStores = async (location) => {
+  const { appid, appcode } = hereConfig;
+  const URL = `https://places.api.here.com/places/v1/discover/search?q=garden+centre&app_id=${appid}&app_code=${appcode}`;
+  const stores = await axios
+    .get(URL, {
+      headers: {
+        'Content-Type': 'application/json',
+        Geolocation: 'geo:53.491482,-2.222166',
+        'Accept-Language': 'en-US,en;q=0.9'
+      }
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 export default api;
