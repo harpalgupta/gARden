@@ -57,10 +57,10 @@ api.userSignUp = async (email, password) => {
   return signUp;
 };
 
-api.getStores = async (location) => {
+api.getStores = async () => {
   const { appid, appcode } = hereConfig;
-  const URL = `https://places.api.here.com/places/v1/discover/search?q=garden+centre&app_id=${appid}&app_code=${appcode}`;
-  const stores = await axios
+  const URL = `https://places.api.here.com/places/v1/discover/search?q=garden+centre&app_id=${appid}&size=5&app_code=${appcode}`;
+  const response = await axios
     .get(URL, {
       headers: {
         'Content-Type': 'application/json',
@@ -68,12 +68,9 @@ api.getStores = async (location) => {
         'Accept-Language': 'en-US,en;q=0.9'
       }
     })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    .then(res => res.data.results.items)
+    .catch(() => 'Stores cannot be found at this time');
+  return response;
 };
 
 export default api;
