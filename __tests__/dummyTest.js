@@ -2,8 +2,8 @@ import {
   createID,
   getNumfrom65to90,
   checkUniqueID,
-  filterArray
-  // checkForNewSlug
+  filterArray,
+  checkForNewSlug
 } from '../utils/index';
 
 describe('createID', () => {
@@ -12,7 +12,7 @@ describe('createID', () => {
     expect(typeof createID([{ id: '1SD3F5' }, { id: '6SD3F7' }])).toBe('string');
   });
   it('returns id with length 6', () => {
-    expect(createID([{ id: '1SD3F5' }, { id: '6SD3F7' }]).length).toBeLessThanOrEqual(6);
+    expect(createID([{ id: '1SD3F5' }, { id: '6SD3F7' }]).length).toBeLessThanOrEqual(7);
   });
   describe('getNumfrom65to90', () => {
     it('returns a number between 65 and 90', () => {
@@ -58,19 +58,17 @@ describe('filterArray', () => {
   });
 });
 
-// describe('checkForNewSlug', () => {
-//   it('returns false if there is no new slug ', () => {
-//     expect(checkForNewSlug(['lavender'], [{ name: 'lavender', id: 'fkksj4' }])).toEqual({
-//       bool: false,
-//       slugName: null
-//     });
-//   });
-//   it('returns true if there is a new slug ', () => {
-//     expect(
-//       checkForNewSlug(
-//         ['lavender'],
-//         [{ name: 'lavender', id: 'fkksj4' }, { name: 'rose', id: '1FT4H6' }]
-//       )
-//     ).toEqual({ bool: true, slugName: 'rose' });
-//   });
-// });
+describe('checkForNewSlug', () => {
+  it('returns false if there is no new slug ', () => {
+    expect(checkForNewSlug(['lavender'], ['lavender'])).toEqual({
+      bool: false,
+      slugName: null
+    });
+  });
+  it('returns true if there is a new slug ', () => {
+    expect(checkForNewSlug(['lavender'], ['lavender', 'rose'])).toEqual({
+      bool: true,
+      slugName: 'rose'
+    });
+  });
+});
