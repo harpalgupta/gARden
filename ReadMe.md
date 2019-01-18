@@ -32,7 +32,7 @@ to run jest run ""npm test""
 
 ## Deployment
 
-t
+
 
 ## Authors
 
