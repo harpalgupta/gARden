@@ -5,7 +5,6 @@ import {
 
 const info = require('../res/infoButton.png');
 const add = require('../res/addButton.png');
-const empty = require('../res/empty.png');
 
 const PlantCard = (props) => {
   const {
@@ -46,7 +45,7 @@ const PlantCard = (props) => {
           </TouchableHighlight>
         </View>
 
-        <Image source={empty} style={{ flex: 2 }} />
+        <Image source={{ uri: icon }} style={{ flex: 2 }} />
       </View>
     </View>
   );
