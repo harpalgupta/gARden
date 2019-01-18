@@ -32,6 +32,7 @@ class Stores extends Component {
             renderItem={({ item }) => <StoreCard storeInfo={item} />}
             keyExtractor={item => item.title}
           />
+
         )}
       </View>
     );
