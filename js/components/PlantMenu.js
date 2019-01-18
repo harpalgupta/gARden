@@ -2,12 +2,7 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  StyleSheet,
-  FlatList,
-  Image,
-  ImageBackground,
-  Alert
+  View, StyleSheet, FlatList, Image, ImageBackground, Alert
 } from 'react-native';
 import FadeInView from './FadeInView';
 import InfoCard from './InfoCard';

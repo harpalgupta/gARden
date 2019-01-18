@@ -54,7 +54,6 @@ class PlantObject extends Component {
         onDrag={() => {}}
         onClick={this.toggleIsInFocus}
       >
-
         <Viro3DObject
           source={{ uri: filesForPlant.obj }}
           materials={filesForPlant.texture.map((file, index) => `${index}`)}
@@ -73,14 +72,14 @@ class PlantObject extends Component {
             transformBehaviors="billboardY"
           />
         )}
-        <ViroQuad
+        {/* <ViroQuad
           height={5}
           width={1}
           rotation={[-90, 0, 0]}
           position={[0, 0, 0]}
           materials={['shadowMaterial']}
           arShadowReceiver
-        />
+        /> */}
       </ViroNode>
     );
   }
