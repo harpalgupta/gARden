@@ -16,8 +16,8 @@ export default class App extends Component {
 }
 
 const SwitchNav = createSwitchNavigator({
-  ARScreen: AR,
   WelcomeScreen: Welcome,
+  ARScreen: AR,
   HomeScreen: Home,
   WishListScreen: WishList,
   SignUp: SignUpComp,
