@@ -46,7 +46,7 @@ to run jest run ""npm test""
 * Background Photo by Erda Estremera on Unsplash
 
 ## App Structure
-
+```
 ├── android
 │   ├── app
 │   │   ├── BUCK
@@ -164,6 +164,6 @@ to run jest run ""npm test""
 ├── tree
 └── utils
     └── index.js
-
+```
 36 directories, 81 files
 
